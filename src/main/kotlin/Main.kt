@@ -1,3 +1,5 @@
+package org.example
+
 import data.CsvReader
 import data.RecordParser
 import model.Meal
