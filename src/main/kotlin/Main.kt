@@ -4,7 +4,8 @@ import org.example.di.appModule
 import org.example.di.useCaseModule
 import org.example.logic.FilterQuickHealthyMealsUseCase
 import org.koin.core.context.startKoin
-import org.koin.core.context.GlobalContext.get as getKoin
+import org.koin.java.KoinJavaComponent.getKoin
+
 
 fun main() {
     startKoin {
@@ -13,5 +14,9 @@ fun main() {
 
     val quickHealthyMealsUseCase: FilterQuickHealthyMealsUseCase = getKoin().get()
     val quickHealthyMeals = quickHealthyMealsUseCase.getQuickHealthyMeals(5)
+    quickHealthyMeals.forEach { println(it.name) }
+
+
+
 
 }
