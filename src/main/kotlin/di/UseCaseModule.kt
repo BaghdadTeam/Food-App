@@ -8,5 +8,5 @@ import org.koin.dsl.module
 val useCaseModule = module {
     single { FilterQuickHealthyMealsUseCase(get()) }
     single { IraqiMealsIdentifierUseCase(get()) }
-    single { SearchMealUseCase(get() , get()) }
+    single { SearchMealUseCase(get()) }
 }

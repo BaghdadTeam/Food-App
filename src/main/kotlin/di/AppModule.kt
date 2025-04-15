@@ -14,7 +14,6 @@ val appModule = module {
     single { RecordParser() }
     single { CsvReader(get()) }
     single { MealsProvider }
-    single() { TextSearchUtil }
 
     single<MealsRepository> { CsvMealsRepository(get(), get()) }
 }
