@@ -14,15 +14,13 @@ class SearchMealUseCase (private val mealsProvider:MealsProvider) {
     }
 
     private fun findMealUsingKMP(mealName: String, pattern: String): Boolean {
-        if (pattern.isEmpty()) {
-            return false
-        }
+        return when {
+            pattern.isEmpty() -> false
 
-        if (mealName.isEmpty()) {
-            return false
-        }
-        return kmpSearch(mealName, pattern)
+            mealName.isEmpty() -> false
 
+            else -> kmpSearch(mealName, pattern)
+        }
     }
 }
 
