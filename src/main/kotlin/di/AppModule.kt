@@ -1,5 +1,6 @@
 package org.example.di
 
+import TextSearchUtil
 import data.CsvReader
 import data.RecordParser
 import org.example.data.CsvMealsRepository
@@ -13,6 +14,7 @@ val appModule = module {
     single { RecordParser() }
     single { CsvReader(get()) }
     single { MealsProvider }
+    single() { TextSearchUtil }
 
     single<MealsRepository> { CsvMealsRepository(get(), get()) }
 }
