@@ -12,12 +12,8 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
     fun getQuickHealthyMeals(count: Int): List<Meal> {
         return try {
             mealsProvider.meals
-                .filter { meal ->
-                    isQuickAndHasNutrition(meal)
-                }
-                .sortedBy { meal ->
-                    healthScore(meal)
-                }
+                .filter(::isQuickAndHasNutrition)
+                .sortedBy(::healthScore)
                 .take(count)
         } catch (e: Exception) {
             println("Failed to filter meals ${e.message}")
