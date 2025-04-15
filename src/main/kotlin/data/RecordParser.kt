@@ -14,7 +14,7 @@ class RecordParser {
         return Meal(
             name = row[ColumnIndex.NAME],
             id = row[ColumnIndex.ID].toInt(),
-            timeToCock = row[ColumnIndex.MINUTES].toInt(),
+            preparationTime = row[ColumnIndex.MINUTES].toInt(),
             contributorId = row[ColumnIndex.CONTRIBUTOR_ID].toInt(),
             date = row[ColumnIndex.SUBMITTED],
             tags = parseStringList(row[ColumnIndex.TAGS]),
@@ -23,7 +23,8 @@ class RecordParser {
             steps = parseStringList(row[ColumnIndex.STEPS]),
             description = row[ColumnIndex.DESCRIPTION],
             ingredients = parseStringList(row[ColumnIndex.DEFAULT_INGREDIENTS]),
-            nIngredients = row[ColumnIndex.DEFAULT_NUMBER_OF_INGREDIENTS].toInt()
+            nIngredients = row[ColumnIndex.DEFAULT_NUMBER_OF_INGREDIENTS].toInt(),
+
         )
     }
 
