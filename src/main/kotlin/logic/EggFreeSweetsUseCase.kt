@@ -36,7 +36,7 @@ class EggFreeSweetsUseCase(
      *
      * @param meal The `Meal` object to be marked as disliked.
      */
-    fun dislikeMeal(meal: Meal) {
+    fun dislikeSweet(meal: Meal) {
         shownMeals.add(meal.id.toString())
         suggestSweet()
     }
