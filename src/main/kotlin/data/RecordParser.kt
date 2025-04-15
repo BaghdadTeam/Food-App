@@ -3,8 +3,17 @@ package data
 import model.Meal
 import model.Nutrition
 
+/**
+ * A parser for processing records and converting them into `Meal` objects.
+ */
 class RecordParser {
 
+    /**
+     * Parses a single record string into a `Meal` object.
+     *
+     * @param record The raw record string to parse.
+     * @return A `Meal` object containing the parsed data.
+     */
     fun parseRecord(record: String): Meal {
 
         val row = Regex(""",(?=(?:[^"]*"[^"]*")*[^"]*$)""")
@@ -27,6 +36,12 @@ class RecordParser {
         )
     }
 
+    /**
+     * Parses a raw string into a list of strings.
+     *
+     * @param raw The raw string to parse, typically formatted as a list-like string.
+     * @return A list of strings extracted from the raw input.
+     */
     private fun parseStringList(raw: String): List<String> {
         return raw.removePrefix("['")
             .removeSuffix("']")
@@ -35,6 +50,12 @@ class RecordParser {
             .filter { it.isNotBlank() }
     }
 
+    /**
+     * Parses a raw string into a `Nutrition` object.
+     *
+     * @param raw The raw string to parse, typically formatted as a list of nutritional values.
+     * @return A `Nutrition` object containing the parsed nutritional data.
+     */
     private fun parseNutrition(raw: String): Nutrition {
         val cleaned = raw.removePrefix("[").removeSuffix("]").trim()
         val values = cleaned.split(",")
