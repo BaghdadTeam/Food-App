@@ -1,14 +1,19 @@
 package org.example
 
-import org.example.data.MealsProvider
 import org.example.di.appModule
 import org.example.di.useCaseModule
+import org.example.logic.FilterQuickHealthyMealsUseCase
 import org.koin.core.context.startKoin
+import org.koin.java.KoinJavaComponent.getKoin
+
 
 fun main() {
     startKoin {
         modules(appModule, useCaseModule)
     }
 
-    println("Total meals: ${MealsProvider.meals.size}")
+    val quickHealthyMealsUseCase: FilterQuickHealthyMealsUseCase = getKoin().get()
+    val quickHealthyMeals = quickHealthyMealsUseCase.getQuickHealthyMeals(5)
+
+
 }
