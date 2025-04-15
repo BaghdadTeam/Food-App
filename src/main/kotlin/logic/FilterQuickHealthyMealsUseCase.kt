@@ -21,7 +21,6 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
         }
     }
 
-
     /**
      * Checks whether a given [meal] is quick to prepare (≤ 15 minutes) and has nutrition information.
      */
@@ -41,6 +40,4 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
                 (nutrition.saturatedFat ?: 0.0) +
                 (nutrition.carbohydrates ?: 0.0)
     }
-
-
 }
