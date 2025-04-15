@@ -1,10 +1,10 @@
-package logic.MealSearchUseCase;
+package org.example.logic
 
-import kmpSearch
+import TextSearchUtil
 import model.Meal
 import org.example.data.MealsProvider;
 
-class SearchMealUseCase (private val mealsProvider:MealsProvider) {
+class SearchMealUseCase (private val mealsProvider:MealsProvider , private val textSearchUtil : TextSearchUtil) {
 
     fun search(userInput: String): List<Meal> {
         val pattern = userInput.lowercase()
@@ -15,8 +15,8 @@ class SearchMealUseCase (private val mealsProvider:MealsProvider) {
     private fun findMealUsingKMP(mealName: String, pattern: String): Boolean {
         return when {
             pattern.isEmpty() || mealName.isEmpty() -> false
-            
-            else -> kmpSearch(mealName, pattern)
+
+            else -> textSearchUtil.kmpSearch(mealName, pattern)
         }
     }
 }
