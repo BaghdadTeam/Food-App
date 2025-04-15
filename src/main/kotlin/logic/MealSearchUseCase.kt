@@ -5,7 +5,6 @@ import model.Meal
 import org.example.data.MealsProvider;
 
 class SearchMealUseCase (private val mealsProvider:MealsProvider) {
-    private val textSearchUtil = TextSearchUtil
 
     fun search(userInput: String): List<Meal> {
         val pattern = userInput.lowercase()
@@ -18,7 +17,7 @@ class SearchMealUseCase (private val mealsProvider:MealsProvider) {
         return when {
             pattern.isEmpty() || mealName.isEmpty() -> false
 
-            else -> textSearchUtil.kmpSearch(mealName, pattern)
+            else -> TextSearchUtil.kmpSearch(mealName, pattern)
         }
     }
 }
