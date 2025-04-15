@@ -14,9 +14,6 @@ fun main() {
 
     val quickHealthyMealsUseCase: FilterQuickHealthyMealsUseCase = getKoin().get()
     val quickHealthyMeals = quickHealthyMealsUseCase.getQuickHealthyMeals(5)
-    quickHealthyMeals.forEach { println(it.name) }
-
-
 
 
 }
