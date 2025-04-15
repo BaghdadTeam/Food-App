@@ -2,21 +2,22 @@ fun kmpSearch(text: String, pattern: String): Boolean {
     val textLength = text.length
     val patternLength = pattern.length
     val lps = constructLPS(pattern)
-    var i = 0
-    var j = 0
 
-    while (i < textLength) {
-        if (text[i] == pattern[j]) {
-            i++
-            j++
+    var textIndex = 0
+    var patternIndex = 0
+
+    while (textIndex < textLength) {
+        if (text[textIndex] == pattern[patternIndex]) {
+            textIndex++
+            patternIndex++
         }
-        if (j == patternLength) {
+        if (patternIndex == patternLength) {
             return true
-        } else if (i < textLength && text[i] != pattern[j]) {
-            if (j != 0) {
-                j = lps[j - 1]
+        } else if (textIndex < textLength && text[textIndex] != pattern[patternIndex]) {
+            if (patternIndex != 0) {
+                patternIndex = lps[patternIndex - 1]
             } else {
-                i++
+                textIndex++
             }
         }
     }
@@ -27,19 +28,19 @@ fun constructLPS(pattern: String): IntArray {
     val lps = IntArray(patternLength)
 
     var len = 0
-    var i = 1
+    var index = 1
 
-    while (i < patternLength) {
-        if (pattern[i] == pattern[len]) {
+    while (index < patternLength) {
+        if (pattern[index] == pattern[len]) {
             len++
-            lps[i] = len
-            i++
+            lps[index] = len
+            index++
         } else {
             if (len != 0) {
                 len = lps[len - 1]
             } else {
-                lps[i] = 0
-                i++
+                lps[index] = 0
+                index++
             }
         }
     }
