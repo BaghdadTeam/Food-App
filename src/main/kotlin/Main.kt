@@ -13,11 +13,12 @@ fun main() {
 
     val quickHealthyMealsUseCase: FilterQuickHealthyMealsUseCase = getKoin().get()
     val quickHealthyMeals = quickHealthyMealsUseCase.getQuickHealthyMeals(5)
-    quickHealthyMeals.forEach { meal ->
-        println(
-            "Meal Name : ${meal.name} | Time to cook :${meal.timeToCock} | Total Fat :${meal.nutrition?.totalFat} " +
-                    "| Saturated Fat :  ${meal.nutrition?.saturatedFat} | Carbohydrates : ${meal.nutrition?.carbohydrates}"
-        )
+
+//    quickHealthyMeals.forEach { meal ->
+//        println(
+//            "Meal Name : ${meal.name} | Time to cook :${meal.timeToCock} | Total Fat :${meal.nutrition?.totalFat} " +
+//                    "| Saturated Fat :  ${meal.nutrition?.saturatedFat} | Carbohydrates : ${meal.nutrition?.carbohydrates}"
+//        )
 
     }
 
