@@ -12,7 +12,7 @@ val appModule = module {
     single { File("food.csv") }
     single { RecordParser() }
     single { CsvReader(get()) }
-    single {MealsProvider }
+    single { MealsProvider }
 
     single<MealsRepository> { CsvMealsRepository(get(), get()) }
 }
