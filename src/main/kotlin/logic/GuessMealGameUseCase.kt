@@ -5,8 +5,9 @@ import org.example.data.MealsProvider
 class GuessMealGameUseCase (
     private val mealsProvider: MealsProvider
 ){
-    fun guessMealPreparationTime(meals: List<Meal>, meal: Meal) {
+    fun guessMealPreparationTime() {
         var attempts = 3
+        val meal = mealsProvider.meals.random()
         val correctTime = meal.preparationTime
 
         for (i in 1..attempts) {
