@@ -17,7 +17,7 @@ class EggFreeSweetsUseCase(
     /**
      * Filters the meals provided by the `MealsProvider` to include only egg-free sweets.
      */
-    private val eggFreeSweet = mealsProvider.meals.filter(::isSweetContainEgg)
+    private val eggFreeSweet = mealsProvider.meals.filter(::isEggFreeSweet)
 
     /**
      * Suggests a random egg-free sweet meal that has not been shown yet.
@@ -47,7 +47,7 @@ class EggFreeSweetsUseCase(
      * @param meal The `Meal` object to check.
      * @return `true` if the meal is a sweet and does not contain eggs, `false` otherwise.
      */
-    private fun isSweetContainEgg(meal: Meal): Boolean {
+    private fun isEggFreeSweet(meal: Meal): Boolean {
         val sweetMeal = meal.tags?.any { it.contains("sweet", ignoreCase = true) } == true
         val containsEgg = meal.ingredients?.any { it.contains("egg", ignoreCase = true) } == true
         return sweetMeal and !containsEgg
