@@ -2,7 +2,7 @@ package org.example.logic
 import model.Meal
 import org.example.data.MealsProvider
 
-class GuessMealGame (
+class GuessMealGameUseCase (
     private val mealsProvider: MealsProvider
 ){
     fun guessMealPreparationTime(meals: List<Meal>, meal: Meal) {
