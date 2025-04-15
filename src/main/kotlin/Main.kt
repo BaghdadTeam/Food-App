@@ -12,10 +12,7 @@ fun main() {
     startKoin {
         modules(appModule, useCaseModule)
     }
-
     val quickHealthyMealsUseCase: FilterQuickHealthyMealsUseCase = getKoin().get()
     val suggestKetoMealUseCase: SuggestKetoMealUseCase = getKoin().get()
-    val quickHealthyMeals = quickHealthyMealsUseCase.getQuickHealthyMeals(5)
-
 
 }
