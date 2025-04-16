@@ -20,7 +20,7 @@ fun main() {
     val easyMeals = suggestEasyMealsUseCase.getRandomEasyMeals()
     println("Easy Meals:")
     easyMeals.forEachIndexed { index, meal ->
-        println("name${index + 1} - ${meal.name} --->(time: ${meal.timeToCock} mins, ingredients: ${meal.ingredients?.size}, steps: ${meal.steps.size})")
+        println("name${index + 1} - ${meal.name} --->(time: ${meal.preparationTime} mins, ingredients: ${meal.ingredients?.size}, steps: ${meal.steps.size})")
     }
 
     val suggestKetoMealUseCase: SuggestKetoMealUseCase = getKoin().get()
