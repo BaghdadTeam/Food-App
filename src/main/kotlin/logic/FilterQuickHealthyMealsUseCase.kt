@@ -25,8 +25,8 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
      * Checks whether a given [meal] is quick to prepare (≤ 15 minutes) and has nutrition information.
      */
     private fun isQuickAndHasNutrition(meal: Meal): Boolean {
-        return meal.timeToCock != null &&
-                meal.timeToCock <= 15 &&
+        return meal.preparationTime != null &&
+                meal.preparationTime <= 15 &&
                 meal.nutrition != null
     }
 

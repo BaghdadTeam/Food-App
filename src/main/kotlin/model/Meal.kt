@@ -3,7 +3,7 @@ package model
 data class Meal(
     val name: String?,
     val id: Int?,
-    val timeToCock: Int?,
+   // val timeToCock: Int?,
     val contributorId: Int?,
     val date: String?,
     val tags: List<String>?,
@@ -12,5 +12,8 @@ data class Meal(
     val steps: List<String?>,
     val description: String?,
     val ingredients: List<String>?,
-    val nIngredients: Int?
-)
+    val nIngredients: Int?,
+    val preparationTime: Int
+) {
+
+}
