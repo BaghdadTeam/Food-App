@@ -1,7 +1,7 @@
 package org.example.di
 
 import org.example.logic.*
-
+import org.example.presentation.FoodChangeMoodConsoleUI
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -13,4 +13,10 @@ val useCaseModule = module {
     single { SuggestKetoMealUseCase(get()) }
     single { GuessMealGameUseCase(get()) }
 
+
+    single {
+        FoodChangeMoodConsoleUI(
+            get(), get(), get(), get(), get(), get(),
+        )
+    }
 }
