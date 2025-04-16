@@ -21,6 +21,3 @@ class SearchMealUseCase (private val mealsProvider:MealsProvider) {
         }
     }
 }
-
-
-
