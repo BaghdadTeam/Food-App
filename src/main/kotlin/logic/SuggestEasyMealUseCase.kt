@@ -13,7 +13,7 @@ class SuggestEasyMealUseCase(private val mealsRepository: MealsProvider) {
     }
 
     private fun isEasyMeal(meal: Meal): Boolean =
-        (meal.timeToCock != null && meal.timeToCock <= 30) &&
+        (meal.preparationTime != null && meal.preparationTime <= 30) &&
                 (meal.ingredients?.size != null && meal.ingredients.size <= 5) &&
                 (meal.steps.size <= 6)
 
