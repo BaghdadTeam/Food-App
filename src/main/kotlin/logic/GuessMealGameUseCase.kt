@@ -1,13 +1,12 @@
 package org.example.logic
-import model.Meal
-import org.example.data.MealsProvider
+import org.example.data.DefaultMealsProvider
 
 class GuessMealGameUseCase (
     private val mealsProvider: MealsProvider
 ){
     fun guessMealPreparationTime() {
         var attempts = 3
-        val meal = mealsProvider.meals.random()
+        val meal = mealsProvider.getMeals().random()
         val correctTime = meal.preparationTime
 
         for (i in 1..attempts) {

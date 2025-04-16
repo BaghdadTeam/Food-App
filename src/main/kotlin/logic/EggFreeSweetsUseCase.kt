@@ -1,7 +1,7 @@
 package org.example.logic
 
 import model.Meal
-import org.example.data.MealsProvider
+import org.example.data.DefaultMealsProvider
 
 
 class EggFreeSweetsUseCase(
@@ -11,7 +11,7 @@ class EggFreeSweetsUseCase(
     private val shownMeals = mutableSetOf<String>()
 
 
-    private val eggFreeSweet = mealsProvider.meals.filter(::isEggFreeSweet)
+    private val eggFreeSweet = mealsProvider.getMeals().filter(::isEggFreeSweet)
 
 
     fun suggestSweet(): Meal {

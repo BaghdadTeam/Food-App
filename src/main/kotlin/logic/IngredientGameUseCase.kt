@@ -1,7 +1,7 @@
 package org.example.logic
 
 import model.Meal
-import org.example.data.MealsProvider
+import org.example.data.DefaultMealsProvider
 import org.example.model.IngredientQuestion
 import kotlin.collections.filter
 import kotlin.collections.flatMap
@@ -10,7 +10,7 @@ import kotlin.collections.flatMap
 class IngredientGameUseCase(
     mealsProvider: MealsProvider
 ) {
-    private val allMeals: List<Meal> = mealsProvider.meals
+    private val allMeals: List<Meal> = mealsProvider.getMeals()
         .filter { !it.ingredients.isNullOrEmpty() && it.name != null && it.id != null }
 
     private val usedMeals = mutableSetOf<Int>()

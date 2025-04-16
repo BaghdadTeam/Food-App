@@ -1,7 +1,7 @@
 package org.example.logic
 
 import model.Meal
-import org.example.data.MealsProvider
+import org.example.data.DefaultMealsProvider
 
 
 class IraqiMealsIdentifierUseCase(
@@ -9,7 +9,7 @@ class IraqiMealsIdentifierUseCase(
 ) {
 
     fun getIraqiMeals(): List<Meal> {
-        return mealsProvider.meals.filter(::isIraqiMeal)
+        return mealsProvider.getMeals().filter(::isIraqiMeal)
     }
 
     private fun isIraqiMeal(meal: Meal): Boolean {

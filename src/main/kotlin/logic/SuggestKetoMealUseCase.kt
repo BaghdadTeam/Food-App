@@ -1,7 +1,7 @@
 package org.example.logic
 
 import model.Meal
-import org.example.data.MealsProvider
+import org.example.data.DefaultMealsProvider
 
 class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
     private val alreadySuggestKetoMeals = mutableSetOf<Meal>()
@@ -9,7 +9,8 @@ class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
 
     fun getKetoMealSuggest(): Meal {
         val availableMeals =
-            mealsProvider.meals.filter(::isKetoMeal)
+            mealsProvider.getMeals()
+                .filter(::isKetoMeal)
                 .filterNot { ketoMeal -> ketoMeal in alreadySuggestKetoMeals }
 
         if (availableMeals.isEmpty()) throw NoSuchElementException("There is no more unique keto Meals")

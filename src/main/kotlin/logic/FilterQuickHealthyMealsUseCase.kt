@@ -1,14 +1,14 @@
 package org.example.logic
 
 import model.Meal
-import org.example.data.MealsProvider
+import org.example.data.DefaultMealsProvider
 
 class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
 
 
     fun getQuickHealthyMeals(count: Int): List<Meal> {
         return try {
-            mealsProvider.meals
+            mealsProvider.getMeals()
                 .filter(::isQuickAndHasNutrition)
                 .sortedBy(::healthScore)
                 .take(count)

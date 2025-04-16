@@ -1,14 +1,14 @@
 package org.example.logic
 
 import model.Meal
-import org.example.data.MealsProvider
+import org.example.data.DefaultMealsProvider
 
 class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
     private val suggestedMeals = mutableSetOf<Meal>()
 
     fun suggestMeal(): Meal {
         try {
-            return mealsProvider.meals.filter(::isHighCalorieMeal)
+            return mealsProvider.getMeals().filter(::isHighCalorieMeal)
                 .random()
                 .also { suggestedMeals.add(it) }
         } catch (exception: NoSuchElementException) {
