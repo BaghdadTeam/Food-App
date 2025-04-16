@@ -1,15 +1,16 @@
 package org.example.logic
 
 import model.Meal
-import org.example.data.MealsProvider
 
-class SuggestEasyMealUseCase(private val mealsRepository: MealsProvider) {
+class SuggestEasyMealUseCase(private val mealsProvider: MealsProvider) {
 
     fun getRandomEasyMeals(): List<Meal> {
-        return mealsRepository.meals
+        return mealsProvider.getMeals()
             .filter(::isEasyMeal)
             .shuffled()
-            .take(10)
+            .takeIf { it.isNotEmpty() }
+            ?.take(10)
+            ?: throw NoSuchElementException("There is no more easy to make meals")
     }
 
     private fun isEasyMeal(meal: Meal): Boolean =
