@@ -4,17 +4,17 @@ import model.Meal
 import org.example.data.DefaultMealsProvider
 
 class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
+
     private val alreadySuggestKetoMeals = mutableSetOf<Meal>()
 
-
     fun getKetoMealSuggest(): Meal {
-        val availableMeals =
-            mealsProvider.getMeals()
-                .filter(::isKetoMeal)
-                .filterNot { ketoMeal -> ketoMeal in alreadySuggestKetoMeals }
-
-        if (availableMeals.isEmpty()) throw NoSuchElementException("There is no more unique keto Meals")
-        return availableMeals.random().also { ketoMeal -> alreadySuggestKetoMeals.add(ketoMeal) }
+        return mealsProvider.getMeals()
+            .filter(::isKetoMeal)
+            .filterNot { ketoMeal -> ketoMeal in alreadySuggestKetoMeals }
+            .takeIf { it.isNotEmpty() }
+            ?.random()
+            ?.also { alreadySuggestKetoMeals.add(it) }
+            ?: throw NoSuchElementException("There is no more unique keto Meals")
     }
 
     private fun isKetoMeal(meal: Meal): Boolean {
