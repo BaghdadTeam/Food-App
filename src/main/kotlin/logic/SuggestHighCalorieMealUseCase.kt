@@ -6,13 +6,13 @@ class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
     private val suggestedMeals = mutableSetOf<Meal>()
 
     fun suggestMeal(): Meal {
-        try {
-            return mealsProvider.getMeals().filter(::isHighCalorieMeal)
-                .random()
-                .also { suggestedMeals.add(it) }
-        } catch (exception: NoSuchElementException) {
-            throw exception
-        }
+
+        return mealsProvider.getMeals()
+            .filter(::isHighCalorieMeal)
+            .takeIf { it.isNotEmpty() }
+            ?.random()
+            ?.also { suggestedMeals.add(it) }
+            ?: throw NoSuchElementException("There is no High Calories meals")
     }
 
     fun isHighCalorieMeal(meal: Meal): Boolean =
