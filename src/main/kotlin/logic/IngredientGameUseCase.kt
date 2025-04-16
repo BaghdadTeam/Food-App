@@ -6,7 +6,6 @@ import org.example.model.IngredientQuestion
 import kotlin.collections.filter
 import kotlin.collections.flatMap
 
-
 class IngredientGameUseCase(
     mealsProvider: MealsProvider
 ) {

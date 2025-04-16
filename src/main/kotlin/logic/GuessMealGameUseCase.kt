@@ -1,5 +1,4 @@
 package org.example.logic
-import org.example.data.DefaultMealsProvider
 
 class GuessMealGameUseCase (
     private val mealsProvider: MealsProvider

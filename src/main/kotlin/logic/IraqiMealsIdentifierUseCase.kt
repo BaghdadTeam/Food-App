@@ -3,7 +3,6 @@ package org.example.logic
 import model.Meal
 import org.example.data.DefaultMealsProvider
 
-
 class IraqiMealsIdentifierUseCase(
     private val mealsProvider: MealsProvider
 ) {
