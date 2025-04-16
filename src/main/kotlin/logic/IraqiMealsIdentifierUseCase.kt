@@ -8,7 +8,11 @@ class IraqiMealsIdentifierUseCase(
 ) {
 
     fun getIraqiMeals(): List<Meal> {
-        return mealsProvider.getMeals().filter(::isIraqiMeal)
+
+        return mealsProvider.getMeals()
+            .filter(::isIraqiMeal)
+            .takeIf { it.isNotEmpty() }
+            ?: throw NoSuchElementException("There is no Iraqi Meals")
     }
 
     private fun isIraqiMeal(meal: Meal): Boolean {
