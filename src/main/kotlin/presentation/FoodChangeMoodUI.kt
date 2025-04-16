@@ -8,12 +8,12 @@ class FoodChangeMoodConsoleUI(
     private val iraqiMealsUseCase: IraqiMealsIdentifierUseCase,
 //    private val easyFoodSuggestionUseCase: EasyFoodSuggestionUseCase,
     private val guessGameUseCase: GuessMealGameUseCase,
-//    private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
+    private val sweetsWithNoEggsUseCase: EggFreeSweetsUseCase,
     private val ketoFriendlyMealUseCase: SuggestKetoMealUseCase,
 //    private val searchFoodsByAddDateUseCase: SearchFoodsByAddDateUseCase,
 //    private val gymHelperUseCase: GymHelperUseCase,
 //    private val exploreOtherCountriesUseCase: ExploreOtherCountriesUseCase,
-    private val ingredientGameUseCase: IngredientGameUseCase,
+//    private val ingredientGameUseCase: IngredientGameUseCase,
 //    private val potatoLovingMealsUseCase: PotatoLovingMealsUseCase,
 //    private val highCalorieMealsUseCase: HighCalorieMealsUseCase,
 //    private val seafoodMealsUseCase: SeafoodMealsUseCase,
@@ -121,9 +121,8 @@ class FoodChangeMoodConsoleUI(
 
     private fun launchGuessGame() = guessGameUseCase.guessMealPreparationTime()
 
-    private fun launchSweetsWithNoEggs() {
-        //ToDo
-    }
+    private fun launchSweetsWithNoEggs() =
+        println("Suggested Sweet: ${sweetsWithNoEggsUseCase.suggestSweet()}")
 
     private fun launchKetoFriendlyMeal() {
         println("Suggested Keto Meal: ${ketoFriendlyMealUseCase.getKetoMealSuggest()}")
@@ -143,7 +142,9 @@ class FoodChangeMoodConsoleUI(
 
     }
 
-    private fun launchIngredientGame() = ingredientGameUseCase.playGame()
+    private fun launchIngredientGame() {
+        //ingredientGameUseCase.playGame()
+    }
 
     private fun launchPotatoLovingMeals() {
         //ToDo
