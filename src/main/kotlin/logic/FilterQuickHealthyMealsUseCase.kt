@@ -7,15 +7,12 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
 
 
     fun getQuickHealthyMeals(count: Int): List<Meal> {
-        return try {
-            mealsProvider.getMeals()
-                .filter(::isQuickAndHasNutrition)
-                .sortedBy(::healthScore)
-                .take(count)
-        } catch (e: Exception) {
-            println("Failed to filter meals ${e.message}")
-            emptyList()
-        }
+        return mealsProvider.getMeals()
+            .filter(::isQuickAndHasNutrition)
+            .sortedBy(::healthScore)
+            .take(count)
+            .takeIf { it.isNotEmpty() }
+            ?: throw NoSuchElementException("There is no more healthy meals")
     }
 
     private fun isQuickAndHasNutrition(meal: Meal): Boolean {
