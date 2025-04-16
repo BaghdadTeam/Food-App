@@ -16,6 +16,7 @@ class SeaFoodMealUseCase(
                 it.nutrition!!.protein
             }.mapIndexed { index, meal ->
                 Pair(index + 1, meal)
-            }
+            }.takeIf { it.isNotEmpty() }
+            ?: throw NoSuchElementException("There is no Sea Food Meals")
     }
 }
