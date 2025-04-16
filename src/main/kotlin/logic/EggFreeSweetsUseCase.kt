@@ -4,19 +4,18 @@ import model.Meal
 import org.example.data.DefaultMealsProvider
 
 class EggFreeSweetsUseCase(
-    mealsProvider: MealsProvider
+    private val mealsProvider: MealsProvider
 ) {
 
     private val shownMeals = mutableSetOf<String>()
 
-
-    private val eggFreeSweet = mealsProvider.getMeals().filter(::isEggFreeSweet)
-
-
     fun suggestSweet(): Meal {
-        val notShownMeals = eggFreeSweet.filterNot { shownMeals.contains(it.id.toString()) }
-        val newMeal = notShownMeals.randomOrNull() ?: throw NoSuchElementException("There is no more egg free sweets")
-        return newMeal
+        return mealsProvider.getMeals()
+            .filter(::isEggFreeSweet)
+            .filterNot { shownMeals.contains(it.id.toString()) }
+            .takeIf { it.isNotEmpty() }
+            ?.random()
+            ?: throw NoSuchElementException("There is no more egg free sweets")
     }
 
 
