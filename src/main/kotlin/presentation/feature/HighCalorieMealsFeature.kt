@@ -1,4 +1,4 @@
-package logic.feature
+package presentation.feature
 
 import org.example.logic.use_case.SuggestHighCalorieMealUseCase
 

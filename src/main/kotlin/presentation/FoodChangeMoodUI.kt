@@ -1,6 +1,6 @@
 package org.example.presentation
 
-import logic.feature.Feature
+import presentation.feature.Feature
 
 class FoodChangeMoodConsoleUI(
     private val features: Map<Int, Feature>) {
