@@ -4,7 +4,7 @@ import data.CsvReader
 import data.RecordParser
 import org.example.data.CsvMealsRepository
 import org.example.data.DefaultMealsProvider
-import org.example.logic.MealsProvider
+import logic.MealsProvider
 import org.example.logic.MealsRepository
 import org.koin.dsl.module
 import java.io.File

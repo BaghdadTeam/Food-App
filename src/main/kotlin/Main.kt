@@ -1,17 +1,25 @@
-package org.example
-
-import org.example.di.FeatureModule
-import org.example.di.appModule
-import org.example.di.useCaseModule
-import org.example.presentation.FoodChangeMoodConsoleUI
-import org.koin.core.context.startKoin
-import org.koin.java.KoinJavaComponent.getKoin
-
+import data.CsvReader
+import data.RecordParser
+import logic.feature.SearchIfPotatos
+import model.Meal
+import java.io.File
 
 fun main() {
-    startKoin {
-        modules(appModule, useCaseModule, FeatureModule)
+    val csvRecords = CsvReader(File("food.csv")).readCsv()
+    val parser = RecordParser()
+    val meals = mutableListOf<Meal>()
+    csvRecords.forEach { record ->
+        meals.add(parser.parseRecord(record))
     }
-    val ui: FoodChangeMoodConsoleUI = getKoin().get()
-    ui.start()
+
+    // println("${meals[5].name?.trim()}: ${meals[5].description}")
+//    val potatoMeal = findPotatoMeals(meals)
+//    displayRandomPotatoMeals(potatoMeal)
+
+    // #8
+//    val searcher = MealDateSearcher()
+//    searcher.searchMealsByDate()
+
+    // #12
+
 }
