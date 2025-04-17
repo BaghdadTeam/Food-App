@@ -29,9 +29,5 @@ val FeatureModule = module {
     }
 
     single { FoodChangeMoodConsoleUI(get()) }
-    factory {
-        SearchIfPotatos(
-            useCase = get()
-        )
-    } bind Feature::class
+
 }
