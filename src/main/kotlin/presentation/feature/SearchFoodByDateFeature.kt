@@ -1,4 +1,4 @@
-package logic.feature
+package presentation.feature
 
 class SearchFoodByDateFeature(
 //    private val useCase: SearchFoodByDateUseCase

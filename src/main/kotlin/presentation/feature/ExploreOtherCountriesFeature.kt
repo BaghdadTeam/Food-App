@@ -1,4 +1,4 @@
-package logic.feature
+package presentation.feature
 
 class ExploreOtherCountriesFeature(
 //    private val useCase: ExploreOtherCountriesUseCase

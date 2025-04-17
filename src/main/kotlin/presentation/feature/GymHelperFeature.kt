@@ -1,4 +1,4 @@
-package logic.feature
+package presentation.feature
 
 class GymHelperFeature(
 //    private val useCase: GymHelperUseCase
