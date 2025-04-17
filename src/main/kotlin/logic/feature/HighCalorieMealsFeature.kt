@@ -1,6 +1,6 @@
 package logic.feature
 
-import org.example.logic.SuggestHighCalorieMealUseCase
+import org.example.logic.use_case.SuggestHighCalorieMealUseCase
 
 class HighCalorieMealsFeature(
     private val useCase: SuggestHighCalorieMealUseCase

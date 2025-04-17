@@ -1,6 +1,7 @@
-package org.example.logic
+package org.example.logic.use_case
 
 import model.Meal
+import org.example.logic.MealsProvider
 
 class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
     private val suggestedMeals = mutableSetOf<Meal>()

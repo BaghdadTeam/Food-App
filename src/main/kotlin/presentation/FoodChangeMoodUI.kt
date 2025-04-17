@@ -1,7 +1,6 @@
 package org.example.presentation
 
 import logic.feature.Feature
-import org.koin.mp.KoinPlatform.getKoin
 
 class FoodChangeMoodConsoleUI(
     private val features: Map<Int, Feature>) {

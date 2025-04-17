@@ -9,7 +9,7 @@ import logic.use_case.SeaFoodMealUseCase
 import logic.use_case.SearchMealUseCase
 import logic.use_case.SuggestEasyMealUseCase
 import logic.use_case.SuggestKetoMealUseCase
-import org.example.logic.SuggestHighCalorieMealUseCase
+import org.example.logic.use_case.SuggestHighCalorieMealUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
