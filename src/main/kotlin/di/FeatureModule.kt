@@ -13,9 +13,8 @@ import logic.feature.SweetsWithNoEggsFeature
 import org.example.presentation.FoodChangeMoodConsoleUI
 import org.koin.dsl.module
 
-// Acts as a bridge between UI and logic.
 val FeatureModule = module {
-    // Existing features - Injecting use cases to features
+    // Injecting use cases to features
     factory<Feature> { QuickHealthyMealsFeature(useCase = get()) }
     factory<Feature> { IraqiMealsFeature(get()) }
     factory<Feature> { GuessGameFeature(get()) }
@@ -31,8 +30,9 @@ val FeatureModule = module {
     factory<Feature> { SeafoodMealsFeature(get()) }
 //    factory<Feature> { ItalianForLargeGroupsFeature(get()) }
 
-    // Associate features by their number
-    factory {
+
+    // Create a map of features using getAll()
+    factory<Map<Int, Feature>> {
         getAll<Feature>().associateBy { it.number }
     }
 
