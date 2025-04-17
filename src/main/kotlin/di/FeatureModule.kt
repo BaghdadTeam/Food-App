@@ -3,17 +3,7 @@ package org.example.di
 import org.example.presentation.FoodChangeMoodConsoleUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import presentation.feature.Feature
-import presentation.feature.GuessGameFeature
-import presentation.feature.HighCalorieMealsFeature
-import presentation.feature.IngredientGameFeature
-import presentation.feature.IraqiMealsFeature
-import presentation.feature.KetoFriendlyMealFeature
-import presentation.feature.MealSearchFeature
-import presentation.feature.PotatoLovingMealsFeature
-import presentation.feature.QuickHealthyMealsFeature
-import presentation.feature.SeafoodMealsFeature
-import presentation.feature.SweetsWithNoEggsFeature
+import presentation.feature.*
 
 val FeatureModule = module {
 
