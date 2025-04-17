@@ -9,18 +9,18 @@ class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
 
     fun getKetoMealSuggest(): Meal {
         return mealsProvider.getMeals()
-            .filter(::isKetoMeal)
-            .filterNot { ketoMeal -> ketoMeal in alreadySuggestKetoMeals }
+            .filter(::isKetoMealAndNotSuggested)
             .takeIf { it.isNotEmpty() }
             ?.random()
             ?.also { alreadySuggestKetoMeals.add(it) }
             ?: throw NoSuchElementException("There is no more unique keto Meals")
     }
 
-    private fun isKetoMeal(meal: Meal): Boolean {
+    private fun isKetoMealAndNotSuggested(meal: Meal): Boolean {
         val nutrition = meal.nutrition
         return nutrition != null && nutrition.totalFat!! >= 15 &&
                 nutrition.carbohydrates!! < 10 &&
-                nutrition.sugar!! < 5 && nutrition.protein!! in 10.0..30.0
+                nutrition.sugar!! < 5 && nutrition.protein!! in 10.0..30.0&&meal !in alreadySuggestKetoMeals
+
     }
 }
