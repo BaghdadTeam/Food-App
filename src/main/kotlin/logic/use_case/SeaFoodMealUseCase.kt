@@ -1,19 +1,22 @@
 package logic.use_case
 
-
 import model.Meal
-import org.example.data.MealsProvider
-
+import org.example.logic.MealsProvider
 
 class SeaFoodMealUseCase(
     private val mealsProvider: MealsProvider
 ) {
+
     fun rankSeafoodMeals(): List<Pair<Int, Meal>> {
-        val meals = mealsProvider.meals
-        return meals.filter { meal ->
-            meal.tags!!.contains("seafood")
-        }.sortedByDescending { it.nutrition!!.protein }.mapIndexed { index, meal ->
-            Pair(index + 1, meal)
-        }
+
+        return mealsProvider.getMeals()
+            .filter { meal ->
+                meal.tags!!.contains("seafood")
+            }.sortedByDescending {
+                it.nutrition!!.protein
+            }.mapIndexed { index, meal ->
+                Pair(index + 1, meal)
+            }.takeIf { it.isNotEmpty() }
+            ?: throw NoSuchElementException("There is no Sea Food Meals")
     }
 }
