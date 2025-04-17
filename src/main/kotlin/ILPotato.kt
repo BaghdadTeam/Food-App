@@ -14,7 +14,7 @@ object ILPotato {
 
     fun displayRandomPotatoMeals(potatoMeals: List<Meal>) {
         if (potatoMeals.isEmpty()) {
-            println("No potato meals found in the dataset!")
+            println("No potato meals found in the Dataset!")
             return
         }
 
