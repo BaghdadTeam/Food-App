@@ -1,5 +1,4 @@
-package org.example.logic
-import model.Meal
+package logic.use_case
 import org.example.data.MealsProvider
 
 class GuessMealGameUseCase (

@@ -1,4 +1,4 @@
-package org.example.logic
+package logic.use_case
 
 import TextSearchUtil
 import model.Meal

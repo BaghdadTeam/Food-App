@@ -3,8 +3,12 @@ package org.example
 import org.example.di.appModule
 import org.example.di.useCaseModule
 import org.example.logic.*
-import org.example.logic.FilterQuickHealthyMealsUseCase
-import org.example.logic.SuggestKetoMealUseCase
+import logic.use_case.FilterQuickHealthyMealsUseCase
+import logic.use_case.SuggestKetoMealUseCase
+import logic.feature.Feature
+import logic.feature.QuickHealthyMealsFeature
+import logic.use_case.IngredientGameUseCase
+import logic.use_case.SuggestEasyMealUseCase
 import org.example.presentation.FoodChangeMoodConsoleUI
 import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.getKoin
@@ -32,7 +36,14 @@ fun main() {
     val ui: FoodChangeMoodConsoleUI = getKoin().get()
     ui.start()
 
-    val ui: FoodChangeMoodConsoleUI = getKoin().get()
-    ui.start()
+     val features: Map<Int, Feature> = mapOf(
+        1 to QuickHealthyMealsFeature(quickHealthyMealsUseCase),
+//        2 to MealSearchFeature(mealSearchUseCase),
+        3 to IraqiMealsFeature(iraqiMealsUseCase),
+        5 to GuessGameFeature(guessGameUseCase),
+        6 to SweetsWithNoEggsFeature(sweetsWithNoEggsUseCase),
+        7 to KetoFriendlyMealFeature(ketoFriendlyMealUseCase),
+        // Add others as needed
+    )
 
 }

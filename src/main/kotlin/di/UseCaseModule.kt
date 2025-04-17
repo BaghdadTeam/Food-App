@@ -1,9 +1,17 @@
 package org.example.di
 
-import org.example.logic.*
+import logic.use_case.EggFreeSweetsUseCase
+import logic.use_case.FilterQuickHealthyMealsUseCase
+import logic.use_case.GuessMealGameUseCase
+import logic.use_case.IngredientGameUseCase
+import logic.use_case.IraqiMealsIdentifierUseCase
+import logic.use_case.SeaFoodMealUseCase
+import logic.use_case.SearchMealUseCase
+import logic.use_case.SuggestEasyMealUseCase
+import logic.use_case.SuggestHighCalorieMealUseCase
+import logic.use_case.SuggestKetoMealUseCase
 import org.example.presentation.FoodChangeMoodConsoleUI
 import org.koin.dsl.module
-import kotlin.math.sin
 
 val useCaseModule = module {
     single { FilterQuickHealthyMealsUseCase(get()) }
@@ -23,7 +31,7 @@ val useCaseModule = module {
 
     single {
         FoodChangeMoodConsoleUI(
-            get(), get(), get(), get(), get(), get(),
+            get()
         )
     }
 }
