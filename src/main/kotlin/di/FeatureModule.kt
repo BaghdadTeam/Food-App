@@ -15,12 +15,12 @@ val FeatureModule = module {
     factory { MealSearchFeature(useCase = get()) } bind Feature::class
 //    factory { SearchFoodByDateFeature(useCase = get()) }bind Feature::class
 //    factory { GymHelperFeature(useCase = get()) }bind Feature::class
-//    factory { ExploreOtherCountriesFeature(useCase = get()) }bind Feature::class
+    factory { ExploreOtherCountriesFeature(useCase = get()) }bind Feature::class
     factory { IngredientGameFeature(useCase = get()) } bind Feature::class
 //    factory { PotatoLovingMealsFeature(useCase = get()) }bind Feature::class
     factory { HighCalorieMealsFeature(useCase = get()) } bind Feature::class
     factory { SeafoodMealsFeature(useCase = get()) } bind Feature::class
-//    factory { ItalianForLargeGroupsFeature(useCase = get()) }bind Feature::class
+    factory { ItalianForLargeGroupsFeature(useCase = get()) }bind Feature::class
 
     factory { PotatoLovingMealsFeature(useCase = get()) } bind Feature::class
 

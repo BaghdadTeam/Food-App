@@ -1,12 +1,20 @@
 package logic.feature
 
+import logic.use_case.MealsForLargeGroupUseCase
+
 class ItalianForLargeGroupsFeature(
-//    private val useCase: ItalianForLargeGroupsUseCase
+    private val useCase: MealsForLargeGroupUseCase
 ) : Feature {
     override val number: Int = 15
     override val name: String = "Italian food suggestions for large groups"
 
     override fun execute() {
-        // Implement your logic here
+        val meals = useCase.execute()
+        println(
+            if (meals.isEmpty()) "No meals for large group found matching "
+            else "Matching Meals:\n${
+                meals.joinToString("\n") { "- ${it.name}" }
+            }"
+        )
     }
 }
