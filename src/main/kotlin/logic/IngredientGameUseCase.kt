@@ -1,18 +1,15 @@
 package org.example.logic
 
 import model.Meal
-import org.example.data.MealsProvider
+import org.example.data.DefaultMealsProvider
 import org.example.model.IngredientQuestion
 import kotlin.collections.filter
 import kotlin.collections.flatMap
 
-/**The game selects a meal with ingredients
- * and asks the user to guess one correct ingredient from three choices.
- **/
 class IngredientGameUseCase(
     mealsProvider: MealsProvider
 ) {
-    private val allMeals: List<Meal> = mealsProvider.meals
+    private val allMeals: List<Meal> = mealsProvider.getMeals()
         .filter { !it.ingredients.isNullOrEmpty() && it.name != null && it.id != null }
 
     private val usedMeals = mutableSetOf<Int>()
@@ -21,10 +18,6 @@ class IngredientGameUseCase(
     private val points = 1_000
     private val maxQuestions = 15
 
-    /**
-     * The player is shown a meal name and 3 ingredient choices only 1 correct.
-     * The game ends after 15 correct guesses or the first wrong one.
-     */
     fun playGame() {
         while (isGameOver()) {
 
@@ -81,20 +74,12 @@ class IngredientGameUseCase(
 
     private fun isGameOver(): Boolean = correctAnswers < maxQuestions
 
-    /**
-     * Gets the next unused meal that has ingredients.
-     */
     private fun getNextMeal(): Meal? {
         return allMeals.firstOrNull { it.id !in usedMeals }?.also {
             usedMeals.add(it.id!!)
         }
     }
 
-    /**
-     * Collects two wrong ingredient options from the whole dataset.
-     *
-     * @param excludeIngredient The correct ingredient to avoid including in wrong options.
-     */
     private fun getWrongIngredients(excludeIngredient: String): List<String> {
         return allMeals
             .flatMap { it.ingredients.orEmpty() }
