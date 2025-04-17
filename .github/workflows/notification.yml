@@ -1,10 +1,9 @@
-
 name: Notification CI
 
 on:
   push:
     branches:
-      - development
+      - develop
 
 jobs:
   notify:
