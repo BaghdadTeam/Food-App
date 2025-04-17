@@ -1,4 +1,4 @@
-package logic.feature
+package presentation.feature
 
 interface Feature {
     val number: Int

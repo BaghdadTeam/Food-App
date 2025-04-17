@@ -1,4 +1,4 @@
-package logic.feature
+package presentation.feature
 
 import logic.use_case.GuessMealGameUseCase
 

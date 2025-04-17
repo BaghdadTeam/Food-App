@@ -1,4 +1,4 @@
-package logic.feature
+package presentation.feature
 
 class ItalianForLargeGroupsFeature(
 //    private val useCase: ItalianForLargeGroupsUseCase
