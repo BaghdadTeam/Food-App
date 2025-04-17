@@ -1,7 +1,7 @@
 package logic.use_case
 
 import model.Meal
-import org.example.logic.MealsProvider
+import logic.MealsProvider
 import org.example.model.IngredientQuestion
 
 class IngredientGameUseCase(

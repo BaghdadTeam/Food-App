@@ -1,15 +1,6 @@
 package org.example.di
 
-import logic.feature.Feature
-import logic.feature.GuessGameFeature
-import logic.feature.HighCalorieMealsFeature
-import logic.feature.IngredientGameFeature
-import logic.feature.IraqiMealsFeature
-import logic.feature.KetoFriendlyMealFeature
-import logic.feature.MealSearchFeature
-import logic.feature.QuickHealthyMealsFeature
-import logic.feature.SeafoodMealsFeature
-import logic.feature.SweetsWithNoEggsFeature
+import logic.feature.*
 import org.example.presentation.FoodChangeMoodConsoleUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -31,10 +22,12 @@ val FeatureModule = module {
     factory { SeafoodMealsFeature(useCase = get()) } bind Feature::class
 //    factory { ItalianForLargeGroupsFeature(useCase = get()) }bind Feature::class
 
+    factory { SearchIfPotatos(useCase = get()) } bind Feature::class
 
     factory<Map<Int, Feature>> {
         getAll<Feature>().associateBy { it.number }
     }
 
     single { FoodChangeMoodConsoleUI(get()) }
+
 }

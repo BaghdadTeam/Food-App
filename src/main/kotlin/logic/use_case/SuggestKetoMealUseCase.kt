@@ -1,7 +1,7 @@
 package logic.use_case
 
 import model.Meal
-import org.example.logic.MealsProvider
+import logic.MealsProvider
 
 class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
 

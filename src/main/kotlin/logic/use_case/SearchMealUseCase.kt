@@ -2,7 +2,7 @@ package logic.use_case
 
 import TextSearchUtil
 import model.Meal
-import org.example.logic.MealsProvider
+import logic.MealsProvider
 
 class SearchMealUseCase(
     private val mealsProvider: MealsProvider

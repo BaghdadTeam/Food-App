@@ -1,7 +1,7 @@
 package org.example.data
 
 import model.Meal
-import org.example.logic.MealsProvider
+import logic.MealsProvider
 import org.example.logic.MealsRepository
 
 class DefaultMealsProvider(

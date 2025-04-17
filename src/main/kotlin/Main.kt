@@ -1,17 +1,9 @@
-package org.example
-
-import org.example.di.FeatureModule
-import org.example.di.appModule
-import org.example.di.useCaseModule
-import org.example.presentation.FoodChangeMoodConsoleUI
-import org.koin.core.context.startKoin
-import org.koin.java.KoinJavaComponent.getKoin
-
+import data.CsvReader
+import data.RecordParser
+import logic.feature.SearchIfPotatos
+import model.Meal
+import java.io.File
 
 fun main() {
-    startKoin {
-        modules(appModule, useCaseModule, FeatureModule)
-    }
-    val ui: FoodChangeMoodConsoleUI = getKoin().get()
-    ui.start()
+
 }
