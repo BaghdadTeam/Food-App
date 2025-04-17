@@ -22,7 +22,7 @@ val FeatureModule = module {
     factory { SeafoodMealsFeature(useCase = get()) } bind Feature::class
 //    factory { ItalianForLargeGroupsFeature(useCase = get()) }bind Feature::class
 
-    factory { SearchIfPotatos(useCase = get()) } bind Feature::class
+    factory { PotatoLovingMealsFeature(useCase = get()) } bind Feature::class
 
     factory<Map<Int, Feature>> {
         getAll<Feature>().associateBy { it.number }

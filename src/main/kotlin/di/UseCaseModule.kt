@@ -1,6 +1,5 @@
 package org.example.di
 
-import logic.feature.SearchIfPotatos
 import logic.use_case.*
 import org.example.logic.use_case.SuggestHighCalorieMealUseCase
 import org.koin.dsl.module
@@ -20,6 +19,6 @@ val useCaseModule = module {
 
     single { IngredientGameUseCase(get()) }
 
-    single { PotatoFilterUseCase(get()) }
+    single { PotatoLovingMealsUseCase(get()) }
 
 }
