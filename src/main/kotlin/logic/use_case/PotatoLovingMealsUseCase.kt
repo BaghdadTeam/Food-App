@@ -3,7 +3,7 @@ package logic.use_case;
 import logic.MealsProvider;
 import model.Meal
 
-class PotatoFilterUseCase (private val mealsProvider: MealsProvider){
+class PotatoLovingMealsUseCase (private val mealsProvider: MealsProvider){
 
         fun findPotatoMeals(): List<Meal> {
             return mealsProvider.getMeals().filter { meal ->
