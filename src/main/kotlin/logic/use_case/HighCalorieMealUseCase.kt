@@ -16,6 +16,6 @@ class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
         }
     }
 
-    fun isHighCalorieMeal(meal: Meal): Boolean =
+    private fun isHighCalorieMeal(meal: Meal): Boolean =
         meal.nutrition?.calories!! > 700 && !suggestedMeals.contains(meal)
 }

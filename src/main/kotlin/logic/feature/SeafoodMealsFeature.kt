@@ -9,6 +9,6 @@ class SeafoodMealsFeature(
     override val name: String = "Show seafood meals sorted by protein"
 
     override fun execute() {
-        // Implement your logic here
+        useCase.rankSeafoodMeals()
     }
 }

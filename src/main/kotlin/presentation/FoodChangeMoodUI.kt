@@ -1,8 +1,10 @@
 package org.example.presentation
 
 import logic.feature.Feature
+import org.koin.mp.KoinPlatform.getKoin
 
-class FoodChangeMoodConsoleUI(private val features: Map<Int, Feature>) {
+class FoodChangeMoodConsoleUI(
+    private val features: Map<Int, Feature>) {
     fun start() {
         showWelcome()
         presentFeatures()
@@ -20,9 +22,9 @@ class FoodChangeMoodConsoleUI(private val features: Map<Int, Feature>) {
             if (option == 0) {
                 println("Exiting... Goodbye!")
                 break
-            } else {
-                features[option]?.execute() ?: println("Invalid input, please try again.")
             }
+
+            features[option]?.execute() ?: println("Invalid input, please try again.")
 
         }
     }
@@ -32,8 +34,10 @@ class FoodChangeMoodConsoleUI(private val features: Map<Int, Feature>) {
         features.values.sortedBy { it.number }.forEach {
             println("${it.number}. ${it.name}")
         }
+        features.forEach { }
+
+
         println("0. Exit")
-        println()
         print("Enter your choice: ")
     }
 

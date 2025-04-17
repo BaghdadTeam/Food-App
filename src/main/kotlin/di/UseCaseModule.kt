@@ -28,10 +28,4 @@ val useCaseModule = module {
 
     single { IngredientGameUseCase(get()) }
 
-
-    single {
-        FoodChangeMoodConsoleUI(
-            get()
-        )
-    }
 }

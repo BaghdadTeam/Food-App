@@ -9,6 +9,6 @@ class HighCalorieMealsFeature(
     override val name: String = "So thin problem"
 
     override fun execute() {
-        // Implement your logic here
+        useCase.suggestMeal()
     }
 }
