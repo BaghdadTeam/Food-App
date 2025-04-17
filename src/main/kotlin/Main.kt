@@ -32,4 +32,7 @@ fun main() {
     val ui: FoodChangeMoodConsoleUI = getKoin().get()
     ui.start()
 
+    val ui: FoodChangeMoodConsoleUI = getKoin().get()
+    ui.start()
+
 }
