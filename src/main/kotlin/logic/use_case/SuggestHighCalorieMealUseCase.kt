@@ -1,6 +1,7 @@
-package org.example.logic
+package org.example.logic.use_case
 
 import model.Meal
+import org.example.logic.MealsProvider
 
 class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
     private val suggestedMeals = mutableSetOf<Meal>()
@@ -15,6 +16,6 @@ class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
             ?: throw NoSuchElementException("There is no High Calories meals")
     }
 
-    fun isHighCalorieMeal(meal: Meal): Boolean =
+    private fun isHighCalorieMeal(meal: Meal): Boolean =
         meal.nutrition?.calories!! > 700 && !suggestedMeals.contains(meal)
 }

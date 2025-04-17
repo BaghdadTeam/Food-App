@@ -1,10 +1,8 @@
-package org.example.logic
+package logic.use_case
 
 import model.Meal
-import org.example.data.DefaultMealsProvider
+import org.example.logic.MealsProvider
 import org.example.model.IngredientQuestion
-import kotlin.collections.filter
-import kotlin.collections.flatMap
 
 class IngredientGameUseCase(
     mealsProvider: MealsProvider

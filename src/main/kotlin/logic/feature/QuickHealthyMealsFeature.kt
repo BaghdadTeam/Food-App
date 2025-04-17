@@ -1,0 +1,18 @@
+package logic.feature
+
+import logic.use_case.FilterQuickHealthyMealsUseCase
+
+class QuickHealthyMealsFeature(private val useCase: FilterQuickHealthyMealsUseCase) : Feature {
+    override val number: Int = 1
+    override val name: String = "Get healthy fast food meals"
+
+    override fun execute() {
+        val meals = useCase.getQuickHealthyMeals(10)
+        println(
+            if (meals.isEmpty()) "No quick healthy meals found." else "Quick & Healthy Meals:\n${
+                meals.joinToString("\n") { "- ${it.name}" }
+            }"
+        )
+    }
+
+}

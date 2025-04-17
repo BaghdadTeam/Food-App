@@ -1,7 +1,7 @@
-package org.example.logic
+package logic.use_case
 
 import model.Meal
-import org.example.data.DefaultMealsProvider
+import org.example.logic.MealsProvider
 
 class SeaFoodMealUseCase(
     private val mealsProvider: MealsProvider

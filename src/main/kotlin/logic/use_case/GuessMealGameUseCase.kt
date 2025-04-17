@@ -1,4 +1,6 @@
-package org.example.logic
+package logic.use_case
+
+import org.example.logic.MealsProvider
 
 class GuessMealGameUseCase (
     private val mealsProvider: MealsProvider
