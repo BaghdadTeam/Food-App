@@ -11,31 +11,30 @@ import logic.feature.QuickHealthyMealsFeature
 import logic.feature.SeafoodMealsFeature
 import logic.feature.SweetsWithNoEggsFeature
 import org.example.presentation.FoodChangeMoodConsoleUI
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val FeatureModule = module {
-    // Injecting use cases to features
-    factory<Feature> { QuickHealthyMealsFeature(useCase = get()) }
-    factory<Feature> { IraqiMealsFeature(useCase = get()) }
-    factory<Feature> { GuessGameFeature(useCase = get()) }
-    factory<Feature> { SweetsWithNoEggsFeature(useCase = get()) }
-    factory<Feature> { KetoFriendlyMealFeature(useCase = get()) }
-    factory<Feature> { MealSearchFeature(useCase = get()) }
-//    factory<Feature> { SearchFoodByDateFeature(useCase = get()) }
-//    factory<Feature> { GymHelperFeature(useCase = get()) }
-//    factory<Feature> { ExploreOtherCountriesFeature(useCase = get()) }
-    factory<Feature> { IngredientGameFeature(useCase = get()) }
-//    factory<Feature> { PotatoLovingMealsFeature(useCase = get()) }
-    factory<Feature> { HighCalorieMealsFeature(useCase = get()) }
-    factory<Feature> { SeafoodMealsFeature(useCase = get()) }
-//    factory<Feature> { ItalianForLargeGroupsFeature(useCase = get()) }
+
+    factory { QuickHealthyMealsFeature(get()) } bind Feature::class
+    factory { IraqiMealsFeature(get()) } bind Feature::class
+    factory { GuessGameFeature(get()) } bind Feature::class
+    factory { SweetsWithNoEggsFeature(useCase = get()) } bind Feature::class
+    factory { KetoFriendlyMealFeature(useCase = get()) } bind Feature::class
+    factory { MealSearchFeature(useCase = get()) } bind Feature::class
+//    factory { SearchFoodByDateFeature(useCase = get()) }bind Feature::class
+//    factory { GymHelperFeature(useCase = get()) }bind Feature::class
+//    factory { ExploreOtherCountriesFeature(useCase = get()) }bind Feature::class
+    factory { IngredientGameFeature(useCase = get()) } bind Feature::class
+//    factory { PotatoLovingMealsFeature(useCase = get()) }bind Feature::class
+    factory { HighCalorieMealsFeature(useCase = get()) } bind Feature::class
+    factory { SeafoodMealsFeature(useCase = get()) } bind Feature::class
+//    factory { ItalianForLargeGroupsFeature(useCase = get()) }bind Feature::class
 
 
-    // Create a map of features using getAll()
     factory<Map<Int, Feature>> {
         getAll<Feature>().associateBy { it.number }
     }
 
-    // UI Singleton
     single { FoodChangeMoodConsoleUI(get()) }
 }

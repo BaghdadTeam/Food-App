@@ -34,9 +34,6 @@ class FoodChangeMoodConsoleUI(
         features.values.sortedBy { it.number }.forEach {
             println("${it.number}. ${it.name}")
         }
-        features.forEach { }
-
-
         println("0. Exit")
         print("Enter your choice: ")
     }
