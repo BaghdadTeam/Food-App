@@ -9,7 +9,11 @@ class MealSearchFeature(private val useCase: SearchMealUseCase) : Feature {
     override fun execute() {
         print("Enter meal name (partial or full): ")
         val keyword = readlnOrNull()?.trim().orEmpty()
-        val meals = useCase.search(keyword)
+        if (keyword.isEmpty()) {
+            println("Meal name should not be empty !!!")
+            return
+        }
+        val meals = useCase.execute(keyword)
         println(
             if (meals.isEmpty()) "No meals found matching '$keyword'." else "Matching Meals:\n${
                 meals.joinToString("\n") { "- ${it.name}" }
