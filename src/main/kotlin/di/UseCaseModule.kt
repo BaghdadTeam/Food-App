@@ -1,5 +1,6 @@
 package di
 
+import logic.use_case.SearchFoodByDateUseCase
 import logic.usecase.*
 import logic.usecase.SuggestHighCalorieMealUseCase
 import org.koin.dsl.module
@@ -23,4 +24,5 @@ val useCaseModule = module {
 
     single { SuggestKetoMealUseCase(get()) }
 
+    single { SearchFoodByDateUseCase(get()) }
 }

@@ -1,26 +1,23 @@
 package logic.use_case
 
+import kotlinx.datetime.LocalDate
 import logic.MealsProvider
 import model.Meal
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import org.example.utils.InvalidDateFormatException
+import org.example.utils.NoMealsFoundException
 import java.time.format.DateTimeParseException
 
 class SearchFoodByDateUseCase(private val mealsProvider: MealsProvider) {
 
-    class InvalidDateFormatException(message: String) : Exception(message)
-    class NoMealsFoundException(message: String) : Exception(message)
-
-    private val dateFormatter = DateTimeFormatter.ofPattern("M/d/yyyy")
 
     fun execute(dateInput: String): List<Meal> {
         val searchDate = try {
-            LocalDate.parse(dateInput, dateFormatter)
+            LocalDate.parse(dateInput)
         } catch (e: DateTimeParseException) {
-            throw InvalidDateFormatException("Invalid date format. Please use M/d/yyyy (e.g., 4/11/2024).")
+            throw InvalidDateFormatException("Invalid date format. Please use yyyy-m-d (e.g., 2024-01-04).")
         }
 
-        val meals = mealsProvider.getMeals().filter { it.addDate == searchDate }
+        val meals = mealsProvider.getMeals().filter { it.date == searchDate }
 
         if (meals.isEmpty()) {
             throw NoMealsFoundException("No meals found for date: $dateInput")
