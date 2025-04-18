@@ -3,25 +3,37 @@ package org.example.utils
 import model.Meal
 
 object MealPresenter {
-    fun printDetails(meal: Meal){
+    fun printDetails(meal: Meal) {
         println("Meal Name: ${meal.name}")
         println("Preparation Time: ${meal.preparationTime}")
-        printIngredients(meal)
         printNutritionInfo(meal)
+        println("Ingredients:")
+        printIngredients(meal)
+        println("steps:")
+        printSteps(meal)
     }
-    private fun printNutritionInfo(meal : Meal){
+
+    private fun printNutritionInfo(meal: Meal) {
         println(
-            "Nutrition Info: ${meal.name?.uppercase()} contains:\n" +
-                    " - Total Fat: ${meal.nutrition?.totalFat}g\n" +
-                    " - Carbohydrates: ${meal.nutrition?.carbohydrates}g\n" +
-                    " - Sugar: ${meal.nutrition?.sugar}g\n" +
-                    " - Protein: ${meal.nutrition?.protein}g"
+            """Nutrition contains:
+            | - Total Fat: ${meal.nutrition?.totalFat}g
+            | - Carbohydrates: ${meal.nutrition?.carbohydrates}g
+            | - Sugar: ${meal.nutrition?.sugar}g
+            | - Protein: ${meal.nutrition?.protein}g
+        """.trimMargin()
         )
     }
-    private fun printIngredients(meal: Meal){
+
+    private fun printIngredients(meal: Meal) {
         meal.ingredients?.forEachIndexed { index, ingredient ->
-            println("$index - $ingredient")
+            println("${index + 1} - $ingredient")
         }
 
+    }
+
+    private fun printSteps(meal: Meal) {
+        meal.steps.forEachIndexed { index, step ->
+            println("${index + 1} - $step")
+        }
     }
 }
