@@ -8,18 +8,11 @@ class SearchMealUseCase(
     private val mealsProvider: MealsProvider
 ) {
 
-    fun search(userInput: String): List<Meal> {
-        val pattern = userInput.lowercase()
-        return mealsProvider.getMeals().filter { findMealUsingKMP(it.name!!.lowercase(), pattern) }
-
+    fun execute(name : String): List<Meal> {
+        return mealsProvider.getMeals().filter {findMeal(it.name!!.lowercase(), name.lowercase()) }
     }
 
-    private fun findMealUsingKMP(mealName: String, pattern: String): Boolean {
-
-        return when {
-            pattern.isEmpty() || mealName.isEmpty() -> false
-
-            else -> TextSearchUtil.kmpSearch(mealName, pattern)
-        }
+    private fun findMeal(mealName: String, name: String): Boolean {
+        return TextSearchUtil.kmpSearch(mealName, name)
     }
 }
