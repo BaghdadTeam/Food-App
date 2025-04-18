@@ -1,8 +1,7 @@
 package presentation.feature
 
-import GymMealHelperUseCase
+import logic.usecase.GymMealHelperUseCase
 import org.example.presentation.Feature
-import org.example.presentation.SearchFoodByDateUI
 
 class GymHelperUI(
 

@@ -1,10 +1,12 @@
 package model
 
+import kotlinx.datetime.LocalDate
+
 data class Meal(
     val name: String?,
     val id: Int?,
     val contributorId: Int?,
-    val date: String?,
+    val date: LocalDate?,
     val tags: List<String>?,
     val nutrition: Nutrition?,
     val nSteps: Int?,
