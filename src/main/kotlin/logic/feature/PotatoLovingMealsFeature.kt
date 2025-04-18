@@ -10,6 +10,7 @@ class PotatoLovingMealsFeature(
     override val name: String = "I love potato list"
 
     override fun execute() {
+        useCase.findPotatoMeals()
         fun displayRandomPotatoMeals(potatoMeals: List<Meal>) {
             if (potatoMeals.isEmpty()) {
                 println("No potato meals found in the Dataset!")
@@ -38,6 +39,7 @@ class PotatoLovingMealsFeature(
                 )
             }
         }
+
 
     }
 }
