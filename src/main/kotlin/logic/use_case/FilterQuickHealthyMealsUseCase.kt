@@ -6,7 +6,7 @@ import logic.MealsProvider
 class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
 
 
-    fun getQuickHealthyMeals(count: Int): List<Meal> {
+    fun execute(count: Int): List<Meal> {
         return mealsProvider.getMeals()
             .filter(::isQuickAndHasNutrition)
             .sortedBy(::healthScore)
@@ -16,15 +16,17 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
     }
 
     private fun isQuickAndHasNutrition(meal: Meal): Boolean {
-        return meal.preparationTime != null &&
-                meal.preparationTime <= 15 &&
-                meal.nutrition != null
+        return meal.preparationTime <= MAX_PREPARATION_TIME && meal.nutrition != null
     }
 
     private fun healthScore(meal: Meal): Double {
         val nutrition = meal.nutrition!!
         return (nutrition.totalFat ?: 0.0) +
-                (nutrition.saturatedFat ?: 0.0) +
+                (nutrition.saturatedFat ?:0.0) +
                 (nutrition.carbohydrates ?: 0.0)
     }
-}
+
+    companion object {
+        const val MAX_PREPARATION_TIME = 15
+        
+}}
