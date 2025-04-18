@@ -1,6 +1,7 @@
 package org.example.presentation
 
 import logic.usecase.IraqiMealsIdentifierUseCase
+import model.Meal
 
 class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
     override val id: Int = FEATURE_ID
@@ -8,11 +9,29 @@ class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
 
     override fun execute() {
         val meals = useCase.execute()
-        println(
-            if (meals.isEmpty()) "No Iraqi meals found." else "Iraqi Meals:\n${
-                meals.joinToString("\n") { "- ${it.name}" }
-            }"
-        )
+        try {
+            printMealsTable(meals)
+        } catch (e: NoSuchElementException) {
+            println("There is no Iraqi meals found")
+        } catch (e: Exception) {
+            println(
+                """Something wrong happened when retriveing the data.
+                |please try again later
+            """.trimMargin()
+            )
+        }
+    }
+
+    private fun printMealsTable(meals: List<Meal>) {
+        println(String.run { format("%-10s    |  %-20s", "ID", "Name") })
+        meals.forEach { meal ->
+            println(
+                String.format(
+                    "%-10s    |  %-20s",
+                    meal.id, meal.name,
+                )
+            )
+        }
     }
 
     companion object {

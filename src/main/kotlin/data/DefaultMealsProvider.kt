@@ -8,5 +8,7 @@ class DefaultMealsProvider(
     private val repository: MealsRepository
 ) : MealsProvider {
 
-    override fun getMeals(): List<Meal> = repository.getAllMeals()
+    private val meals = repository.getAllMeals()
+
+    override fun getMeals(): List<Meal> = meals
 }

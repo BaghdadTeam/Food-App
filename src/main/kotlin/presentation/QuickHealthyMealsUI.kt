@@ -24,6 +24,8 @@ class QuickHealthyMealsUI(private val useCase: FilterQuickHealthyMealsUseCase) :
                 }
             } catch (e: NoSuchElementException) {
                 println("There are no quick healthy meals available ")
+            } catch (e: Exception) {
+                println("There is a problem happened when retrieving the data.")
             }
         }
     }
