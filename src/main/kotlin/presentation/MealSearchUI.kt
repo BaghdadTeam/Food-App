@@ -13,12 +13,18 @@ class MealSearchUI(private val useCase: SearchMealUseCase) : Feature {
             println("Meal name should not be empty !!!")
             return
         }
-        val meals = useCase.execute(keyword)
-        println(
-            if (meals.isEmpty()) "No meals found matching '$keyword'." else "Matching Meals:\n${
-                meals.joinToString("\n") { "- ${it.name}" }
-            }"
-        )
+        try {
+            val meals = useCase.execute(keyword)
+            println(
+                if (meals.isEmpty()) "No meals found matching '$keyword'." else "Matching Meals:\n${
+                    meals.joinToString("\n") { "- ${it.name}" }
+                }"
+            )
+        } catch (_: NoSuchElementException) {
+            println("No meals found matching '$keyword'.")
+        } catch (_: Exception) {
+            println("There is a problem happened when retrieving the data.")
+        }
     }
 
     companion object {

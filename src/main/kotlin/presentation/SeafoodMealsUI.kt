@@ -9,16 +9,21 @@ class SeafoodMealsUI(
     override val name: String = FEATURE_NAME
 
     override fun execute() {
-        val rankedMeals = useCase.execute().take(NUMBER_OF_ITEMS)
-        println("Rank    Name    Protein")
-        rankedMeals.forEach { (rank, meal) ->
-            println("$rank      ${meal.name}     ${meal.nutrition!!.protein}")
+        try {
+            val rankedMeals = useCase.execute()
+            println("Rank    Name    Protein")
+            rankedMeals.forEach { (rank, meal) ->
+                println("$rank      ${meal.name}     ${meal.nutrition!!.protein}")
+            }
+        } catch (e: NoSuchElementException) {
+            println("There is no seafood meals found")
+        } catch (e: Exception) {
+            println("There is a problem happened when retrieving the data.")
         }
     }
 
     companion object {
         const val FEATURE_ID = 14
         const val FEATURE_NAME = "Show seafood meals sorted by protein"
-        const val NUMBER_OF_ITEMS = 50
     }
 }
