@@ -15,7 +15,7 @@ class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
             println("There is no Iraqi meals found")
         } catch (e: Exception) {
             println(
-                """Something wrong happened when retriveing the data.
+                """Something wrong happened when retrieving the data.
                 |please try again later
             """.trimMargin()
             )
