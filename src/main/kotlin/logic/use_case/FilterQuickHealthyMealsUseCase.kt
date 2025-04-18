@@ -16,13 +16,20 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
     }
 
     private fun isQuickAndHasNutrition(meal: Meal): Boolean {
-        return meal.preparationTime <= 15 && meal.nutrition != null
+        return meal.preparationTime <= MAX_PREPARATION_TIME && meal.nutrition != null
     }
 
     private fun healthScore(meal: Meal): Double {
         val nutrition = meal.nutrition!!
-        return (nutrition.totalFat ?: 0.0) +
-                (nutrition.saturatedFat ?: 0.0) +
-                (nutrition.carbohydrates ?: 0.0)
+        return (nutrition.totalFat ?: LEAST_TOTAL_FAT) +
+                (nutrition.saturatedFat ?: LEAST_SATURATED_FAT) +
+                (nutrition.carbohydrates ?: LEAST_CARBOHYDRATES)
     }
-}
+
+    companion object {
+        const val MAX_PREPARATION_TIME = 15
+        const val LEAST_SATURATED_FAT  = 0.0
+        const val LEAST_CARBOHYDRATES = 0.0
+        const val LEAST_TOTAL_FAT= 0.0
+        
+}}
