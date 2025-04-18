@@ -35,7 +35,7 @@ val uiModule = module {
     factory { PotatoLovingMealsUI(useCase = get()) } bind Feature::class
 
     factory<Map<Int, Feature>> {
-        getAll<Feature>().associateBy { it.number }
+        getAll<Feature>().associateBy { it.id }
     }
 
     single { FoodChangeMoodConsoleUI(get()) }

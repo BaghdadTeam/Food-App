@@ -3,8 +3,8 @@ package org.example.presentation
 import logic.usecase.IraqiMealsIdentifierUseCase
 
 class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
-    override val number: Int = 3
-    override val name: String = "Identify Iraqi meals"
+    override val id: Int = FEATURE_ID
+    override val name: String = FEATURE_NAME
 
     override fun execute() {
         val meals = useCase.execute()
@@ -13,5 +13,10 @@ class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
                 meals.joinToString("\n") { "- ${it.name}" }
             }"
         )
+    }
+
+    companion object {
+        const val FEATURE_ID = 3
+        const val FEATURE_NAME = "Identify Iraqi Meals"
     }
 }

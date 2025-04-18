@@ -28,8 +28,8 @@ class FoodChangeMoodConsoleUI(
 
     private fun showOptions() {
         println("\n=== Please enter one of the following numbers ===")
-        features.values.sortedBy { it.number }.forEach {
-            println("${it.number}. ${it.name}")
+        features.values.sortedBy { it.id }.forEach {
+            println("${it.id}. ${it.name}")
         }
         println("0. Exit")
         print("Enter your choice: ")

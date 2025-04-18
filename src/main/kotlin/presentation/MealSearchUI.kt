@@ -3,8 +3,8 @@ package org.example.presentation
 import logic.usecase.SearchMealUseCase
 
 class MealSearchUI(private val useCase: SearchMealUseCase) : Feature {
-    override val number: Int = 2
-    override val name: String = "Search meal by name"
+    override val id: Int = FEATURE_ID
+    override val name: String = FEATURE_NAME
 
     override fun execute() {
         print("Enter meal name (partial or full): ")
@@ -15,5 +15,10 @@ class MealSearchUI(private val useCase: SearchMealUseCase) : Feature {
                 meals.joinToString("\n") { "- ${it.name}" }
             }"
         )
+    }
+
+    companion object {
+        const val FEATURE_ID = 2
+        const val FEATURE_NAME = "Search meal by name"
     }
 }
