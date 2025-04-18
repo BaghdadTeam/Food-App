@@ -32,6 +32,8 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase) : Feature 
             }
         } catch (e: NoSuchElementException) {
             println("There is no more unique keto Meals")
+        } catch (e: Exception) {
+            println("There is a problem happened when retrieving the data")
         }
     }
 

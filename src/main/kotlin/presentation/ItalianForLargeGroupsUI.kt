@@ -9,13 +9,21 @@ class ItalianForLargeGroupsUI(
     override val name: String = FEATURE_NAME
 
     override fun execute() {
-        val meals = useCase.execute()
-        println(
-            if (meals.isEmpty()) "No meals for large group found matching "
-            else "Matching Meals:\n${
-                meals.joinToString("\n") { "- ${it.name}" }
-            }"
-        )
+        try {
+            val meals = useCase.execute()
+            println("Matching Meals:")
+            meals.forEachIndexed { index, meal ->
+                println("${index + 1} - ${meal.name}")
+            }
+        } catch (e: NoSuchElementException) {
+            println(
+                """There is no meals for large group at the moment
+                |please try again later
+            """.trimMargin()
+            )
+        } catch (e: Exception) {
+            println("There is something happened when retrieving data")
+        }
     }
 
     companion object {
