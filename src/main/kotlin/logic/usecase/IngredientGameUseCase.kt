@@ -1,12 +1,10 @@
 package logic.usecase
 
-import model.Meal
 import logic.MealsProvider
+import model.Meal
 import org.example.model.IngredientQuestion
 
-class IngredientGameUseCase(
-    mealsProvider: MealsProvider
-) {
+class IngredientGameUseCase(mealsProvider: MealsProvider) {
     private val allMeals: List<Meal> = mealsProvider.getMeals()
         .filter { !it.ingredients.isNullOrEmpty() && it.name != null && it.id != null }
 
@@ -16,33 +14,22 @@ class IngredientGameUseCase(
     private val points = 1_000
     private val maxQuestions = 15
 
-    fun execute() {
-        while (isGameOver()) {
-
-            val options = getOptions() ?: break
-            println("\nWhat is one ingredient in: ${options.mealName}?")
-            options.options.forEachIndexed { index, ingredient ->
-                println("${index + 1}. $ingredient")
-            }
-
-            print("Your choice (1-3): ")
-            val choice = readLine()?.toIntOrNull()
-
-            if (isNotValidChoice(choice)) {
-                println("Invalid input. Game over.")
-                break
-            }
-
-            if (correctAnswer(options, choice)) {
-                println("Correct! Your score increased by $points ")
-            } else {
-                println("Wrong! The correct ingredient was: ${options.correctIngredient}")
-                break
-            }
-        }
-
-        println("\n Game Over! Final Score: $score points ")
+    fun execute(options: IngredientQuestion, choice: Int?): Boolean {
+        if (isNotValidChoice(options, choice)) return false
+        return correctAnswer(options, choice)
     }
+
+    fun getScore(): Int = score
+
+    fun getPoints(): Int = points
+
+    fun getQuestionNumber(): Int = correctAnswers + 1
+
+    fun getMealName(options: IngredientQuestion?): String {
+        return options?.mealName.toString()
+    }
+
+    fun isGameOver(): Boolean = correctAnswers >= maxQuestions
 
     private fun correctAnswer(
         options: IngredientQuestion,
@@ -57,11 +44,11 @@ class IngredientGameUseCase(
         return false
     }
 
-    private fun isNotValidChoice(choice: Int?): Boolean {
-        return choice == null || choice !in 1..3
+    private fun isNotValidChoice(options: IngredientQuestion, choice: Int?): Boolean {
+        return choice == null || choice !in 1..options.options.size
     }
 
-    private fun getOptions(): IngredientQuestion? {
+    fun getOptions(): IngredientQuestion? {
         val meal = getNextMeal() ?: return null
         val correctIngredient = meal.ingredients!!.random()
         val wrongOptions = getWrongIngredients(correctIngredient)
@@ -69,8 +56,6 @@ class IngredientGameUseCase(
 
         return IngredientQuestion(meal.name.toString(), correctIngredient, options)
     }
-
-    private fun isGameOver(): Boolean = correctAnswers < maxQuestions
 
     private fun getNextMeal(): Meal? {
         return allMeals.firstOrNull { it.id !in usedMeals }?.also {
