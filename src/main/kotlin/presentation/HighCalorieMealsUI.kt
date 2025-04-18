@@ -8,7 +8,6 @@ class HighCalorieMealsUI(
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
-    private val mealPresenter : MealPresenter = MealPresenter
     override fun execute() {
         var meal = useCase.execute()
 
@@ -19,7 +18,7 @@ class HighCalorieMealsUI(
             val input = readln().lowercase()
 
             if (input == "y") {
-                mealPresenter.printDetails(meal)
+                MealPresenter.printDetails(meal)
                 break
             } else if (input == "n") {
                 try {
