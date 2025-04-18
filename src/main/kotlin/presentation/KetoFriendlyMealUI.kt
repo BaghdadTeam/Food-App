@@ -1,6 +1,9 @@
 package org.example.presentation
 
 import logic.usecase.SuggestKetoMealUseCase
+import org.example.utils.EmptyMeals
+import org.example.utils.MealPresenter
+import org.example.utils.NoElementMatch
 
 class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase) : Feature {
     override val id: Int = FEATURE_ID
@@ -16,21 +19,15 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase) : Feature 
 
                 val userInput = readln().lowercase()
                 if (userInput == "y") {
-                    println("Meal Name: ${suggestedMeal.name}")
-                    println("Preparation Time: ${suggestedMeal.preparationTime}")
-                    println(
-                        "Nutrition Info: ${suggestedMeal.name?.uppercase()} contains:\n" +
-                                " - Total Fat: ${suggestedMeal.nutrition?.totalFat}g\n" +
-                                " - Carbohydrates: ${suggestedMeal.nutrition?.carbohydrates}g\n" +
-                                " - Sugar: ${suggestedMeal.nutrition?.sugar}g\n" +
-                                " - Protein: ${suggestedMeal.nutrition?.protein}g"
-                    )
+                    MealPresenter.printDetails(suggestedMeal)
                     break
                 } else if (userInput == "n") {
                     suggestedMeal = useCase.execute()
                 } else println("Invalid input. Please enter 'y' or 'n'.")
             }
-        } catch (e: NoSuchElementException) {
+        } catch (_: EmptyMeals) {
+            println("No meals in the database.")
+        } catch (e: NoElementMatch) {
             println("There is no more unique keto Meals")
         } catch (e: Exception) {
             println("There is a problem happened when retrieving the data")
