@@ -7,6 +7,6 @@ class SweetsWithNoEggsUI(private val useCase: EggFreeSweetsUseCase) : Feature {
     override val name: String = "Sweets with no eggs"
 
     override fun execute() {
-        println("Suggested Sweet: ${useCase.suggestSweet()}")
+        println("Suggested Sweet: ${useCase.execute()}")
     }
 }

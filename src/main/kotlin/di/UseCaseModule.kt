@@ -1,7 +1,7 @@
 package org.example.di
 
 import logic.usecase.*
-import org.example.logic.use_case.SuggestHighCalorieMealUseCase
+import logic.usecase.SuggestHighCalorieMealUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {

@@ -5,7 +5,7 @@ import logic.MealsProvider
 class GuessMealGameUseCase (
     private val mealsProvider: MealsProvider
 ){
-    fun guessMealPreparationTime() {
+    fun execute() {
         var attempts = 3
         val meal = mealsProvider.getMeals().random()
         val correctTime = meal.preparationTime

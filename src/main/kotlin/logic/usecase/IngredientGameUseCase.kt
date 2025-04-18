@@ -16,7 +16,7 @@ class IngredientGameUseCase(
     private val points = 1_000
     private val maxQuestions = 15
 
-    fun playGame() {
+    fun execute() {
         while (isGameOver()) {
 
             val options = getOptions() ?: break

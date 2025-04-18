@@ -1,6 +1,6 @@
 package org.example.presentation
 
-import org.example.logic.use_case.SuggestHighCalorieMealUseCase
+import logic.usecase.SuggestHighCalorieMealUseCase
 
 class HighCalorieMealsUI(
     private val useCase: SuggestHighCalorieMealUseCase
@@ -9,6 +9,6 @@ class HighCalorieMealsUI(
     override val name: String = "So thin problem"
 
     override fun execute() {
-        useCase.suggestMeal()
+        useCase.execute()
     }
 }

@@ -6,7 +6,7 @@ import logic.MealsProvider
 class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
 
 
-    fun getQuickHealthyMeals(count: Int): List<Meal> {
+    fun execute(count: Int): List<Meal> {
         return mealsProvider.getMeals()
             .filter(::isQuickAndHasNutrition)
             .sortedBy(::healthScore)

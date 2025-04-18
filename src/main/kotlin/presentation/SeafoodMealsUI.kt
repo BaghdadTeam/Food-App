@@ -9,6 +9,6 @@ class SeafoodMealsUI(
     override val name: String = "Show seafood meals sorted by protein"
 
     override fun execute() {
-        useCase.rankSeafoodMeals()
+        useCase.execute()
     }
 }

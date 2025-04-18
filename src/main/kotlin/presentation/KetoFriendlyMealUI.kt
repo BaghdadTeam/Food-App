@@ -7,6 +7,6 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase) : Feature 
     override val name: String = "Keto diet meal helper"
 
     override fun execute() {
-        println("Suggested Keto Meal: ${useCase.getKetoMealSuggest()}")
+        println("Suggested Keto Meal: ${useCase.execute()}")
     }
 }

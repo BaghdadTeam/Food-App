@@ -3,15 +3,13 @@ package logic.usecase
 import logic.MealsProvider
 import model.Meal
 
-class PotatoLovingMealsUseCase (private val mealsProvider: MealsProvider){
+class PotatoLovingMealsUseCase(private val mealsProvider: MealsProvider) {
 
-        fun findPotatoMeals(): List<Meal> {
-            return mealsProvider.getMeals().filter { meal ->
-                meal.ingredients!!.any { ingredient ->
-                    ingredient.contains("potato")
-                }
+    fun execute(): List<Meal> {
+        return mealsProvider.getMeals().filter { meal ->
+            meal.ingredients!!.any { ingredient ->
+                ingredient.contains("potato")
             }
         }
-
     }
-
+}

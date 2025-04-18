@@ -7,7 +7,7 @@ class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
 
     private val alreadySuggestKetoMeals = mutableSetOf<Meal>()
 
-    fun getKetoMealSuggest(): Meal {
+    fun execute(): Meal {
         return mealsProvider.getMeals()
             .filter(::isKetoMeal)
             .filterNot { ketoMeal -> ketoMeal in alreadySuggestKetoMeals }

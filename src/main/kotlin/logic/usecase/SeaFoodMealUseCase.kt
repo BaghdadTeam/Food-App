@@ -7,7 +7,7 @@ class SeaFoodMealUseCase(
     private val mealsProvider: MealsProvider
 ) {
 
-    fun rankSeafoodMeals(): List<Pair<Int, Meal>> {
+    fun execute(): List<Pair<Int, Meal>> {
 
         return mealsProvider.getMeals()
             .filter { meal ->

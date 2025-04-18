@@ -1,4 +1,4 @@
-package org.example.logic.use_case
+package logic.usecase
 
 import model.Meal
 import logic.MealsProvider
@@ -6,7 +6,7 @@ import logic.MealsProvider
 class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
     private val suggestedMeals = mutableSetOf<Meal>()
 
-    fun suggestMeal(): Meal {
+    fun execute(): Meal {
 
         return mealsProvider.getMeals()
             .filter(::isHighCalorieMeal)

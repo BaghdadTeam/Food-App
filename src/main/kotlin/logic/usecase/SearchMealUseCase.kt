@@ -8,9 +8,7 @@ class SearchMealUseCase(
     private val mealsProvider: MealsProvider
 ) {
 
-    fun search(
-        name: String
-    ): List<Meal> =
+    fun execute(name: String): List<Meal> =
         mealsProvider.getMeals().filter {
             findMealUsingKMP(it.name!!.lowercase(), name)
         }

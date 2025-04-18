@@ -7,6 +7,6 @@ class GuessGameUI(private val useCase: GuessMealGameUseCase) : Feature {
     override val name: String = "Guess game"
 
     override fun execute() {
-        useCase.guessMealPreparationTime()
+        useCase.execute()
     }
 }

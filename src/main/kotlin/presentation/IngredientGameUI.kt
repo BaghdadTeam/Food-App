@@ -7,6 +7,6 @@ class IngredientGameUI(private val useCase: IngredientGameUseCase) : Feature {
     override val name: String = "Ingredient game"
 
     override fun execute() {
-        useCase.playGame()
+        useCase.execute()
     }
 }

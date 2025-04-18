@@ -39,5 +39,4 @@ val uiModule = module {
     }
 
     single { FoodChangeMoodConsoleUI(get()) }
-
 }

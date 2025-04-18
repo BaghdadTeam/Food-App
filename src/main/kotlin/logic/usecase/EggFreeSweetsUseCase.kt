@@ -9,19 +9,13 @@ class EggFreeSweetsUseCase(
 
     private val seenMeals = mutableSetOf<String>()
 
-    fun suggestSweet(): Meal {
+    fun execute(): Meal {
         return mealsProvider.getMeals()
             .filter(::isEggFreeSweet)
             .takeIf { it.isNotEmpty() }
             ?.random()
             .also { seenMeals.add(it?.id.toString()) }
             ?: throw NoSuchElementException("There is no more egg free sweets")
-    }
-
-
-    fun dislikeSweet(meal: Meal) {
-        seenMeals.add(meal.id.toString())
-        suggestSweet()
     }
 
 

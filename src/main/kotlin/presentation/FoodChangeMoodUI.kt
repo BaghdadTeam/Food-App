@@ -11,7 +11,7 @@ class FoodChangeMoodConsoleUI(
 
     private fun getUserInput(): Int? = readlnOrNull()?.toIntOrNull()
 
-    fun presentFeatures() {
+    private fun presentFeatures() {
         while (true) {
             showOptions()
             val option = getUserInput() ?: 0
