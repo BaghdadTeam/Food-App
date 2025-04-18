@@ -1,6 +1,6 @@
 package org.example.presentation
 
-import logic.use_case.SuggestEasyMealUseCase
+import logic.usecase.SuggestEasyMealUseCase
 import model.Meal
 
 class SuggestEasyMealUI(private val useCase: SuggestEasyMealUseCase) : Feature {

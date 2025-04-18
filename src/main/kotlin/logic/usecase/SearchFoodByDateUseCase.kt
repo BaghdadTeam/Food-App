@@ -1,4 +1,4 @@
-package logic.use_case
+package logic.usecase
 
 import kotlinx.datetime.LocalDate
 import logic.MealsProvider

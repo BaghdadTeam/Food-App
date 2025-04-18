@@ -1,7 +1,6 @@
 package org.example.di
 
 import org.example.presentation.*
-import org.koin.core.scope.get
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import presentation.feature.GymHelperUI

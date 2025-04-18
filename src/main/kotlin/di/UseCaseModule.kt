@@ -1,12 +1,7 @@
 package org.example.di
 
-
-import logic.use_case.SearchFoodByDateUseCase
-import GymMealHelperUseCase
 import logic.usecase.*
-import org.example.logic.*
 import org.koin.dsl.module
-import kotlin.math.sin
 
 val useCaseModule = module {
     single { EggFreeSweetsUseCase(get()) }

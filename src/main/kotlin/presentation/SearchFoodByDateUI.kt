@@ -1,7 +1,7 @@
 package org.example.presentation
 
 import kotlinx.datetime.LocalDate
-import logic.use_case.SearchFoodByDateUseCase
+import logic.usecase.SearchFoodByDateUseCase
 import org.example.utils.InvalidDateFormatException
 import org.example.utils.MealPresenter
 import org.example.utils.NoMealsFoundException
