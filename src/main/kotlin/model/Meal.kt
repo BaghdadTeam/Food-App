@@ -1,11 +1,8 @@
 package model
 
-import java.time.LocalDate
-
 data class Meal(
     val name: String?,
     val id: Int?,
-    // val timeToCock: Int?,
     val contributorId: Int?,
     val date: String?,
     val tags: List<String>?,
@@ -15,8 +12,5 @@ data class Meal(
     val description: String?,
     val ingredients: List<String>?,
     val nIngredients: Int?,
-    val preparationTime: Int,
-    val addDate: LocalDate
-) {
-
-}
+    val preparationTime: Int
+)

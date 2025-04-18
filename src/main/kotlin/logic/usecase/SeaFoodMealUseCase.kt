@@ -1,14 +1,16 @@
-package logic.use_case
+package logic.usecase
 
 import model.Meal
 import logic.MealsProvider
+import org.example.utils.EmptyMeals
+import org.example.utils.NoElementMatch
 
 class SeaFoodMealUseCase(
     private val mealsProvider: MealsProvider
 ) {
 
-    fun rankSeafoodMeals(): List<Pair<Int, Meal>> {
-
+    fun execute(): List<Pair<Int, Meal>> {
+        if (mealsProvider.getMeals().isEmpty()) throw EmptyMeals("No meals found")
         return mealsProvider.getMeals()
             .filter { meal ->
                 meal.tags!!.contains("seafood")
@@ -17,6 +19,6 @@ class SeaFoodMealUseCase(
             }.mapIndexed { index, meal ->
                 Pair(index + 1, meal)
             }.takeIf { it.isNotEmpty() }
-            ?: throw NoSuchElementException("There is no Sea Food Meals")
+            ?: throw NoElementMatch("There is no Sea Food Meals")
     }
 }

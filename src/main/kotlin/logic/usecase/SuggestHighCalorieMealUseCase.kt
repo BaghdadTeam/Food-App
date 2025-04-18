@@ -1,19 +1,21 @@
-package org.example.logic.use_case
+package logic.usecase
 
 import model.Meal
 import logic.MealsProvider
+import org.example.utils.EmptyMeals
+import org.example.utils.NoElementMatch
 
 class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
     private val suggestedMeals = mutableSetOf<Meal>()
 
-    fun suggestMeal(): Meal {
-
+    fun execute(): Meal {
+        if (mealsProvider.getMeals().isEmpty()) throw EmptyMeals("No meals found")
         return mealsProvider.getMeals()
             .filter(::isHighCalorieMeal)
             .takeIf { it.isNotEmpty() }
             ?.random()
             ?.also { suggestedMeals.add(it) }
-            ?: throw NoSuchElementException("There is no High Calories meals")
+            ?: throw NoElementMatch("There is no High Calories meals")
     }
 
     private fun isHighCalorieMeal(meal: Meal): Boolean =
