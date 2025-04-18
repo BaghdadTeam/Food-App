@@ -1,7 +1,5 @@
 package org.example.presentation
 
-import presentation.feature.Feature
-
 class FoodChangeMoodConsoleUI(
     private val features: Map<Int, Feature>) {
     fun start() {
@@ -13,7 +11,7 @@ class FoodChangeMoodConsoleUI(
 
     private fun getUserInput(): Int? = readlnOrNull()?.toIntOrNull()
 
-    fun presentFeatures() {
+    private fun presentFeatures() {
         while (true) {
             showOptions()
             val option = getUserInput() ?: 0
@@ -30,8 +28,8 @@ class FoodChangeMoodConsoleUI(
 
     private fun showOptions() {
         println("\n=== Please enter one of the following numbers ===")
-        features.values.sortedBy { it.number }.forEach {
-            println("${it.number}. ${it.name}")
+        features.values.sortedBy { it.id }.forEach {
+            println("${it.id}. ${it.name}")
         }
         println("0. Exit")
         print("Enter your choice: ")
