@@ -10,11 +10,11 @@ class SearchMealUseCase(
 
     fun execute(name: String): List<Meal> =
         mealsProvider.getMeals().filter {
-            findMealUsingKMP(it.name!!.lowercase(), name)
+            findMeal(it.name!!.lowercase(), name.lowercase())
         }
 
 
-    private fun findMealUsingKMP(
+    private fun findMeal(
         mealName: String,
         pattern: String
     ): Boolean =
