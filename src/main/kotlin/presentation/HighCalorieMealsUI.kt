@@ -1,40 +1,38 @@
 package org.example.presentation
 
 import logic.usecase.SuggestHighCalorieMealUseCase
-import model.Meal
+import org.example.utils.MealPresenter
 
 class HighCalorieMealsUI(
     private val useCase: SuggestHighCalorieMealUseCase
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
+    private val mealPresenter : MealPresenter = MealPresenter
     override fun execute() {
-        var likeIt: Boolean
-        var meal: Meal
-        do {
+        var meal = useCase.execute()
 
-            try {
-                meal = useCase.execute()
-            } catch (exception : NoSuchElementException) {
-                println("There is no more high calorie meals")
-                return
-            }
-
+        while (true) {
             println("Meal Name : ${meal.name}")
-            println("Do you like this meal?\n1-yes\n2-no")
+            println("Would you like to see the description or get another suggestion? (y/n): ")
             print("Enter your choice:")
-            val input = readln()
+            val input = readln().lowercase()
 
-            if (input == "1") {
-                println(meal.description)
-                likeIt = true
-            } else if (input == "2") {
-                likeIt = false
-            } else {
+            if (input == "y") {
+                mealPresenter.printDetails(meal)
                 break
+            } else if (input == "n") {
+                try {
+                    meal = useCase.execute()
+                } catch (exception: NoSuchElementException) {
+                    println("There is no more high calorie meals")
+                    break
+                }
+            } else {
+                println("Invalid input. Please enter 'y' or 'n'.")
             }
 
-        } while (!likeIt)
+        }
 
     }
 
