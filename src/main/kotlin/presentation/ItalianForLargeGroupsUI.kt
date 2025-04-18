@@ -1,12 +1,12 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.MealsForLargeGroupUseCase
+import logic.usecase.MealsForLargeGroupUseCase
 
-class ItalianForLargeGroupsFeature(
+class ItalianForLargeGroupsUI(
     private val useCase: MealsForLargeGroupUseCase
 ) : Feature {
-    override val number: Int = 15
-    override val name: String = "Italian food suggestions for large groups"
+    override val id: Int = FEATURE_ID
+    override val name: String = FEATURE_NAME
 
     override fun execute() {
         val meals = useCase.execute()
@@ -16,5 +16,10 @@ class ItalianForLargeGroupsFeature(
                 meals.joinToString("\n") { "- ${it.name}" }
             }"
         )
+    }
+
+    companion object {
+        const val FEATURE_ID = 15
+        const val FEATURE_NAME = "Italian food suggestions for large groups"
     }
 }

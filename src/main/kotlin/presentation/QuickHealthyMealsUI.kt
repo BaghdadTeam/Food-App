@@ -1,9 +1,10 @@
-package presentation.feature
-import logic.use_case.FilterQuickHealthyMealsUseCase
+package org.example.presentation
 
-class QuickHealthyMealsFeature(private val useCase: FilterQuickHealthyMealsUseCase) : Feature {
-    override val number: Int = 1
-    override val name: String = "Get healthy fast food meals"
+import logic.usecase.FilterQuickHealthyMealsUseCase
+
+class QuickHealthyMealsUI(private val useCase: FilterQuickHealthyMealsUseCase) : Feature {
+    override val id: Int = FEATURE_ID
+    override val name: String = FEATURE_NAME
 
     override fun execute() {
 
@@ -12,10 +13,9 @@ class QuickHealthyMealsFeature(private val useCase: FilterQuickHealthyMealsUseCa
 
         if (countInput == null) {
             println("Please enter a valid number.")
-        }
-        else {
+        } else {
             try {
-                val meals = useCase.getQuickHealthyMeals(countInput)
+                val meals = useCase.execute(countInput)
                 if (meals.isEmpty()) {
                     println("No quick healthy meals found ")
                 } else {
@@ -25,5 +25,11 @@ class QuickHealthyMealsFeature(private val useCase: FilterQuickHealthyMealsUseCa
             } catch (e: NoSuchElementException) {
                 println("There are no quick healthy meals available ")
             }
-        }}
+        }
+    }
+
+    companion object {
+        const val FEATURE_ID = 1
+        const val FEATURE_NAME = "Get healthy fast food meals"
+    }
 }

@@ -1,10 +1,10 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.GuessMealGameUseCase
+import logic.usecase.GuessMealGameUseCase
 
-class GuessGameFeature(private val useCase: GuessMealGameUseCase) : Feature {
-    override val number: Int = 5
-    override val name: String = "Guess game"
+class GuessGameUI(private val useCase: GuessMealGameUseCase) : Feature {
+    override val id: Int = FEATURE_ID
+    override val name: String = FEATURE_NAME
 
     override fun execute() {
         var attempts = 3
@@ -15,15 +15,22 @@ class GuessGameFeature(private val useCase: GuessMealGameUseCase) : Feature {
             val guess = readlnOrNull()?.toIntOrNull()
             if (guess != null) {
                 when {
-                    guess == preparationTime -> { println("Correct! The preparation time is ${preparationTime} minutes.")
+                    guess == preparationTime -> {
+                        println("Correct! The preparation time is $preparationTime minutes.")
                         return
                     }
+
                     guess < preparationTime -> println("Too low!")
                     else -> println("Too high!")
                 }
             }
             attempts--
         }
-        println("The correct time was ${preparationTime} minutes.")
+        println("The correct time was $preparationTime minutes.")
+    }
+
+    companion object {
+        const val FEATURE_ID = 5
+        const val FEATURE_NAME = "Guess Game"
     }
 }
