@@ -1,29 +1,16 @@
-package logic.usecase
+package logic.use_case
 
 import logic.MealsProvider
+import model.Meal
 
 class GuessMealGameUseCase (
     private val mealsProvider: MealsProvider
 ){
-    fun execute() {
-        var attempts = 3
-        val meal = mealsProvider.getMeals().random()
-        val correctTime = meal.preparationTime
+    fun guessMealPreparationTime(): Meal {
 
-        for (i in 1..attempts) {
-            println("Guess the preparation time for ${meal.name}:")
-            val guess = readlnOrNull()?.toIntOrNull()
-            if (guess != null) {
-                when {
-                    guess == correctTime -> { println("Correct! The preparation time is $correctTime minutes.")
-                        return
-                    }
-                    guess < correctTime -> println("Too low!")
-                    else -> println("Too high!")
-                }
-            }
-            attempts--
-        }
-        println("The correct time was $correctTime minutes.")
+        val meal = mealsProvider.getMeals().random()
+        return meal
+
+
     }
 }
