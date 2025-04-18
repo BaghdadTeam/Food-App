@@ -1,6 +1,6 @@
-package logic.usecase;
+package logic.usecase
 
-import logic.MealsProvider;
+import logic.MealsProvider
 import model.Meal
 
 class PotatoLovingMealsUseCase (private val mealsProvider: MealsProvider){
