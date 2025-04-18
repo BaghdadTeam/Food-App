@@ -1,6 +1,6 @@
-package org.example.logic
+package org.example.logic.usecase
 
-import org.example.data.MealsProvider
+import logic.MealsProvider
 
-class GymMealHelperUseCase(private  val mealProvider:MealsProvider) {
+class GymMealHelperUseCase(private  val mealProvider: MealsProvider) {
 }
