@@ -1,6 +1,6 @@
 package model
 
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 data class Meal(
     val name: String?,

@@ -12,6 +12,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation("io.insert-koin:koin-core:4.0.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
 }
 
 tasks.test {
