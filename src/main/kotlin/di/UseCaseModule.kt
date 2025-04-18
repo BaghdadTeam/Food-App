@@ -1,4 +1,4 @@
-package org.example.di
+package di
 
 import logic.use_case.*
 import org.example.logic.use_case.SuggestHighCalorieMealUseCase
