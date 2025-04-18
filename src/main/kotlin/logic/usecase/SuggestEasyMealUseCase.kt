@@ -1,4 +1,4 @@
-package logic.usecase
+package logic.use_case
 
 import model.Meal
 import logic.MealsProvider
@@ -18,4 +18,5 @@ class SuggestEasyMealUseCase(private val mealsProvider: MealsProvider) {
         (meal.preparationTime <= 30) &&
                 (meal.ingredients?.size != null && meal.ingredients.size <= 5) &&
                 (meal.steps.size <= 6)
+
 }

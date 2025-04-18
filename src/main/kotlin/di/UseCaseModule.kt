@@ -1,8 +1,11 @@
-package di
+package org.example.di
 
+import GymMealHelperUseCase
+import logic.use_case.SuggestEasyMealUseCase
 import logic.usecase.*
-import logic.usecase.SuggestHighCalorieMealUseCase
+import org.example.logic.*
 import org.koin.dsl.module
+import kotlin.math.sin
 
 val useCaseModule = module {
     single { EggFreeSweetsUseCase(get()) }
@@ -22,5 +25,7 @@ val useCaseModule = module {
     single { SuggestHighCalorieMealUseCase(get()) }
 
     single { SuggestKetoMealUseCase(get()) }
+    single { GymMealHelperUseCase(get()) }
 
 }
+

@@ -1,25 +1,35 @@
 package org.example.presentation
 
-import model.Meal
 import logic.use_case.SuggestEasyMealUseCase
+import model.Meal
 
-class SuggestEasyMealFeature(private val useCase: SuggestEasyMealUseCase) : Feature {
-    override val number: Int = 4
-    override val name: String = "Search foods by add date"
+class SuggestEasyMealUI(private val useCase: SuggestEasyMealUseCase) : Feature {
+    override val id: Int = FEATURE_ID
+    override val name: String = FEATURE_NAME
+
 
     override fun execute() {
-        val easyMeals = useCase.getRandomEasyMeals()
+        val easyMeals = useCase.execute()
         val printer = MealTablePrinter()
         printer.print(easyMeals)
 
     }
+
+    companion object {
+        const val FEATURE_ID = 4
+        const val FEATURE_NAME = "Suggest easy meal"
+    }
 }
+
+
 class MealTablePrinter {
 
     private val RESET = "\u001B[0m"
     private val BLUE = "\u001B[34m"
     private val GRAY_BG = "\u001B[47m"
+    private val GREEN_BG = "\u001B[102m"
     private val WHITE_TEXT = "\u001B[30m"
+
 
     private val indexWidth = 4
     private val nameWidth = 22
@@ -62,11 +72,8 @@ class MealTablePrinter {
 
         val row = "| $idx| $name| $time| $ingredients| $steps|"
 
-        if (isEven) {
-            println(GRAY_BG + WHITE_TEXT + row + RESET)
-        } else {
-            println(row)
-        }
+        val bgColor = if (isEven) GRAY_BG else GREEN_BG
+        println(bgColor + WHITE_TEXT + row + RESET)
     }
 
     fun print(meals: List<Meal>) {
