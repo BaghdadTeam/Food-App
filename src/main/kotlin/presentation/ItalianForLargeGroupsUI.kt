@@ -1,6 +1,6 @@
-package presentation.feature
+package org.example.presentation
 
-class ItalianForLargeGroupsFeature(
+class ItalianForLargeGroupsUI(
 //    private val useCase: ItalianForLargeGroupsUseCase
 ) : Feature {
     override val number: Int = 15

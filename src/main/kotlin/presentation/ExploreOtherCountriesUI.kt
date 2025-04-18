@@ -1,6 +1,6 @@
-package presentation.feature
+package org.example.presentation
 
-class ExploreOtherCountriesFeature(
+class ExploreOtherCountriesUI(
 //    private val useCase: ExploreOtherCountriesUseCase
     ) : Feature {
     override val number: Int = 10

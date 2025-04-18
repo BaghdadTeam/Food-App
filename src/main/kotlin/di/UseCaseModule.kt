@@ -1,6 +1,6 @@
 package org.example.di
 
-import logic.use_case.*
+import logic.usecase.*
 import org.example.logic.use_case.SuggestHighCalorieMealUseCase
 import org.koin.dsl.module
 

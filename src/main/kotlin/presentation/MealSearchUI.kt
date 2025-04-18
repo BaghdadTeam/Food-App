@@ -1,8 +1,8 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.SearchMealUseCase
+import logic.usecase.SearchMealUseCase
 
-class MealSearchFeature(private val useCase: SearchMealUseCase) : Feature {
+class MealSearchUI(private val useCase: SearchMealUseCase) : Feature {
     override val number: Int = 2
     override val name: String = "Search meal by name"
 

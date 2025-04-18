@@ -1,8 +1,8 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.IraqiMealsIdentifierUseCase
+import logic.usecase.IraqiMealsIdentifierUseCase
 
-class IraqiMealsFeature(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
+class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
     override val number: Int = 3
     override val name: String = "Identify Iraqi meals"
 

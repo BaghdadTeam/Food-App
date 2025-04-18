@@ -1,8 +1,8 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.GuessMealGameUseCase
+import logic.usecase.GuessMealGameUseCase
 
-class GuessGameFeature(private val useCase: GuessMealGameUseCase) : Feature {
+class GuessGameUI(private val useCase: GuessMealGameUseCase) : Feature {
     override val number: Int = 5
     override val name: String = "Guess game"
 

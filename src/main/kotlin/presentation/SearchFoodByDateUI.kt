@@ -1,6 +1,6 @@
-package presentation.feature
+package org.example.presentation
 
-class SearchFoodByDateFeature(
+class SearchFoodByDateUI(
 //    private val useCase: SearchFoodByDateUseCase
 ) : Feature {
     override val number: Int = 8

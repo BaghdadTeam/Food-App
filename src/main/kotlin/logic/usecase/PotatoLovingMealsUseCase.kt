@@ -1,4 +1,4 @@
-package logic.use_case;
+package logic.usecase;
 
 import logic.MealsProvider;
 import model.Meal

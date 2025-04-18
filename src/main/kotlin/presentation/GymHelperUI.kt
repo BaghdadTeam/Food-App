@@ -1,6 +1,6 @@
-package presentation.feature
+package org.example.presentation
 
-class GymHelperFeature(
+class GymHelperUI(
 //    private val useCase: GymHelperUseCase
 ) : Feature {
     override val number: Int = 9

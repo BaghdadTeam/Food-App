@@ -1,8 +1,8 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.SeaFoodMealUseCase
+import logic.usecase.SeaFoodMealUseCase
 
-class SeafoodMealsFeature(
+class SeafoodMealsUI(
     private val useCase: SeaFoodMealUseCase
 ) : Feature {
     override val number: Int = 14

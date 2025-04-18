@@ -1,8 +1,8 @@
-package presentation.feature
+package org.example.presentation
 
 import org.example.logic.use_case.SuggestHighCalorieMealUseCase
 
-class HighCalorieMealsFeature(
+class HighCalorieMealsUI(
     private val useCase: SuggestHighCalorieMealUseCase
 ) : Feature {
     override val number: Int = 13

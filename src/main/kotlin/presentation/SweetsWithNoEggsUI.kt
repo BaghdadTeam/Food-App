@@ -1,8 +1,8 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.EggFreeSweetsUseCase
+import logic.usecase.EggFreeSweetsUseCase
 
-class SweetsWithNoEggsFeature(private val useCase: EggFreeSweetsUseCase) : Feature {
+class SweetsWithNoEggsUI(private val useCase: EggFreeSweetsUseCase) : Feature {
     override val number: Int = 6
     override val name: String = "Sweets with no eggs"
 

@@ -1,7 +1,5 @@
 package org.example.presentation
 
-import presentation.feature.Feature
-
 class FoodChangeMoodConsoleUI(
     private val features: Map<Int, Feature>) {
     fun start() {

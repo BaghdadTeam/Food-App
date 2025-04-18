@@ -1,4 +1,4 @@
-package presentation.feature
+package org.example.presentation
 
 interface Feature {
     val number: Int

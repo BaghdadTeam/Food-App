@@ -1,9 +1,9 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.PotatoLovingMealsUseCase
+import logic.usecase.PotatoLovingMealsUseCase
 import model.Meal
 
-class PotatoLovingMealsFeature(
+class PotatoLovingMealsUI(
     private val useCase: PotatoLovingMealsUseCase
 ) : Feature {
     override val number: Int = 12
@@ -32,7 +32,7 @@ class PotatoLovingMealsFeature(
             Name: ${meal.name}
             Description: ${meal.description!!.take(60)}${if (meal.description.length > 60) "..." else ""}
             Calories: ${meal.nutrition?.calories ?: "N/A"}
-            Ingredients: ${meal.ingredients!!.take(3).joinToString()}${if (meal.ingredients!!.size > 3) "..." else ""}
+            Ingredients: ${meal.ingredients!!.take(3).joinToString()}${if (meal.ingredients.size > 3) "..." else ""}
             ------------------------------------------
         """.trimIndent()
                 )

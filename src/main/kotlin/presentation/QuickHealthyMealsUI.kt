@@ -1,8 +1,8 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.FilterQuickHealthyMealsUseCase
+import logic.usecase.FilterQuickHealthyMealsUseCase
 
-class QuickHealthyMealsFeature(private val useCase: FilterQuickHealthyMealsUseCase) : Feature {
+class QuickHealthyMealsUI(private val useCase: FilterQuickHealthyMealsUseCase) : Feature {
     override val number: Int = 1
     override val name: String = "Get healthy fast food meals"
 
