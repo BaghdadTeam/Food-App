@@ -1,12 +1,12 @@
-package presentation.feature
+package org.example.presentation
 
-import logic.use_case.ExploreOtherCountriesFoodCultureUseCase
+import logic.usecase.ExploreOtherCountriesFoodCultureUseCase
 
-class ExploreOtherCountriesFeature(
+class ExploreOtherCountriesUI(
     private val useCase: ExploreOtherCountriesFoodCultureUseCase
     ) : Feature {
-    override val number: Int = 20
-    override val name: String = "Explore other countries' food culture"
+    override val id: Int = FEATURE_ID
+    override val name: String = FEATURE_NAME
 
     override fun execute() {
         print("Enter country name to discover it's culture ")
@@ -18,5 +18,10 @@ class ExploreOtherCountriesFeature(
                 meals.joinToString("\n") { "- ${it.name}" }
             }"
         )
+    }
+
+    companion object {
+        const val FEATURE_ID = 10
+        const val FEATURE_NAME = "Explore other countries' food culture"
     }
 }

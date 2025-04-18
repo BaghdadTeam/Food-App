@@ -1,4 +1,4 @@
-package logic.use_case
+package logic.usecase
 
 import model.Meal
 import logic.MealsProvider
@@ -7,17 +7,17 @@ class IraqiMealsIdentifierUseCase(
     private val mealsProvider: MealsProvider
 ) {
 
-    fun getIraqiMeals(): List<Meal> {
-
-        return mealsProvider.getMeals()
+    fun execute(): List<Meal> =
+        mealsProvider.getMeals()
             .filter(::isIraqiMeal)
             .takeIf { it.isNotEmpty() }
             ?: throw NoSuchElementException("There is no Iraqi Meals")
-    }
+
 
     private fun isIraqiMeal(meal: Meal): Boolean {
-        val iraqiTag = meal.tags?.any { it.contains("iraqi", ignoreCase = true) } == true
-        val iraqDesc = meal.description?.contains("iraq", ignoreCase = true) == true
-        return iraqiTag || iraqDesc
+        val inTags = meal.tags?.any { it.contains("iraqi", ignoreCase = true) } == true
+        if (inTags) return true
+        val inDesc = meal.description?.contains("iraq", ignoreCase = true) == true
+        return inDesc
     }
 }
