@@ -1,8 +1,8 @@
 package org.example
 
+import di.useCaseModule
 import org.example.di.uiModule
 import org.example.di.appModule
-import org.example.di.useCaseModule
 import org.example.presentation.FoodChangeMoodConsoleUI
 import org.koin.core.context.startKoin
 import org.koin.mp.KoinPlatform.getKoin
