@@ -1,5 +1,6 @@
 package data
 
+import kotlinx.datetime.LocalDate
 import model.Meal
 import model.Nutrition
 
@@ -25,7 +26,7 @@ class RecordParser {
             id = row[ColumnIndex.ID].toInt(),
             preparationTime = row[ColumnIndex.MINUTES].toInt(),
             contributorId = row[ColumnIndex.CONTRIBUTOR_ID].toInt(),
-            date = row[ColumnIndex.SUBMITTED],
+            date = LocalDate.parse( row[ColumnIndex.SUBMITTED]),
             tags = parseStringList(row[ColumnIndex.TAGS]),
             nutrition = parseNutrition(row[ColumnIndex.NUTRITION]),
             nSteps = row[ColumnIndex.NUMBER_OF_STEPS].toInt(),
