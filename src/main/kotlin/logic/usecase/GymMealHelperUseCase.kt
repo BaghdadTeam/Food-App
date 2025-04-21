@@ -1,3 +1,5 @@
+package logic.usecase
+
 import logic.MealsProvider
 import model.Meal
 

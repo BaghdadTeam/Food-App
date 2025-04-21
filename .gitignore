@@ -35,6 +35,7 @@ bin/
 ### csv file ###
 food.csv
 .gradle
+.idea
 .gradle/8.10/executionHistory/executionHistory.lock
 .gradle/8.10/fileHashes/fileHashes.lock
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
