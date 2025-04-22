@@ -1,5 +1,4 @@
 package logic.usecase
-
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
@@ -14,12 +13,12 @@ import org.junit.jupiter.api.assertThrows
 
 class FilterQuickHealthyMealsUseCaseTest {
     private lateinit var mealsProvider: MealsProvider
-    private lateinit var filterQuickHealthyMealsUseCase: FilterQuickHealthyMealsUseCase
+    private lateinit var useCase: FilterQuickHealthyMealsUseCase
 
     @BeforeEach
     fun setUp() {
         mealsProvider = mockk(relaxed = true)
-        filterQuickHealthyMealsUseCase = FilterQuickHealthyMealsUseCase(mealsProvider)
+        useCase = FilterQuickHealthyMealsUseCase(mealsProvider)
     }
 
 
@@ -28,7 +27,7 @@ class FilterQuickHealthyMealsUseCaseTest {
         // Given
         every { mealsProvider.getMeals() } returns emptyList()
         // When & Then
-        assertThrows<EmptyMealsException> { filterQuickHealthyMealsUseCase.execute(count = 1) }
+        assertThrows<EmptyMealsException> { useCase.execute(count = 1) }
     }
 
 
@@ -52,7 +51,7 @@ class FilterQuickHealthyMealsUseCaseTest {
             )
         )
         // When & Then
-        assertThrows<NoMealFoundException> { filterQuickHealthyMealsUseCase.execute(count = 1) }
+        assertThrows<NoMealFoundException> { useCase.execute(count = 1) }
     }
 
     @Test
@@ -81,7 +80,7 @@ class FilterQuickHealthyMealsUseCaseTest {
                 preparationTime = 10
             )
         )
-        val result = filterQuickHealthyMealsUseCase.execute(count = 3)
+        val result = useCase.execute(count = 3)
         assertThat(result).hasSize(1)
     }
 
@@ -134,7 +133,7 @@ class FilterQuickHealthyMealsUseCaseTest {
             )
         )
         // When
-        val result = filterQuickHealthyMealsUseCase.execute(count = 1)
+        val result = useCase.execute(count = 1)
         // Then
         assertThat(result.first().id).isEqualTo(1)
     }
@@ -167,7 +166,7 @@ class FilterQuickHealthyMealsUseCaseTest {
             )
         )
         // When & then
-        assertThrows<NoMealFoundException> { filterQuickHealthyMealsUseCase.execute(count = 1) }
+        assertThrows<NoMealFoundException> { useCase.execute(count = 1) }
     }
 
 }
