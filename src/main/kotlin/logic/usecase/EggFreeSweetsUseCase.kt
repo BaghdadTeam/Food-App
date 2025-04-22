@@ -2,8 +2,8 @@ package logic.usecase
 
 import model.Meal
 import logic.MealsProvider
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class EggFreeSweetsUseCase(
     private val mealsProvider: MealsProvider
@@ -12,13 +12,13 @@ class EggFreeSweetsUseCase(
     private val seenMeals = mutableSetOf<String>()
 
     fun execute(): Meal {
-        if (mealsProvider.getMeals().isEmpty()) throw EmptyMeals("No meals found")
+        if (mealsProvider.getMeals().isEmpty()) throw EmptyMealsException("No meals found")
         return mealsProvider.getMeals()
             .filter(::isEggFreeSweet)
             .takeIf { it.isNotEmpty() }
             ?.random()
             .also { seenMeals.add(it?.id.toString()) }
-            ?: throw NoElementMatch("There is no more egg free sweets")
+            ?: throw NoMealFoundException("There is no more egg free sweets")
     }
 
 

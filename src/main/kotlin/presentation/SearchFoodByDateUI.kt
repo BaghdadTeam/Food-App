@@ -4,7 +4,7 @@ import kotlinx.datetime.LocalDate
 import logic.usecase.SearchFoodByDateUseCase
 import org.example.utils.InvalidDateFormatException
 import org.example.utils.MealPresenter
-import org.example.utils.NoMealsFoundException
+import org.example.utils.NoMealFoundException
 
 class SearchFoodByDateUI(
     private val useCase: SearchFoodByDateUseCase
@@ -43,7 +43,7 @@ class SearchFoodByDateUI(
 
         } catch (e: InvalidDateFormatException) {
             println("Error: ${e.message}")
-        } catch (e: NoMealsFoundException) {
+        } catch (e: NoMealFoundException) {
             println("Notice: ${e.message}")
         }
     }

@@ -1,9 +1,9 @@
 package org.example.presentation
 
 import logic.usecase.SuggestKetoMealUseCase
-import org.example.utils.EmptyMeals
+import org.example.utils.EmptyMealsException
 import org.example.utils.MealPresenter
-import org.example.utils.NoElementMatch
+import org.example.utils.NoMealFoundException
 
 class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase) : Feature {
     override val id: Int = FEATURE_ID
@@ -25,9 +25,9 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase) : Feature 
                     suggestedMeal = useCase.execute()
                 } else println("Invalid input. Please enter 'y' or 'n'.")
             }
-        } catch (_: EmptyMeals) {
+        } catch (_: EmptyMealsException) {
             println("No meals in the database.")
-        } catch (e: NoElementMatch) {
+        } catch (e: NoMealFoundException) {
             println("There is no more unique keto Meals")
         } catch (e: Exception) {
             println("There is a problem happened when retrieving the data")
