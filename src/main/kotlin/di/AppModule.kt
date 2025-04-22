@@ -8,6 +8,8 @@ import logic.MealsProvider
 import org.example.logic.MealsRepository
 import org.example.logic.SearchAlgorithm
 import org.example.logic.search.KMPSearchAlgorithm
+import org.example.presentation.*
+
 import org.koin.dsl.module
 import java.io.File
 
@@ -21,4 +23,7 @@ val appModule = module {
     single<MealsRepository> { CsvMealsRepository(get(), get()) }
 
     single<MealsProvider> { DefaultMealsProvider(get()) }
+    single<Reader> { ReaderImpl() }
+    single<Viewer> { ViewerImpl() }
+
 }
