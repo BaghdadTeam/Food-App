@@ -1,8 +1,8 @@
 package org.example.presentation
 
 import logic.usecase.SeaFoodMealUseCase
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class SeafoodMealsUI(
     private val useCase: SeaFoodMealUseCase
@@ -17,9 +17,9 @@ class SeafoodMealsUI(
             rankedMeals.forEach { (rank, meal) ->
                 println("$rank      ${meal.name}     ${meal.nutrition!!.protein}")
             }
-        } catch (e: EmptyMeals) {
+        } catch (e: EmptyMealsException) {
             println("There is no meals in database")
-        } catch (e: NoElementMatch) {
+        } catch (e: NoMealFoundException) {
             println("There is no seafood meals found")
         } catch (e: Exception) {
             println("There is a problem happened when retrieving the data.")

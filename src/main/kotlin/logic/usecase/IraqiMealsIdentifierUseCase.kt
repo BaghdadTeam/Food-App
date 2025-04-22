@@ -2,20 +2,20 @@ package logic.usecase
 
 import logic.MealsProvider
 import model.Meal
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class IraqiMealsIdentifierUseCase(
     private val mealsProvider: MealsProvider
 ) {
 
     fun execute(): List<Meal> {
-        if (mealsProvider.getMeals().isEmpty()) throw EmptyMeals("No meals found")
+        if (mealsProvider.getMeals().isEmpty()) throw EmptyMealsException("No meals found")
 
         return mealsProvider.getMeals()
             .filter(::isIraqiMeal)
             .takeIf { it.isNotEmpty() }
-            ?: throw NoElementMatch("There is no Iraqi Meals")
+            ?: throw NoMealFoundException("There is no Iraqi Meals")
 
     }
 
