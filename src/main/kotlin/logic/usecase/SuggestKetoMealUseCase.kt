@@ -2,21 +2,21 @@ package logic.usecase
 
 import model.Meal
 import logic.MealsProvider
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
 
     private val alreadySuggestKetoMeals = mutableSetOf<Meal>()
 
     fun execute(): Meal {
-        if (mealsProvider.getMeals().isEmpty()) throw EmptyMeals("No meals found")
+        if (mealsProvider.getMeals().isEmpty()) throw EmptyMealsException("No meals found")
         return mealsProvider.getMeals()
             .filter(::isKetoMealAndNotSuggested)
             .takeIf { it.isNotEmpty() }
             ?.random()
             ?.also { alreadySuggestKetoMeals.add(it) }
-            ?: throw NoElementMatch("There is no more unique keto Meals")
+            ?: throw NoMealFoundException("There is no more unique keto Meals")
     }
 
     private fun isKetoMealAndNotSuggested(meal: Meal): Boolean {
