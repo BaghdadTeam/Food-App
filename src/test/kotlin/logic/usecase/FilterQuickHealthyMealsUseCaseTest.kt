@@ -87,6 +87,7 @@ class FilterQuickHealthyMealsUseCaseTest {
 
     @Test
     fun `Should return meals with lowest total fat , saturated fat and carbohydrates compared to other meals`() {
+        // Given
         every { mealsProvider.getMeals() } returns listOf(
             Meal(
                 name = "healthy meal",
@@ -132,7 +133,41 @@ class FilterQuickHealthyMealsUseCaseTest {
                 preparationTime = 10
             )
         )
+        // When
         val result = filterQuickHealthyMealsUseCase.execute(count = 1)
+        // Then
         assertThat(result.first().id).isEqualTo(1)
     }
+
+    @Test
+    fun `Should throw NoMealsFoundException if preparation time longer than 15 minutes`() {
+        // Given
+        every { mealsProvider.getMeals() } returns listOf(
+            Meal(
+                name = "healthy meal",
+                id = 1,
+                contributorId = null,
+                date = null,
+                tags = null,
+                nutrition = Nutrition(
+                    calories = null,
+                    protein = null,
+                    totalFat = 10.0,
+                    saturatedFat = 5.0,
+                    carbohydrates = 2.0,
+                    sugar = null,
+                    sodium = null
+                ),
+                nSteps = null,
+                steps = listOf(),
+                description = null,
+                ingredients = null,
+                nIngredients = null,
+                preparationTime = 20
+            )
+        )
+        // When & then
+        assertThrows<NoMealFoundException> { filterQuickHealthyMealsUseCase.execute(count = 1) }
+    }
+
 }
