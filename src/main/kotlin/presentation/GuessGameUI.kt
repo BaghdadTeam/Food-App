@@ -1,8 +1,8 @@
 package org.example.presentation
 
 import logic.usecase.GuessMealGameUseCase
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class GuessGameUI(private val useCase: GuessMealGameUseCase) : Feature {
     override val id: Int = FEATURE_ID
@@ -32,9 +32,9 @@ class GuessGameUI(private val useCase: GuessMealGameUseCase) : Feature {
             println("The correct time was $preparationTime minutes.")
 
 
-        }catch (e: EmptyMeals) {
+        }catch (e: EmptyMealsException) {
             println("There is no meals in database")
-        } catch (e: NoElementMatch) {
+        } catch (e: NoMealFoundException) {
             println(
                 """There is no meals to be used in this game
                 |please try again later

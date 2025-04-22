@@ -1,9 +1,9 @@
 package org.example.presentation
 
 import logic.usecase.SuggestHighCalorieMealUseCase
-import org.example.utils.EmptyMeals
+import org.example.utils.EmptyMealsException
 import org.example.utils.MealPresenter
-import org.example.utils.NoElementMatch
+import org.example.utils.NoMealFoundException
 
 class HighCalorieMealsUI(
     private val useCase: SuggestHighCalorieMealUseCase
@@ -34,9 +34,9 @@ class HighCalorieMealsUI(
                     println("Invalid input. Please enter 'y' or 'n'.")
                 }
             }
-        } catch (_: EmptyMeals) {
+        } catch (_: EmptyMealsException) {
             println("No meals in the database.")
-        } catch (e: NoElementMatch) {
+        } catch (e: NoMealFoundException) {
             println(
                 """There is no high calories meal at the moment
                 |please try again later.
