@@ -1,8 +1,8 @@
 package org.example.presentation
 
 import logic.usecase.MealsForLargeGroupUseCase
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class ItalianForLargeGroupsUI(
     private val useCase: MealsForLargeGroupUseCase
@@ -17,9 +17,9 @@ class ItalianForLargeGroupsUI(
             meals.forEachIndexed { index, meal ->
                 println("${index + 1} - ${meal.name}")
             }
-        } catch (_: EmptyMeals) {
+        } catch (_: EmptyMealsException) {
             println("No meals in the database.")
-        } catch (e: NoElementMatch) {
+        } catch (e: NoMealFoundException) {
             println(
                 """There is no meals for large group at the moment
                 |please try again later

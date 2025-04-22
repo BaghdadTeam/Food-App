@@ -1,9 +1,9 @@
 package org.example.presentation
 
 import logic.usecase.SearchMealUseCase
-import org.example.utils.EmptyMealName
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealNameException
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class MealSearchUI(private val useCase: SearchMealUseCase) : Feature {
     override val id: Int = FEATURE_ID
@@ -16,11 +16,11 @@ class MealSearchUI(private val useCase: SearchMealUseCase) : Feature {
             val meals = useCase.execute(keyword)
             println("Matching Meals:\n${meals.joinToString("\n") { "- ${it.name} " }}")
 
-        } catch (_: EmptyMeals) {
+        } catch (_: EmptyMealsException) {
             println("No meals in the database.")
-        } catch (_: EmptyMealName) {
+        } catch (_: EmptyMealNameException) {
             println("Meal name should not be empty")
-        } catch (_: NoElementMatch) {
+        } catch (_: NoMealFoundException) {
             println("No meals found matching '$keyword'.")
         } catch (_: Exception) {
             println("There is a problem happened when retrieving the data.")

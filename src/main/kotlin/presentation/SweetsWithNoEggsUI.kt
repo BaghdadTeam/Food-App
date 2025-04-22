@@ -1,9 +1,9 @@
 package org.example.presentation
 
 import logic.usecase.EggFreeSweetsUseCase
-import org.example.utils.EmptyMeals
+import org.example.utils.EmptyMealsException
 import org.example.utils.MealPresenter
-import org.example.utils.NoElementMatch
+import org.example.utils.NoMealFoundException
 
 class SweetsWithNoEggsUI(private val useCase: EggFreeSweetsUseCase) : Feature {
     override val id: Int = FEATURE_ID
@@ -21,9 +21,9 @@ class SweetsWithNoEggsUI(private val useCase: EggFreeSweetsUseCase) : Feature {
                     break
                 }
             }
-        } catch (e: EmptyMeals) {
+        } catch (e: EmptyMealsException) {
             println("There is no meals in database")
-        } catch (e: NoElementMatch) {
+        } catch (e: NoMealFoundException) {
             println("There is no egg free sweets found")
         } catch (e: Exception) {
             println(

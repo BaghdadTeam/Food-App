@@ -1,8 +1,8 @@
 package org.example.presentation
 
 import logic.usecase.FilterQuickHealthyMealsUseCase
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class QuickHealthyMealsUI(private val useCase: FilterQuickHealthyMealsUseCase) : Feature {
     override val id: Int = FEATURE_ID
@@ -24,9 +24,9 @@ class QuickHealthyMealsUI(private val useCase: FilterQuickHealthyMealsUseCase) :
                     println("Quick & Healthy Meals:")
                     meals.forEach { println("- ${it.name}") }
                 }
-            } catch (e: EmptyMeals) {
+            } catch (e: EmptyMealsException) {
                 println("There is no meals in database")
-            } catch (e: NoElementMatch) {
+            } catch (e: NoMealFoundException) {
                 println("There are no quick healthy meals available ")
             } catch (e: Exception) {
                 println("There is a problem happened when retrieving the data.")
