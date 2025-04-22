@@ -1,7 +1,7 @@
 package org.example.presentation
 
 class ViewerImpl : Viewer {
-    override fun printToConsole(text: String) {
+    override fun log(text: String) {
         println(text)
     }
 }
