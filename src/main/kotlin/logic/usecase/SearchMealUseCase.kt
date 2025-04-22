@@ -3,9 +3,7 @@ package logic.usecase
 import logic.MealsProvider
 import model.Meal
 import org.example.logic.SearchAlgorithm
-import org.example.utils.EmptyMealName
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.*
 
 class SearchMealUseCase(
     private val mealsProvider: MealsProvider,
