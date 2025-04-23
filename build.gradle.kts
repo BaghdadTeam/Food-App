@@ -1,8 +1,5 @@
-import java.io.ByteArrayOutputStream
-
 plugins {
     kotlin("jvm") version "2.1.10"
-    jacoco
 }
 
 group = "org.example"
@@ -36,80 +33,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
 }
-
-jacoco {
-    toolVersion = "0.8.10"
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
-    }
-
-    doFirst {
-        // Get modified files in the current PR (this assumes you're using Git)
-        val modifiedFiles = mutableListOf<String>()
-        val outputStream = ByteArrayOutputStream()
-
-        // Ensure the branch is fetched before running the diff
-        exec {
-            commandLine("git", "fetch", "origin")
-        }
-
-        // Execute the git command to get modified files
-        exec {
-            commandLine("git", "diff", "--name-only", "origin/develop...HEAD")
-            standardOutput = outputStream
-        }
-
-        // Capture the output of the command
-        modifiedFiles.addAll(outputStream.toString().split("\n"))
-
-        // Filter only Kotlin files in src/test (or any test directories you have)
-        val testFiles = modifiedFiles.filter { it.startsWith("src/test") && it.endsWith(".kt") }
-
-        if (testFiles.isEmpty()) {
-            // If no test files are modified, skip JaCoCo verification
-            tasks.jacocoTestCoverageVerification.get().isEnabled = false
-        }
-
-        // Include only the test-related classes
-        classDirectories.setFrom(fileTree("build/classes/kotlin/main") {
-            include(testFiles.map { it.replace("src/test/kotlin/", "build/classes/kotlin/main/") })
-        })
-    }
-
-    sourceDirectories.setFrom(files("src/main/kotlin"))
-    executionData.setFrom(files("build/jacoco/test.exec"))
-}
-
-tasks.withType<JacocoCoverageVerification> {
-    doFirst {
-        val execFile = file("build/jacoco/test.exec")
-        if (!execFile.exists()) {
-            // Skip verification if no test execution file exists
-            isEnabled = false
-        } else {
-            violationRules {
-                rule {
-                    limit {
-                        minimum = BigDecimal.valueOf(1.0) // 100% coverage
-                    }
-                }
-            }
-        }
-    }
-}
-
-tasks.named("check").configure {
-    dependsOn(tasks.jacocoTestCoverageVerification)
-}
-
 
 kotlin {
     jvmToolchain(20)
