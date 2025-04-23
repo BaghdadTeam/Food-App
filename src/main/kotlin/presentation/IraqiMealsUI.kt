@@ -4,7 +4,7 @@ import logic.usecase.IraqiMealsIdentifierUseCase
 import model.Meal
 import org.example.utils.NoMealFoundException
 
-class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
+class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase, private val viewer: Viewer) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
@@ -13,9 +13,9 @@ class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
             val meals = useCase.execute()
             printMealsTable(meals)
         } catch (e: NoMealFoundException) {
-            println("There is no Iraqi meals found")
+            viewer.log("There is no Iraqi meals found")
         } catch (e: Exception) {
-            println(
+            viewer.log(
                 """Something wrong happened when retriveing the data.
                 |please try again later
             """.trimMargin()
@@ -24,9 +24,9 @@ class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase) : Feature {
     }
 
     private fun printMealsTable(meals: List<Meal>) {
-        println(String.run { format("%-10s    |  %-20s", "ID", "Name") })
+        viewer.log(String.run { format("%-10s    |  %-20s", "ID", "Name") })
         meals.forEach { meal ->
-            println(
+            viewer.log(
                 String.format(
                     "%-10s    |  %-20s",
                     meal.id, meal.name,

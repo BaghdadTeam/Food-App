@@ -1,14 +1,13 @@
 package logic.usecase
 
-import TextSearchUtil
 import logic.MealsProvider
 import model.Meal
-import org.example.utils.EmptyMealNameException
-import org.example.utils.NoMealFoundException
-import org.example.utils.EmptyMealsException
+import org.example.logic.SearchAlgorithm
+import org.example.utils.*
 
 class SearchMealUseCase(
-    private val mealsProvider: MealsProvider
+    private val mealsProvider: MealsProvider,
+    private val searchAlgorithm: SearchAlgorithm
 ) {
 
     fun execute(name: String): List<Meal> {
@@ -21,11 +20,12 @@ class SearchMealUseCase(
         return meals
     }
 
+
+    private fun findMeal(
+        mealName: String,
+        pattern: String
+    ): Boolean =
+        searchAlgorithm.search(mealName, pattern)
+
 }
 
-
-private fun findMeal(
-    mealName: String,
-    pattern: String
-): Boolean =
-    TextSearchUtil.kmpSearch(mealName, pattern)
