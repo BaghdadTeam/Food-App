@@ -8,7 +8,11 @@ import org.example.utils.EmptyMealsException
 import org.example.utils.MealPresenter
 import org.example.utils.NoMealFoundException
 
-class SweetsWithNoEggsUI(private val useCase: EggFreeSweetsUseCase, private val viewer: Viewer, private val reader: Reader) :
+class EggFreeSweetsUI(
+    private val useCase: EggFreeSweetsUseCase,
+    private val viewer: Viewer,
+    private val reader: Reader
+) :
     Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
@@ -20,7 +24,7 @@ class SweetsWithNoEggsUI(private val useCase: EggFreeSweetsUseCase, private val 
                 viewer.log("How about this sweet: ${sweet.name}")
                 viewer.log("Do you like it? (yes/no): ")
                 val choice = reader.readInput()?.trim()
-                if (choice?.contains("y", ignoreCase = true) ?: false) {
+                if (choice?.contains("y", ignoreCase = true) == true) {
                     MealPresenter.printDetails(meal = sweet)
                     break
                 }
@@ -30,11 +34,7 @@ class SweetsWithNoEggsUI(private val useCase: EggFreeSweetsUseCase, private val 
         } catch (e: NoMealFoundException) {
             viewer.log("There is no egg free sweets found")
         } catch (e: Exception) {
-            viewer.log(
-                """Something wrong happened when retrieving the data.
-                |please try again later
-            """.trimMargin()
-            )
+            viewer.log("Something wrong happened when retrieving the data." )
         }
     }
 
