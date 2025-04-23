@@ -46,7 +46,7 @@ class SearchMealUseCaseTest {
     }
 
     @Test
-    fun `Should return Meal when the Meal is found by name`() {
+    fun `Should return list of meals when the Meal is found by name`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "pizza")
@@ -71,7 +71,7 @@ class SearchMealUseCaseTest {
     }
 
     @Test
-    fun `should return meal when case insensitive search`() {
+    fun `should return list of meals when case insensitive search`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "Pizza")
