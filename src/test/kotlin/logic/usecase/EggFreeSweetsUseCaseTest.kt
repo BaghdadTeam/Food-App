@@ -101,4 +101,28 @@ class EggFreeSweetsUseCaseTest {
             eggFreeSweetsUseCase.execute()
         }
     }
+
+    @Test
+    fun `should handle tags and ingredients with mixed casing and extra spaces`() {
+        val meal = createMealHelper(
+            name = "Sweet Surprise",
+            tags = listOf(" Sweet "),
+            ingredients = listOf("  sugar  ", "flour")
+        )
+        every { mealsProvider.getMeals() } returns listOf(meal)
+
+        val result = eggFreeSweetsUseCase.execute()
+        assertThat(result.name).isEqualTo("Sweet Surprise")
+    }
+
+    @Test
+    fun `should ignore meals with null tags or null ingredients`() {
+        val mealWithNullTags = createMealHelper(name = "Mystery Meal", tags = null, ingredients = listOf("sugar"))
+        val mealWithNullIngredients = createMealHelper(name = "Another Mystery", tags = listOf("sweet"), ingredients = null)
+        every { mealsProvider.getMeals() } returns listOf(mealWithNullTags, mealWithNullIngredients)
+
+        assertThrows<NoMealFoundException> {
+            eggFreeSweetsUseCase.execute()
+        }
+    }
 }
