@@ -51,11 +51,15 @@ tasks.jacocoTestReport {
         html.required.set(true)
     }
 
-    // Dynamically include only modified files related to tests
     doFirst {
         // Get modified files in the current PR (this assumes you're using Git)
         val modifiedFiles = mutableListOf<String>()
         val outputStream = ByteArrayOutputStream()
+
+        // Ensure the branch is fetched before running the diff
+        exec {
+            commandLine("git", "fetch", "origin")
+        }
 
         // Execute the git command to get modified files
         exec {
@@ -84,14 +88,12 @@ tasks.jacocoTestReport {
     executionData.setFrom(files("build/jacoco/test.exec"))
 }
 
-
-// Coverage verification configuration (only enabled if tests exist)
 tasks.withType<JacocoCoverageVerification> {
     doFirst {
         val execFile = file("build/jacoco/test.exec")
         if (!execFile.exists()) {
             // Skip verification if no test execution file exists
-            enabled = false
+            isEnabled = false
         } else {
             violationRules {
                 rule {
@@ -107,6 +109,7 @@ tasks.withType<JacocoCoverageVerification> {
 tasks.named("check").configure {
     dependsOn(tasks.jacocoTestCoverageVerification)
 }
+
 
 kotlin {
     jvmToolchain(20)
