@@ -27,9 +27,9 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private va
             }
         } catch (_: EmptyMealsException) {
             viewer.log("No meals in the database.")
-        } catch (e: NoMealFoundException) {
+        } catch (_: NoMealFoundException) {
             viewer.log("There is no more unique keto Meals")
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             viewer.log("There is a problem happened when retrieving the data")
         }
     }
