@@ -19,7 +19,7 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
     }
 
     private fun isQuickAndHasNutrition(meal: Meal): Boolean {
-        return meal.preparationTime <= MAX_PREPARATION_TIME && meal.nutrition != null
+        return (meal.preparationTime <= MAX_PREPARATION_TIME && meal.preparationTime >= MIN_PREPARATION_TIME) && meal.nutrition != null
     }
 
     private fun healthScore(meal: Meal): Double {
@@ -30,7 +30,8 @@ class FilterQuickHealthyMealsUseCase(private val mealsProvider: MealsProvider) {
     }
 
     companion object {
-        const val MAX_PREPARATION_TIME = 15
+        private const val MAX_PREPARATION_TIME = 15
+        private const val MIN_PREPARATION_TIME = 0
 
     }
 }

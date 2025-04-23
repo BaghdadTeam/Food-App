@@ -13,8 +13,8 @@ class QuickHealthyMealsUI(private val useCase: FilterQuickHealthyMealsUseCase, p
         viewer.log("Please enter the number of meals you want to see:")
         val countInput = reader.readInput()?.toIntOrNull()
 
-        if (countInput == null) {
-            viewer.log("Please enter a valid number.")
+        if (countInput == null || countInput <= 0) {
+            viewer.log("Please enter a valid positive number.")
         } else {
             try {
                 val meals = useCase.execute(countInput)
