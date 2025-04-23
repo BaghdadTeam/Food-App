@@ -1,4 +1,4 @@
-package logic.usecase
+package org.example.logic.usecase.suggest
 
 import logic.MealsProvider
 import model.Meal

@@ -1,4 +1,4 @@
-package logic.usecase
+package org.example.logic.usecase.suggest
 
 import model.Meal
 import logic.MealsProvider
@@ -20,7 +20,6 @@ class EggFreeSweetsUseCase(
             .also { seenMeals.add(it?.id.toString()) }
             ?: throw NoMealFoundException("There is no more egg free sweets")
     }
-
 
     private fun isEggFreeSweet(meal: Meal): Boolean {
         if (meal.tags == null) return false

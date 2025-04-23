@@ -1,7 +1,9 @@
-package org.example.presentation
+package org.example.presentation.suggest
 
-import logic.usecase.IraqiMealsIdentifierUseCase
+import org.example.logic.usecase.suggest.IraqiMealsIdentifierUseCase
 import model.Meal
+import org.example.presentation.Feature
+import org.example.presentation.Viewer
 import org.example.utils.NoMealFoundException
 
 class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase, private val viewer: Viewer) : Feature {
