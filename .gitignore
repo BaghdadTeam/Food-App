@@ -41,3 +41,7 @@ food.csv
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
 .idea/vcs.xml
 build
+
+
+### android studio ###
+/local.properties
