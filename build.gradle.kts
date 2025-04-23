@@ -29,6 +29,7 @@ dependencies {
 
     // mockk
     testImplementation("io.mockk:mockk:1.14.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
 tasks.test {

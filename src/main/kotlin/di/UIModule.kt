@@ -1,5 +1,7 @@
 package org.example.di
 
+import logic.usecase.GuessMealGameUseCase
+
 import org.example.presentation.*
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -9,7 +11,8 @@ val uiModule = module {
 
     factory { QuickHealthyMealsUI(get()) } bind Feature::class
     factory { IraqiMealsUI(get()) } bind Feature::class
-    factory { GuessGameUI(get()) } bind Feature::class
+    factory { GuessGameUI(get<GuessMealGameUseCase>()) } bind Feature::class
+    //factory { GuessGameUI(useCase = get()) } bind Feature::class
 
     factory { SweetsWithNoEggsUI(useCase = get()) } bind Feature::class
     factory { KetoFriendlyMealUI(useCase = get()) } bind Feature::class

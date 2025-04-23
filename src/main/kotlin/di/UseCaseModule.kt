@@ -3,12 +3,14 @@ package org.example.di
 import logic.usecase.*
 import org.koin.dsl.module
 
+
+
 val useCaseModule = module {
     single { EggFreeSweetsUseCase(get()) }
     single { ExploreOtherCountriesFoodCultureUseCase(get()) }
     single { FilterQuickHealthyMealsUseCase(get()) }
-
-    single { GuessMealGameUseCase(get()) }
+    single { GuessMealGameUseCase(get(), get()) }
+    //single { GuessMealGameUseCase(get(), MockInputProvider(listOf(mockk(), mockk())}
     single { IngredientGameUseCase(get()) }
     single { IraqiMealsIdentifierUseCase(get()) }
 
