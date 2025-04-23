@@ -24,14 +24,15 @@ class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
         return nutrition?.totalFat != null && nutrition.totalFat >= MIN_FAT &&
                 nutrition.carbohydrates != null && nutrition.carbohydrates < MAX_CARBS &&
                 nutrition.sugar != null && nutrition.sugar < MAX_SUGAR &&
-                nutrition.protein != null && nutrition.protein in PROTEIN_RANGE&&
+                nutrition.protein != null && nutrition.protein in PROTEIN_RANGE &&
                 meal !in alreadySuggestKetoMeals
 
     }
 
-    companion object {
+    private companion object {
         const val MIN_FAT = 15
         const val MAX_CARBS = 10
         const val MAX_SUGAR = 5
-        val PROTEIN_RANGE = 10.0..30.0}
+        val PROTEIN_RANGE = 10.0..30.0
+    }
 }
