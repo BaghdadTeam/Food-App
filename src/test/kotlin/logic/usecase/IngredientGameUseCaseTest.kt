@@ -381,4 +381,11 @@ class IngredientGameUseCaseTest {
         assertThat(result).isEqualTo("Pizza")
     }
 
+    @Test
+    fun `getPoints should return 1000`() {
+        val result = ingredientGameUseCase.getPoints()
+        assertThat(result).isEqualTo(1000)
+    }
+
 }
+
