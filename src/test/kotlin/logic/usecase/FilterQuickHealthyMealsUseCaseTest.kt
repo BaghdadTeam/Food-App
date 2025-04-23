@@ -3,6 +3,7 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
+import logic.helpers.createMealHelper
 import model.Meal
 import model.Nutrition
 import org.example.utils.EmptyMealsException
@@ -10,6 +11,8 @@ import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class FilterQuickHealthyMealsUseCaseTest {
     private lateinit var mealsProvider: MealsProvider
@@ -32,21 +35,11 @@ class FilterQuickHealthyMealsUseCaseTest {
 
 
     @Test
-    fun `Should throw NoMealsFoundException when there is no meals found`() {
+    fun `Should throw NoMealsFoundException when the nutrition is null`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
-            Meal(
-                name = "healthy meal",
-                id = null,
-                contributorId = null,
-                date = null,
-                tags = null,
+            createMealHelper(
                 nutrition = null,
-                nSteps = null,
-                steps = listOf(),
-                description = null,
-                ingredients = null,
-                nIngredients = null,
                 preparationTime = 10
             )
         )
@@ -54,15 +47,12 @@ class FilterQuickHealthyMealsUseCaseTest {
         assertThrows<NoMealFoundException> { useCase.execute(count = 1) }
     }
 
+
     @Test
     fun `Should return only the valid meals even if count input bigger then the meals match the conditions `() {
         every { mealsProvider.getMeals() } returns listOf(
-            Meal(
+           createMealHelper(
                 name = "healthy meal",
-                id = null,
-                contributorId = null,
-                date = null,
-                tags = null,
                 nutrition = Nutrition(
                     calories = null,
                     protein = null,
@@ -72,11 +62,6 @@ class FilterQuickHealthyMealsUseCaseTest {
                     sugar = null,
                     sodium = null
                 ),
-                nSteps = null,
-                steps = listOf(),
-                description = null,
-                ingredients = null,
-                nIngredients = null,
                 preparationTime = 10
             )
         )
@@ -88,12 +73,8 @@ class FilterQuickHealthyMealsUseCaseTest {
     fun `Should return meals with lowest total fat , saturated fat and carbohydrates compared to other meals`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
-            Meal(
-                name = "healthy meal",
+           createMealHelper(
                 id = 1,
-                contributorId = null,
-                date = null,
-                tags = null,
                 nutrition = Nutrition(
                     calories = null,
                     protein = null,
@@ -103,18 +84,10 @@ class FilterQuickHealthyMealsUseCaseTest {
                     sugar = null,
                     sodium = null
                 ),
-                nSteps = null,
-                steps = listOf(),
-                description = null,
-                ingredients = null,
-                nIngredients = null,
+
                 preparationTime = 10
-            ), Meal(
-                name = "healthy meal",
+            ),createMealHelper(
                 id = 2,
-                contributorId = null,
-                date = null,
-                tags = null,
                 nutrition = Nutrition(
                     calories = null,
                     protein = null,
@@ -124,30 +97,33 @@ class FilterQuickHealthyMealsUseCaseTest {
                     sugar = null,
                     sodium = null
                 ),
-                nSteps = null,
-                steps = listOf(),
-                description = null,
-                ingredients = null,
-                nIngredients = null,
+                preparationTime = 10
+            ),createMealHelper(
+                id = 3,
+                nutrition = Nutrition(
+                    calories = null,
+                    protein = null,
+                    totalFat = 2.0,
+                    saturatedFat = 3.0,
+                    carbohydrates = 5.0,
+                    sugar = null,
+                    sodium = null
+                ),
                 preparationTime = 10
             )
         )
         // When
         val result = useCase.execute(count = 1)
         // Then
-        assertThat(result.first().id).isEqualTo(1)
+        assertThat(result.first().id).isEqualTo(3)
     }
 
-    @Test
-    fun `Should throw NoMealsFoundException if preparation time longer than 15 minutes`() {
+    @ParameterizedTest
+    @CsvSource("-10", "20")
+    fun `Should throw NoMealsFoundException if preparation time not in range between 0 and 15  minutes `(preparationTime: Int) {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
-            Meal(
-                name = "healthy meal",
-                id = 1,
-                contributorId = null,
-                date = null,
-                tags = null,
+           createMealHelper(
                 nutrition = Nutrition(
                     calories = null,
                     protein = null,
@@ -157,16 +133,56 @@ class FilterQuickHealthyMealsUseCaseTest {
                     sugar = null,
                     sodium = null
                 ),
-                nSteps = null,
-                steps = listOf(),
-                description = null,
-                ingredients = null,
-                nIngredients = null,
-                preparationTime = 20
+             preparationTime = preparationTime
             )
         )
         // When & then
         assertThrows<NoMealFoundException> { useCase.execute(count = 1) }
+    }
+
+    @ParameterizedTest
+    @CsvSource("5", "15", "0")
+    fun `Should return meals with  preparation time in range between 0 and 15  minutes `(preparationTime: Int) {
+        // Given
+        every { mealsProvider.getMeals() } returns listOf(
+            createMealHelper(
+                nutrition = Nutrition(
+                    calories = null,
+                    protein = null,
+                    totalFat = 10.0,
+                    saturatedFat = 5.0,
+                    carbohydrates = 2.0,
+                    sugar = null,
+                    sodium = null
+                ),
+                preparationTime = preparationTime
+            )
+        )
+
+        //When
+        val result = useCase.execute(count = 1)
+        // Then
+        assertThat(result.first().preparationTime).isIn(0..15)
+    }
+    @Test
+    fun `Should treat null nutrition values as zero when calculating health score`() {
+        every { mealsProvider.getMeals() } returns listOf(
+            createMealHelper(
+                name = "healthy meal",
+                nutrition = Nutrition(
+                    calories = 0.0,
+                    protein = null,
+                    totalFat = null,
+                    saturatedFat = null,
+                    carbohydrates = null,
+                    sugar = 0.6,
+                    sodium = 3.0
+                ),
+                preparationTime = 10
+            )
+        )
+        val result = useCase.execute(count = 1)
+        assertThat(result).isNotEmpty()
     }
 
 }
