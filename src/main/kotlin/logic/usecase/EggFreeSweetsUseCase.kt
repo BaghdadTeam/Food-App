@@ -23,10 +23,13 @@ class EggFreeSweetsUseCase(
 
 
     private fun isEggFreeSweet(meal: Meal): Boolean {
-        val sweetMeal = meal.tags?.any { it.contains("sweet", ignoreCase = true) } == true
+        if (meal.tags == null) return false
+
+        val sweetMeal = meal.tags.any { it.contains("sweet", ignoreCase = true) }
         if (!sweetMeal) return false
 
-        val containsEgg = meal.ingredients?.any { it.contains("egg", ignoreCase = true) } == true
+        if (meal.ingredients == null) return false
+        val containsEgg = meal.ingredients.any { it.contains("egg", ignoreCase = true) }
         if (containsEgg) return false
 
         val seen = seenMeals.contains(meal.id.toString())
