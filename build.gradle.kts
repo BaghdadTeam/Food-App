@@ -29,6 +29,8 @@ dependencies {
 
     // mockk
     testImplementation("io.mockk:mockk:1.14.0")
+    // junit params
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2")
 }
 
 tasks.test {
