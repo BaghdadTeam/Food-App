@@ -1,4 +1,4 @@
-package logic.helpers
+package helpers
 
 import kotlinx.datetime.LocalDate
 import model.Meal
