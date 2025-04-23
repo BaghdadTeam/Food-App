@@ -58,6 +58,21 @@ tasks.jacocoTestReport {
     executionData.setFrom(files("build/jacoco/test.exec"))
 }
 
+// Coverage verification configuration
+tasks.withType<JacocoCoverageVerification> {
+    violationRules {
+        rule {
+            limit {
+                minimum = BigDecimal.valueOf(1.0) // 100% coverage
+            }
+        }
+    }
+}
+
+tasks.named("check").configure {
+    dependsOn(tasks.jacocoTestCoverageVerification)
+}
+
 kotlin {
     jvmToolchain(20)
 }
