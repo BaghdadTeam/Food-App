@@ -20,7 +20,7 @@ class QuickHealthyMealsUITest {
 
     @BeforeEach
     fun setUp() {
-        reader = mockk(relaxed = true)
+        reader = mockk()
         viewer = mockk(relaxed = true)
         useCase = mockk()
         quickHealthyMealsUI = QuickHealthyMealsUI(useCase, viewer, reader)

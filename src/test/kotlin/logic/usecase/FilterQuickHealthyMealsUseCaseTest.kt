@@ -4,7 +4,6 @@ import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
 import logic.helpers.createMealHelper
-import model.Meal
 import model.Nutrition
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
@@ -20,7 +19,7 @@ class FilterQuickHealthyMealsUseCaseTest {
 
     @BeforeEach
     fun setUp() {
-        mealsProvider = mockk(relaxed = true)
+        mealsProvider = mockk()
         useCase = FilterQuickHealthyMealsUseCase(mealsProvider)
     }
 
@@ -169,15 +168,8 @@ class FilterQuickHealthyMealsUseCaseTest {
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(
                 name = "healthy meal",
-                nutrition = Nutrition(
-                    calories = 0.0,
-                    protein = null,
-                    totalFat = null,
-                    saturatedFat = null,
-                    carbohydrates = null,
-                    sugar = 0.6,
-                    sodium = 3.0
-                ),
+                nutrition = Nutrition(null,null,null,null,null,null,null)
+            ,
                 preparationTime = 10
             )
         )
