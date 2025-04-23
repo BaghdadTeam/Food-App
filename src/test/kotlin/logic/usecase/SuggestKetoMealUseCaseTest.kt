@@ -5,12 +5,8 @@ import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
 import logic.helpers.KetoTestMeals
-import logic.helpers.createMealHelper
-import model.Meal
-import model.Nutrition
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
-
 import org.junit.jupiter.api.*
 
 class SuggestKetoMealUseCaseTest {
