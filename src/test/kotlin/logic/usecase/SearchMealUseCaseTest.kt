@@ -12,7 +12,6 @@ import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class SearchMealUseCaseTest {
     private lateinit var mealsProvider: MealsProvider
@@ -27,13 +26,12 @@ class SearchMealUseCaseTest {
     }
 
 
-
     @Test
     fun `should throw exception when MealsProvider returns empty list`() {
         // Given
         every { mealsProvider.getMeals() } returns emptyList()
         // When
-        assertThrows<EmptyMealsException> {searchMeal.execute("aboud")}
+        assertThrows<EmptyMealsException> { searchMeal.execute("aboud") }
     }
 
 
@@ -44,7 +42,7 @@ class SearchMealUseCaseTest {
             createMealHelper(name = "pizza")
         )
         // When & Test
-        assertThrows<EmptyMealNameException> {searchMeal.execute("")}
+        assertThrows<EmptyMealNameException> { searchMeal.execute("") }
     }
 
     @Test
@@ -69,7 +67,7 @@ class SearchMealUseCaseTest {
             createMealHelper(name = "meal")
         )
         // When & Test
-        assertThrows<NoMealFoundException> {searchMeal.execute("pizza")}
+        assertThrows<NoMealFoundException> { searchMeal.execute("pizza") }
     }
 
     @Test
