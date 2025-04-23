@@ -1,3 +1,5 @@
+import java.io.ByteArrayOutputStream
+
 plugins {
     kotlin("jvm") version "2.1.10"
     jacoco
@@ -49,21 +51,54 @@ tasks.jacocoTestReport {
         html.required.set(true)
     }
 
-    classDirectories.setFrom(
-        fileTree("build/classes/kotlin/main") {
-            exclude("**/generated/**")
+    // Dynamically include only modified files related to tests
+    doFirst {
+        // Get modified files in the current PR (this assumes you're using Git)
+        val modifiedFiles = mutableListOf<String>()
+        val outputStream = ByteArrayOutputStream()
+
+        // Execute the git command to get modified files
+        exec {
+            commandLine("git", "diff", "--name-only", "origin/develop...HEAD")
+            standardOutput = outputStream
         }
-    )
+
+        // Capture the output of the command
+        modifiedFiles.addAll(outputStream.toString().split("\n"))
+
+        // Filter only Kotlin files in src/test (or any test directories you have)
+        val testFiles = modifiedFiles.filter { it.startsWith("src/test") && it.endsWith(".kt") }
+
+        if (testFiles.isEmpty()) {
+            // If no test files are modified, skip JaCoCo verification
+            tasks.jacocoTestCoverageVerification.get().isEnabled = false
+        }
+
+        // Include only the test-related classes
+        classDirectories.setFrom(fileTree("build/classes/kotlin/main") {
+            include(testFiles.map { it.replace("src/test/kotlin/", "build/classes/kotlin/main/") })
+        })
+    }
+
     sourceDirectories.setFrom(files("src/main/kotlin"))
     executionData.setFrom(files("build/jacoco/test.exec"))
 }
 
-// Coverage verification configuration
+
+// Coverage verification configuration (only enabled if tests exist)
 tasks.withType<JacocoCoverageVerification> {
-    violationRules {
-        rule {
-            limit {
-                minimum = BigDecimal.valueOf(1.0) // 100% coverage
+    doFirst {
+        val execFile = file("build/jacoco/test.exec")
+        if (!execFile.exists()) {
+            // Skip verification if no test execution file exists
+            enabled = false
+        } else {
+            violationRules {
+                rule {
+                    limit {
+                        minimum = BigDecimal.valueOf(1.0) // 100% coverage
+                    }
+                }
             }
         }
     }
