@@ -30,7 +30,7 @@ class SearchMealUseCaseTest {
     fun `should throw exception when MealsProvider returns empty list`() {
         // Given
         every { mealsProvider.getMeals() } returns emptyList()
-        // When
+        // When & Then
         assertThrows<EmptyMealsException> { searchMeal.execute("aboud") }
     }
 
@@ -41,12 +41,12 @@ class SearchMealUseCaseTest {
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "pizza")
         )
-        // When & Test
+        // When & Then
         assertThrows<EmptyMealNameException> { searchMeal.execute("") }
     }
 
     @Test
-    fun `Should return Meal when the Meal is found`() {
+    fun `Should return Meal when the Meal is found by name`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "pizza")
@@ -61,12 +61,12 @@ class SearchMealUseCaseTest {
 
 
     @Test
-    fun `should throw an exception when no meal found`() {
+    fun `should throw an exception when no meal found by name`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "meal")
         )
-        // When & Test
+        // When & Then
         assertThrows<NoMealFoundException> { searchMeal.execute("pizza") }
     }
 
@@ -85,7 +85,7 @@ class SearchMealUseCaseTest {
     }
 
     @Test
-    fun `should return multiple meals when multiple meals founds`() {
+    fun `should return multiple meals when multiple meals found`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "Pizza"),
