@@ -3,7 +3,7 @@ package org.example.presentation
 import logic.usecase.IngredientGameUseCase
 import org.example.model.IngredientQuestion
 
-class IngredientGameUI(private val useCase: IngredientGameUseCase) : Feature {
+class IngredientGameUI(private val useCase: IngredientGameUseCase, private val viewer: Viewer,private val reader: Reader) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
@@ -11,41 +11,41 @@ class IngredientGameUI(private val useCase: IngredientGameUseCase) : Feature {
         try {
             while (!useCase.isGameOver()) {
                 val options = useCase.getOptions() ?: break
-                println("\nQuestion ${useCase.getQuestionNumber()} / 15")
+                viewer.log("\nQuestion ${useCase.getQuestionNumber()} / 15")
 
-                println("What is one ingredient in: ${useCase.getMealName(options)}?")
+                viewer.log("What is one ingredient in: ${useCase.getMealName(options)}?")
                 showOptions(options)
 
-                print("Your choice (1-3): ")
-                val choice = readLine()?.toIntOrNull()
+                viewer.log("Your choice (1-3): ")
+                val choice = reader.readInput()?.toIntOrNull()
 
                 val isCorrect = useCase.execute(options, choice)
 
                 if (isCorrect) {
-                    println("\nCorrect! Your score increased by ${useCase.getPoints()}")
+                    viewer.log("\nCorrect! Your score increased by ${useCase.getPoints()}")
                 } else {
-                    println("\nWrong! The correct ingredient was: ${options.correctIngredient}")
+                    viewer.log("\nWrong! The correct ingredient was: ${options.correctIngredient}")
                     break
                 }
             }
 
-            println("Game Over! Final Score: ${useCase.getScore()} points")
+            viewer.log("Game Over! Final Score: ${useCase.getScore()} points")
         } catch (e: NoSuchElementException) {
-            println(
-                println(
+
+                viewer.log(
                     """There are no meals for a large group at the moment.
                       |Please try again later.
                     """.trimMargin()
                 )
-            )
+
         } catch (e: Exception) {
-            println("Something went wrong while starting the game. Please try again later.")
+            viewer.log("Something went wrong while starting the game. Please try again later.")
         }
     }
 
     private fun showOptions(options: IngredientQuestion) {
         options.options.forEachIndexed { index, ingredient ->
-            println("${index + 1}. $ingredient")
+            viewer.log("${index + 1}. $ingredient")
         }
     }
 

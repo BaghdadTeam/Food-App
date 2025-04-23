@@ -4,7 +4,7 @@ import logic.usecase.GuessMealGameUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 
-class GuessGameUI(private val useCase: GuessMealGameUseCase) : Feature {
+class GuessGameUI(private val useCase: GuessMealGameUseCase, private val viewer: Viewer,private val reader: Reader) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
@@ -14,34 +14,34 @@ class GuessGameUI(private val useCase: GuessMealGameUseCase) : Feature {
             val meal = useCase.guessMealPreparationTime()
             val preparationTime = meal.preparationTime
             for (i in 1..attempts) {
-                println("Guess the preparation time for ${meal.name}:")
-                val guess = readlnOrNull()?.toIntOrNull()
+                viewer.log("Guess the preparation time for ${meal.name}:")
+                val guess = reader.readInput()?.toIntOrNull()
                 if (guess != null) {
                     when {
                         guess == preparationTime -> {
-                            println("Correct! The preparation time is $preparationTime minutes.")
+                            viewer.log("Correct! The preparation time is $preparationTime minutes.")
                             return
                         }
 
-                        guess < preparationTime -> println("Too low!")
-                        else -> println("Too high!")
+                        guess < preparationTime -> viewer.log("Too low!")
+                        else -> viewer.log("Too high!")
                     }
                 }
                 attempts--
             }
-            println("The correct time was $preparationTime minutes.")
+            viewer.log("The correct time was $preparationTime minutes.")
 
 
-        }catch (e: EmptyMealsException) {
-            println("There is no meals in database")
+        } catch (e: EmptyMealsException) {
+            viewer.log("There is no meals in database")
         } catch (e: NoMealFoundException) {
-            println(
+            viewer.log(
                 """There is no meals to be used in this game
                 |please try again later
             """.trimMargin()
             )
         } catch (e: Exception) {
-            println("There is something wrong getting the data")
+            viewer.log("There is something wrong getting the data")
         }
     }
 

@@ -1,4 +1,17 @@
-object TextSearchUtil {
+package org.example.logic.search
+
+import org.example.logic.SearchAlgorithm
+
+class KMPSearchAlgorithm : SearchAlgorithm {
+
+    override fun search(text: String, pattern: String): Boolean {
+        if (pattern.isEmpty()) return true
+        if (text.isEmpty()) return false
+
+        val lps = constructLPS(pattern)
+        return kmpSearch(text, pattern, lps)
+    }
+
     /**
      * Searches for a pattern in text using the Knuth-Morris-Pratt (KMP) algorithm.
      * Uses a precomputed LPS array to skip unnecessary comparisons for efficient searching.
@@ -7,10 +20,9 @@ object TextSearchUtil {
      * @param pattern The pattern to find
      * @return true if the pattern is found, false otherwise
      */
-    fun kmpSearch(text: String, pattern: String): Boolean {
+    private fun kmpSearch(text: String, pattern: String, lps: IntArray): Boolean {
         val textLength = text.length
         val patternLength = pattern.length
-        val lps = constructLPS(pattern)
 
         var textIndex = 0
         var patternIndex = 0
@@ -32,6 +44,7 @@ object TextSearchUtil {
         }
         return false
     }
+
     /**
      * Creates the Longest Prefix Suffix (LPS) array for KMP algorithm.
      * The LPS array stores the length of the longest proper prefix which is also a suffix.
@@ -39,7 +52,7 @@ object TextSearchUtil {
      * @param pattern The pattern to analyze
      * @return LPS array with pattern's prefix-suffix information
      */
-    fun constructLPS(pattern: String): IntArray {
+    private fun constructLPS(pattern: String): IntArray {
         val patternLength = pattern.length
         val lps = IntArray(patternLength)
 

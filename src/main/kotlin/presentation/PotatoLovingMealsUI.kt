@@ -1,10 +1,9 @@
 package org.example.presentation
 
 import logic.usecase.PotatoLovingMealsUseCase
-import model.Meal
 
 class PotatoLovingMealsUI(
-    private val useCase: PotatoLovingMealsUseCase
+    private val useCase: PotatoLovingMealsUseCase, private val viewer: Viewer
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
@@ -12,12 +11,12 @@ class PotatoLovingMealsUI(
     override fun execute() {
         val potatoMeals = useCase.execute()
         if (potatoMeals.isEmpty()) {
-            println("No potato meals found in the Dataset!")
+            viewer.log("No potato meals found in the Dataset!")
             return
         }
 
-        println("=== 10 Random Potato Meals ===")
-        println("Total potato meals found: ${potatoMeals.size}\n")
+        viewer.log("=== 10 Random Potato Meals ===")
+        viewer.log("Total potato meals found: ${potatoMeals.size}\n")
 
         val randomMeals = if (potatoMeals.size > NUMBER_OF_POTATO_MEALS) {
             potatoMeals.shuffled().take(NUMBER_OF_POTATO_MEALS)
@@ -26,7 +25,7 @@ class PotatoLovingMealsUI(
         }
 
         randomMeals.forEach { meal ->
-            println(
+            viewer.log(
                 """
             ID: ${meal.id}
             Name: ${meal.name}
