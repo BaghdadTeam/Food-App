@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.1.10"
+    jacoco
 }
 
 group = "org.example"
@@ -33,7 +34,30 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
+
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+
+    classDirectories.setFrom(
+        fileTree("build/classes/kotlin/main") {
+            exclude("**/generated/**")
+        }
+    )
+    sourceDirectories.setFrom(files("src/main/kotlin"))
+    executionData.setFrom(files("build/jacoco/test.exec"))
+}
+
 kotlin {
     jvmToolchain(20)
 }
