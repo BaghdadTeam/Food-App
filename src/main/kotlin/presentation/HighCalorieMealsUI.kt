@@ -6,7 +6,7 @@ import org.example.utils.MealPresenter
 import org.example.utils.NoMealFoundException
 
 class HighCalorieMealsUI(
-    private val useCase: SuggestHighCalorieMealUseCase
+    private val useCase: SuggestHighCalorieMealUseCase, private val viewer: Viewer,private val reader: Reader
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
@@ -15,10 +15,10 @@ class HighCalorieMealsUI(
         try {
             var meal = useCase.execute()
             while (true) {
-                println("Meal Name : ${meal.name}")
-                println("Would you like to see the description or get another suggestion? (y/n): ")
+                viewer.log("Meal Name : ${meal.name}")
+                viewer.log("Would you like to see the description or get another suggestion? (y/n): ")
                 print("Enter your choice:")
-                val input = readln().lowercase()
+                val input = reader.readInput()?.lowercase()
 
                 if (input == "y") {
                     MealPresenter.printDetails(meal)
@@ -27,24 +27,24 @@ class HighCalorieMealsUI(
                     try {
                         meal = useCase.execute()
                     } catch (exception: NoSuchElementException) {
-                        println("There is no more high calorie meals")
+                        viewer.log("There is no more high calorie meals")
                         break
                     }
                 } else {
-                    println("Invalid input. Please enter 'y' or 'n'.")
+                    viewer.log("Invalid input. Please enter 'y' or 'n'.")
                 }
             }
         } catch (_: EmptyMealsException) {
-            println("No meals in the database.")
+            viewer.log("No meals in the database.")
         } catch (e: NoMealFoundException) {
-            println(
+            viewer.log(
                 """There is no high calories meal at the moment
                 |please try again later.
             """.trimMargin()
             )
 
         } catch (e: Exception) {
-            println("There something wrong happened when retrieving the data")
+            viewer.log("There something wrong happened when retrieving the data")
         }
     }
 

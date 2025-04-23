@@ -11,9 +11,14 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+
+    // koin
     implementation("io.insert-koin:koin-core:4.0.3")
+
+    // kotlin date time
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
-     testImplementation("org.jetbrains.kotlin:kotlin-test")
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
 
     // kotest, assertion
     testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
@@ -21,6 +26,9 @@ dependencies {
 
     // google truth
     testImplementation("com.google.truth:truth:1.4.2")
+
+    // mockk
+    testImplementation("io.mockk:mockk:1.14.0")
 }
 
 tasks.test {
