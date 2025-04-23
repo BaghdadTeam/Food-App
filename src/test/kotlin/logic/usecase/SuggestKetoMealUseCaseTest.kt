@@ -4,6 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
+import logic.helpers.KetoTestMeals
 import logic.helpers.createMealHelper
 import model.Meal
 import model.Nutrition
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.*
 class SuggestKetoMealUseCaseTest {
     private lateinit var mealProvider: MealsProvider
     private lateinit var useCase: SuggestKetoMealUseCase
+
 
 
     @BeforeEach
@@ -32,82 +34,91 @@ class SuggestKetoMealUseCaseTest {
     }
 
     @Test
-    fun `Should return random meal if there is meal match keto meal conditions`() {
-        every { mealProvider.getMeals() } returns listOf(
-            createMealHelper(
-                nutrition = Nutrition(
-                    totalFat = 20.0,
-                    calories = null,
-                    sugar = 4.0,
-                    sodium = null,
-                    protein = 20.0,
-                    saturatedFat = null,
-                    carbohydrates = 5.0,
-                )
-
-            ), createMealHelper(
-                nutrition = Nutrition(
-                    totalFat = 20.0,
-                    calories = null,
-                    sugar = 4.0,
-                    sodium = null,
-                    protein = 40.0,
-                    saturatedFat = null,
-                    carbohydrates = 5.0,
-                )
-            ), createMealHelper(
-                nutrition = Nutrition(
-                    totalFat = 20.0,
-                    calories = null,
-                    sugar = 4.0,
-                    sodium = null,
-                    protein = 10.0,
-                    saturatedFat = null,
-                    carbohydrates = 5.0,
-                )
-
-            )
-        )
+    fun `Returns a meal with protein between 10 and 30 when keto meals are available`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals
+        // When
         val result = useCase.execute()
         assertThat(result.nutrition?.protein).isIn(10..30)
+    }
 
+    @Test
+    fun `Returns a meal with carbohydrates less than or equal to 10 when keto meals are available`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals
+        // When
+        val result = useCase.execute()
+        // Then
+        assertThat(result.nutrition?.carbohydrates).isAtMost(10.0)
+    }
+
+    @Test
+    fun `Returns a meal with sugar less than or equal to 5 when keto meals are available`() {
+        //Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals
+        // When
+        val result = useCase.execute()
+        // Then
+        assertThat(result.nutrition?.sugar).isAtMost(5.0)
+    }
+
+    @Test
+    fun `Returns a meal with total fat greater than or equal to 15 when keto meals are available`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals
+        // When
+        val result = useCase.execute()
+        // Then
+        assertThat(result.nutrition?.totalFat).isAtLeast(15.0)
     }
 
     @Test
     fun `Should throw NoMealFoundException if there is no meal match keto meal conditions`() {
-        every { mealProvider.getMeals() } returns (listOf(
-            createMealHelper(
-                nutrition = Nutrition(
-                    totalFat = 5.0,
-                    calories = null,
-                    sugar = 6.0,
-                    sodium = null,
-                    protein = 40.0,
-                    saturatedFat = null,
-                    carbohydrates = 50.0,
-                )
-            )
-        ))
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.inValidKetoMeals
+        // When & Then
+        assertThrows<NoMealFoundException> { useCase.execute() }
 
+    }
+
+    @Test
+    fun `Should throw NoMealFoundException if all meals have null nutrition`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullNutrition
+        // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
     }
     @Test
-    fun `Should throw NoMealFoundException if only one meal and have null nutrition info and  no other meals to match keto meal conditions`() {
-        every { mealProvider.getMeals() } returns (listOf(
-            createMealHelper(
-                nutrition = Nutrition(
-                    totalFat = null,
-                    calories = null,
-                    sugar = null,
-                    sodium = null,
-                    protein = null,
-                    saturatedFat = null,
-                    carbohydrates = null,
-                )
-            )
-        ))
+    fun `Should throw NoMealFoundException when carbohydrates is null`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullCarbohydrates
+        // When & Then
+        assertThrows<NoMealFoundException> { useCase.execute() }
+    }
 
+    @Test
+    fun `Should throw NoMealFoundException when sugar is null`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullSugar
+        // When & Then
+        assertThrows<NoMealFoundException> { useCase.execute() }
+    }
+
+    @Test
+    fun `Should throw NoMealFoundException when protein is null`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullProtein
+        // When & Then
+        assertThrows<NoMealFoundException> { useCase.execute() }
+
+    }
+
+    @Test
+    fun `Should throw NoMealFoundException when total fat  is null`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullTotalFat
+        // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
     }
