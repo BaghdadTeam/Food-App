@@ -4,9 +4,14 @@ import org.example.logic.usecase.suggest.IraqiMealsIdentifierUseCase
 import model.Meal
 import org.example.presentation.Feature
 import org.example.presentation.Viewer
+import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 
-class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase, private val viewer: Viewer) : Feature {
+class IraqiMealsUI(
+    private val useCase: IraqiMealsIdentifierUseCase,
+    private val viewer: Viewer
+) : Feature {
+
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
@@ -14,14 +19,12 @@ class IraqiMealsUI(private val useCase: IraqiMealsIdentifierUseCase, private val
         try {
             val meals = useCase.execute()
             printMealsTable(meals)
+        } catch (e: EmptyMealsException) {
+            viewer.log("There is no meals in database.")
         } catch (e: NoMealFoundException) {
             viewer.log("There is no Iraqi meals found")
         } catch (e: Exception) {
-            viewer.log(
-                """Something wrong happened when retriveing the data.
-                |please try again later
-            """.trimMargin()
-            )
+            viewer.log("Something wrong happened while retrieving the data.")
         }
     }
 
