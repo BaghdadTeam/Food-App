@@ -1,6 +1,10 @@
 package presentation
-import io.mockk.*
-import logic.helpers.createMealHelper
+
+import helpers.createMealHelper
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import io.mockk.verifySequence
 import logic.usecase.FilterQuickHealthyMealsUseCase
 import org.example.presentation.QuickHealthyMealsUI
 import org.example.presentation.Reader
