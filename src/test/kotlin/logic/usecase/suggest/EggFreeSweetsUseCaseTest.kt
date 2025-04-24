@@ -1,11 +1,10 @@
 package logic.usecase.suggest
 
 import com.google.common.truth.Truth.assertThat
+import helpers.suggest.EggFreeSweetsTestData
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import helpers.createMealHelper
-import helpers.suggest.EggFreeSweetsTestData
 import org.example.logic.usecase.suggest.EggFreeSweetsUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException

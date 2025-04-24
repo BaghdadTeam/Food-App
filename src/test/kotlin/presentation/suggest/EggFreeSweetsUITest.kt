@@ -1,7 +1,6 @@
 package presentation.suggest
 
 import helpers.suggest.EggFreeSweetsTestData
-import io.kotest.matchers.string.match
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -11,7 +10,6 @@ import org.example.presentation.Reader
 import org.example.presentation.Viewer
 import org.example.presentation.suggest.EggFreeSweetsUI
 import org.example.utils.EmptyMealsException
-import org.example.utils.MealPresenter
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -1,9 +1,10 @@
 package logic.usecase
+
 import com.google.common.truth.Truth.assertThat
+import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import helpers.createMealHelper
 import model.Nutrition
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
