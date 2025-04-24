@@ -6,3 +6,4 @@ class NoMealFoundException(message: String = "") : NoSuchElementException(messag
 class InvalidDateFormatException(message: String = "") : Exception(message)
 class CsvParsingException(message: String = "", cause: Throwable) : Exception(message, cause)
 class CsvLoadingException(message: String = "", cause: Throwable) : Exception(message, cause)
+class EmptyRecordException(message: String = "") : Exception(message)
