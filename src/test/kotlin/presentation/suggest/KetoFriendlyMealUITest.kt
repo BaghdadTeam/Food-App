@@ -1,10 +1,11 @@
-package presentation
+package presentation.suggest
+
+import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
-import logic.helpers.createMealHelper
 import logic.usecase.SuggestKetoMealUseCase
 import org.example.presentation.KetoFriendlyMealUI
 import org.example.presentation.Reader
@@ -58,7 +59,7 @@ class KetoFriendlyMealUITest {
     }
 
     @Test
-    fun `Should ask use to continue present meals details or suggest another meal`() {
+    fun `Should ask user to continue to present meal details or suggest another meal`() {
         // Given
         every { useCase.execute() } returns ketoTestMeal
         // When

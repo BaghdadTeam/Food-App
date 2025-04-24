@@ -1,18 +1,20 @@
-package logic.usecase
+package logic.usecase.suggest
 
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import logic.helpers.KetoTestMeals
+import helpers.suggest.KetoTestMeals
+import logic.usecase.SuggestKetoMealUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class SuggestKetoMealUseCaseTest {
     private lateinit var mealProvider: MealsProvider
     private lateinit var useCase: SuggestKetoMealUseCase
-
 
 
     @BeforeEach
@@ -27,6 +29,29 @@ class SuggestKetoMealUseCaseTest {
         every { mealProvider.getMeals() }.returns(emptyList())
         // When & Then
         assertThrows<EmptyMealsException> { useCase.execute() }
+    }
+
+    @Test
+    fun `should throw NoMealFoundException if the meal already suggested`() {
+        // Given
+        every { mealProvider.getMeals() } returns listOf(KetoTestMeals.ketoMeal)
+        // When
+        val result = useCase.execute()
+        assertThat(result).isEqualTo(KetoTestMeals.ketoMeal)
+        // Then
+        assertThrows<NoMealFoundException> {
+            useCase.execute()
+        }
+    }
+
+    @Test
+    fun `should skip invalid then return valid keto meal from mixed list`() {
+        // Given
+        every { mealProvider.getMeals() } returns KetoTestMeals.inValidKetoMeals + KetoTestMeals.ketoMeal
+        // When
+        val result = useCase.execute()
+        // Then
+        assertThat(result).isEqualTo(KetoTestMeals.ketoMeal)
     }
 
     @Test
@@ -85,6 +110,7 @@ class SuggestKetoMealUseCaseTest {
         assertThrows<NoMealFoundException> { useCase.execute() }
 
     }
+
     @Test
     fun `Should throw NoMealFoundException when carbohydrates is null`() {
         // Given

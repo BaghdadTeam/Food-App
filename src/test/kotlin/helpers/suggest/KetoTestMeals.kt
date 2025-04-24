@@ -1,5 +1,6 @@
-package logic.helpers
+package helpers.suggest
 
+import helpers.createMealHelper
 import model.Nutrition
 
 object KetoTestMeals {
@@ -155,6 +156,25 @@ object KetoTestMeals {
                 saturatedFat = null,
                 carbohydrates = 5.0,
             )
+        ),  createMealHelper(
+            nutrition = Nutrition(
+                totalFat = 20.0,
+                calories = null,
+                sugar = 4.0,
+                sodium = null,
+                protein = null,
+                saturatedFat = null,
+                carbohydrates = 60.0,
+            )
         )
     )
+    val ketoMeal = createMealHelper(   nutrition = Nutrition(
+        totalFat = 20.0,
+        calories = null,
+        sugar = 4.0,
+        sodium = null,
+        protein = 20.0,
+        saturatedFat = null,
+        carbohydrates = 5.0,
+    ))
 }
