@@ -1,17 +1,20 @@
 package org.example.data
 
-import data.CsvReader
-import data.RecordParser
 import model.Meal
 import org.example.logic.MealsRepository
+import org.example.utils.CsvLoadingException
 
 class CsvMealsRepository(
     private val csvReader: CsvReader,
     private val recordParser: RecordParser
 ) : MealsRepository {
     override fun getAllMeals(): List<Meal> {
-        return csvReader.readCsv().map { record ->
-            recordParser.parseRecord(record)
+        try {
+            return csvReader.readCsv().map { record ->
+                recordParser.parseRecord(record)
+            }
+        } catch (e: Exception) {
+            throw CsvLoadingException("Failed to load the csv file", e)
         }
     }
 }
