@@ -23,6 +23,7 @@ class IngredientGameUITest {
         correctIngredient = "Cheese",
         options = listOf("Cheese", "Tomato", "Basil")
     )
+
     @BeforeTest
     fun setUp() {
         useCase = mockk(relaxed = true)
@@ -93,4 +94,29 @@ class IngredientGameUITest {
 
         verify { viewer.log("Something went wrong while starting the game. Please try again later.") }
     }
+
+    @Test
+    fun `should exit when user input null value`() {
+        every { useCase.isGameOver() } returns false
+        every { useCase.getOptions() } returns null
+        every { useCase.getScore() } returns 2000
+
+        ingredientGameUI.execute()
+
+        verify { viewer.log("Game Over! Final Score: 2000 points") }
+    }
+
+    @Test
+    fun `should exit when entered null choice`() {
+        every { useCase.isGameOver() } returnsMany listOf(false, true)
+        every { useCase.getOptions() } returns question
+        every { reader.readInput() } returns null
+        every { useCase.getScore() } returns 0
+
+        ingredientGameUI.execute()
+
+        verify { viewer.log("\nWrong! The correct ingredient was: Cheese") }
+        verify { viewer.log("Game Over! Final Score: 0 points") }
+    }
+
 }
