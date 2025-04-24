@@ -55,4 +55,20 @@ class FoodChangeMoodConsoleUITest {
         verify { feature1.execute() }
     }
 
+    @Test
+    fun `should exit when user input null value`() {
+        every { reader.readInput() } returns null
+        foodChangeMoodConsoleUseCase.start()
+        verify(exactly = 0) { feature1.execute() }
+        verify(exactly = 0) { feature2.execute() }
+        verify { viewer.log("Exiting... Goodbye!") }
+    }
+
+    @Test
+    fun `should handle invalid option`() {
+        every { reader.readInput() } returnsMany listOf("3", "0")
+        foodChangeMoodConsoleUseCase.start()
+        verify { viewer.log("Invalid input, please try again.") }
+    }
+
 }
