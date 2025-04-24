@@ -24,7 +24,7 @@ class EggFreeSweetsUseCaseTest {
     }
 
     @Test
-    fun `should return sweet meals that does not contain eggs in the ingredients`() {
+    fun `should return sweet meal that does not contain eggs in the ingredients`() {
         // Given
         every { mealsProvider.getMeals() } returns EggFreeSweetsTestData.allTestMeals()
 
