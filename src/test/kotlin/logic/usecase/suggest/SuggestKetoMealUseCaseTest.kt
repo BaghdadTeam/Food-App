@@ -5,7 +5,7 @@ import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
 import helpers.suggest.KetoTestMeals
-import logic.usecase.SuggestKetoMealUseCase
+import org.example.logic.usecase.suggest.SuggestKetoMealUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach

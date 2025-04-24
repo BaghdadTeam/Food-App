@@ -1,7 +1,7 @@
-package logic.usecase
+package org.example.logic.usecase.suggest
 
-import model.Meal
 import logic.MealsProvider
+import model.Meal
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 

@@ -1,11 +1,15 @@
-package org.example.presentation
+package org.example.presentation.suggest
 
-import logic.usecase.SuggestKetoMealUseCase
+import org.example.logic.usecase.suggest.SuggestKetoMealUseCase
+import org.example.presentation.Feature
+import org.example.presentation.Reader
+import org.example.presentation.Viewer
 import org.example.utils.EmptyMealsException
 import org.example.utils.MealPresenter
 import org.example.utils.NoMealFoundException
 
-class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private val viewer: Viewer,private val reader: Reader) : Feature {
+class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private val viewer: Viewer, private val reader: Reader) :
+    Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 

@@ -6,8 +6,8 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
-import logic.usecase.SuggestKetoMealUseCase
-import org.example.presentation.KetoFriendlyMealUI
+import org.example.logic.usecase.suggest.SuggestKetoMealUseCase
+import org.example.presentation.suggest.KetoFriendlyMealUI
 import org.example.presentation.Reader
 import org.example.presentation.Viewer
 import org.example.utils.EmptyMealsException

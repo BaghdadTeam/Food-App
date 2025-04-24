@@ -3,6 +3,7 @@ package org.example.di
 import org.example.presentation.*
 import org.example.presentation.suggest.IraqiMealsUI
 import org.example.presentation.suggest.EggFreeSweetsUI
+import org.example.presentation.suggest.KetoFriendlyMealUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import presentation.feature.GymHelperUI
