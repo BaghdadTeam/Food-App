@@ -3,6 +3,7 @@ package org.example.data
 import kotlinx.datetime.LocalDate
 import model.Meal
 import model.Nutrition
+import org.example.utils.EmptyRecordException
 
 /**
  * A parser for processing records and converting them into `Meal` objects.
@@ -17,6 +18,8 @@ class RecordParser {
      */
     fun parseRecord(record: String): Meal {
 
+        if (record.isEmpty()) throw EmptyRecordException("The record is empty can't be parsed")
+
         val row = Regex(""",(?=(?:[^"]*"[^"]*")*[^"]*$)""")
             .split(record)
             .map { it.trim().removeSurrounding("\"") }
@@ -26,7 +29,7 @@ class RecordParser {
             id = row[ColumnIndex.ID].toInt(),
             preparationTime = row[ColumnIndex.MINUTES].toInt(),
             contributorId = row[ColumnIndex.CONTRIBUTOR_ID].toInt(),
-            date = LocalDate.parse( row[ColumnIndex.SUBMITTED]),
+            date = LocalDate.parse(row[ColumnIndex.SUBMITTED]),
             tags = parseStringList(row[ColumnIndex.TAGS]),
             nutrition = parseNutrition(row[ColumnIndex.NUTRITION]),
             nSteps = row[ColumnIndex.NUMBER_OF_STEPS].toInt(),
@@ -35,7 +38,7 @@ class RecordParser {
             ingredients = parseStringList(row[ColumnIndex.DEFAULT_INGREDIENTS]),
             nIngredients = row[ColumnIndex.DEFAULT_NUMBER_OF_INGREDIENTS].toInt(),
 
-        )
+            )
     }
 
     /**
@@ -45,11 +48,16 @@ class RecordParser {
      * @return A list of strings extracted from the raw input.
      */
     private fun parseStringList(raw: String): List<String> {
-        return raw.removePrefix("['")
-            .removeSuffix("']")
-            .split("', '")
-            .map { it.trim().removeSurrounding("'") }
-            .filter { it.isNotBlank() }
+        return if (raw.isEmpty()) {
+            emptyList()
+        }
+        else {
+            raw.removePrefix("['")
+                .removeSuffix("']")
+                .split("', '")
+                .map { it.trim().removeSurrounding("'") }
+                .filter { it.isNotBlank() }
+        }
     }
 
     /**
@@ -59,6 +67,15 @@ class RecordParser {
      * @return A `Nutrition` object containing the parsed nutritional data.
      */
     private fun parseNutrition(raw: String): Nutrition {
+        if (raw.isEmpty()) return Nutrition(
+            calories = 0.0,
+            totalFat = 0.0,
+            sugar = 0.0,
+            sodium = 0.0,
+            protein = 0.0,
+            saturatedFat = 0.0,
+            carbohydrates = 0.0
+        )
         val cleaned = raw.removePrefix("[").removeSuffix("]").trim()
         val values = cleaned.split(",")
             .map { it.trim().toDouble() }
