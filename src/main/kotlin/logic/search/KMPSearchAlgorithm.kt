@@ -1,12 +1,14 @@
 package org.example.logic.search
 
 import org.example.logic.SearchAlgorithm
+import org.example.utils.EmptyPatternException
+import org.example.utils.EmptyTextException
 
 class KMPSearchAlgorithm : SearchAlgorithm {
 
     override fun search(text: String, pattern: String): Boolean {
-        if (pattern.isEmpty()) return true
-        if (text.isEmpty()) return false
+        if (pattern.isEmpty()) throw EmptyPatternException()
+        if (text.isEmpty()) throw EmptyTextException()
 
         val lps = constructLPS(pattern)
         return kmpSearch(text, pattern, lps)
