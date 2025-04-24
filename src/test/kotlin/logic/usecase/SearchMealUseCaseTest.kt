@@ -1,10 +1,10 @@
 package logic.usecase
 
 import com.google.common.truth.Truth.assertThat
+import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import logic.helpers.createMealHelper
 import org.example.logic.search.KMPSearchAlgorithm
 import org.example.utils.EmptyMealNameException
 import org.example.utils.EmptyMealsException
