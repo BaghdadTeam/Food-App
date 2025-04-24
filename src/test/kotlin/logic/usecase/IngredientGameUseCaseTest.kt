@@ -23,13 +23,13 @@ class IngredientGameUseCaseTest {
             "Breakfast Pizza", 1, 100, LocalDate.parse("2022-01-01"), listOf("breakfast"),
             Nutrition(173.4, 18.0, 0.0, 17.0, 22.0, 35.0, 1.0), 3,
             listOf("Preheat", "Add toppings", "Bake"), "Quick pizza",
-            listOf("Cheese", "Tomato", "Lettuce", "Olive", "Onion", "Beef"), 3, 30
+            listOf("Cheese", "Tomato", "Lettuce", "null", "Onion", "Beef"), 3, 30
         ),
 
         createMealHelper(
             "Chicken Alfredo", 2, 101, LocalDate.parse("2022-01-02"), listOf("dinner"),
             Nutrition(400.0, 25.0, 2.0, 30.0, 35.0, 5.0, 1.5), 4,
-            listOf("Cook pasta", "Grill chicken", "Make sauce", "Mix together"), "Creamy pasta",
+            listOf("Cook pasta", "Grill chicken", "null", "Mix together"), "Creamy pasta",
             listOf("Chicken", "Cream", "Parmesan", "Garlic", "Pasta", "Pepper"), 4, 45
         ),
 
@@ -143,7 +143,6 @@ class IngredientGameUseCaseTest {
     fun setUp() {
         mealsProvider = mockk(relaxed = true)
         ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
-
     }
 
     @Test
@@ -157,7 +156,6 @@ class IngredientGameUseCaseTest {
 
     @Test
     fun `should increase score when answer is correct`() {
-
         every { mealsProvider.getMeals() } returns meals
 
         ingredientGameUseCase.execute(fixedOptions, 1)
@@ -167,7 +165,6 @@ class IngredientGameUseCaseTest {
 
     @Test
     fun `should increase score over multiple correct answers`() {
-
         every { mealsProvider.getMeals() } returns meals
 
         ingredientGameUseCase.execute(fixedOptions, 1)
@@ -177,8 +174,16 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
-    fun `should return false when invalid choice`() {
+    fun `execute should return true when correct option is chosen`() {
+        every { mealsProvider.getMeals() } returns meals
 
+        val result = ingredientGameUseCase.execute(fixedOptions, 1)
+        assertThat(result).isTrue()
+    }
+
+
+    @Test
+    fun `should return false when invalid choice`() {
         every { mealsProvider.getMeals() } returns meals
 
         val result = ingredientGameUseCase.execute(fixedOptions, 3)
@@ -194,8 +199,16 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
-    fun `should not increase score for invalid choice`() {
+    fun `should return false when choice is null`() {
+        every { mealsProvider.getMeals() } returns meals
 
+        val result = ingredientGameUseCase.execute(fixedOptions, null)
+
+        assertThat(result).isFalse()
+    }
+
+    @Test
+    fun `should not increase score for invalid choice`() {
         every { mealsProvider.getMeals() } returns meals
 
         ingredientGameUseCase.execute(fixedOptions, 3)
@@ -217,12 +230,10 @@ class IngredientGameUseCaseTest {
 
         val isOver = ingredientGameUseCase.isGameOver()
         assertTrue(isOver)
-
     }
 
     @Test
     fun `isGameOver should return score of 15000 after 15 correct answers`() {
-
         every { mealsProvider.getMeals() } returns meals
         ingredientGameUseCase = IngredientGameUseCase(mealsProvider) // Ensure the test starts fresh
 
@@ -233,6 +244,18 @@ class IngredientGameUseCaseTest {
         }
 
         assertThat(ingredientGameUseCase.getScore()).isEqualTo(15000)
+    }
+
+    @Test
+    fun `isGameOver should return false when correctAnswers are less than 15`() {
+        repeat(10) {
+            val q = ingredientGameUseCase.getOptions()
+            ingredientGameUseCase.execute(
+                fixedOptions,
+                q?.options?.indexOf(q.correctIngredient)?.plus(1)
+            )
+        }
+        assertThat(ingredientGameUseCase.isGameOver()).isEqualTo(false)
     }
 
 
@@ -258,6 +281,16 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
+    fun `getOptions should return null if no meals available`() {
+        every { mealsProvider.getMeals() } returns emptyList()
+
+        val options = ingredientGameUseCase.getOptions()
+
+        assertThat(options).isNull()
+    }
+
+
+    @Test
     fun `getQuestionNumber should increase with correct answers`() {
         every { mealsProvider.getMeals() } returns meals
 
@@ -276,11 +309,16 @@ class IngredientGameUseCaseTest {
         assertThat(result).isEqualTo("Breakfast Pizza")
     }
 
-
     @Test
     fun `getMealName should return the correct meal name`() {
         val result = ingredientGameUseCase.getMealName(fixedOptions)
         assertThat(result).isEqualTo("Pizza")
+    }
+
+    @Test
+    fun `getMealName should return null string when options is null`() {
+        val result = ingredientGameUseCase.getMealName(null)
+        assertEquals("null", result)
     }
 
     @Test
@@ -289,5 +327,44 @@ class IngredientGameUseCaseTest {
         assertThat(result).isEqualTo(1000)
     }
 
-}
+    @Test
+    fun `getOptions should not fail when some meals have null ingredients`() {
+        every { mealsProvider.getMeals() } returns meals
+        ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
+        // When
+        val question = ingredientGameUseCase.getOptions()
 
+        // Then: Assert the question is generated and contains correct data
+        assertThat(question).isNotNull()
+        assertThat(question?.options?.size).isEqualTo(3)
+    }
+
+    @Test
+    fun `getOptions should ignore meals with null or empty ingredients`() {
+        every { mealsProvider.getMeals() } returns meals
+        ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
+        val question = ingredientGameUseCase.getOptions()
+
+        assertThat(question).isNotNull()
+        assertThat(question?.options).hasSize(3)
+        assertThat(question?.options).doesNotContain(null)
+        assertThat(question?.correctIngredient).isIn(question?.options)
+    }
+
+    @Test
+    fun `only valid meals are filtered and used to generate questions`() {
+        every { mealsProvider.getMeals() } returns meals
+        ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
+
+        val generatedMeals = mutableSetOf<String>()
+        repeat(3) {
+            val question = ingredientGameUseCase.getOptions()
+            question?.let { generatedMeals.add(it.mealName) }
+        }
+
+        val expectedValidMeals = listOf("Breakfast Pizza", "Chicken Alfredo", "Beef Tacos")
+
+        assertThat(generatedMeals).containsExactlyElementsIn(expectedValidMeals)
+    }
+
+}
