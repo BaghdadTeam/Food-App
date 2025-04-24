@@ -1,14 +1,18 @@
 package org.example.data
 
-import model.Meal
 import logic.MealsProvider
+import model.Meal
 import org.example.logic.MealsRepository
 
 class DefaultMealsProvider(
-    private val repository: MealsRepository
+    repository: MealsRepository,
 ) : MealsProvider {
 
-    private val meals = repository.getAllMeals()
+    private val meals: List<Meal> = try {
+        repository.getAllMeals()
+    } catch (e: Exception) {
+        emptyList()
+    }
 
     override fun getMeals(): List<Meal> = meals
 }
