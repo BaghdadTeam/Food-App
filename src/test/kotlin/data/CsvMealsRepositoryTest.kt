@@ -5,6 +5,8 @@ import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import org.example.data.CsvMealsRepository
+import org.example.data.CsvReader
+import org.example.data.RecordParser
 import org.example.utils.CsvLoadingException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

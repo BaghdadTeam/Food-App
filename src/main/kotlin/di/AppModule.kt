@@ -1,10 +1,10 @@
 package org.example.di
 
-import data.CsvReader
-import data.RecordParser
-import org.example.data.CsvMealsRepository
-import org.example.data.DefaultMealsProvider
 import logic.MealsProvider
+import org.example.data.CsvMealsRepository
+import org.example.data.CsvReader
+import org.example.data.DefaultMealsProvider
+import org.example.data.RecordParser
 import org.example.logic.MealsRepository
 import org.example.logic.SearchAlgorithm
 import org.example.logic.search.KMPSearchAlgorithm
