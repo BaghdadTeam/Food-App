@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
 import helpers.suggest.KetoTestMeals
+import model.Meal
 import org.example.logic.usecase.suggest.SuggestKetoMealUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
@@ -34,10 +35,10 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `should throw NoMealFoundException if the meal already suggested`() {
         // Given
-        every { mealProvider.getMeals() } returns listOf(KetoTestMeals.ketoMeal)
+        every { mealProvider.getMeals() } returns listOf(KetoTestMeals.baseKetoMeal)
         // When
         val result = useCase.execute()
-        assertThat(result).isEqualTo(KetoTestMeals.ketoMeal)
+        assertThat(result).isEqualTo(KetoTestMeals.baseKetoMeal)
         // Then
         assertThrows<NoMealFoundException> {
             useCase.execute()
@@ -47,11 +48,11 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `should skip invalid then return valid keto meal from mixed list`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.inValidKetoMeals + KetoTestMeals.ketoMeal
+        every { mealProvider.getMeals() } returns KetoTestMeals.invalidKetoMeals + KetoTestMeals.baseKetoMeal
         // When
         val result = useCase.execute()
         // Then
-        assertThat(result).isEqualTo(KetoTestMeals.ketoMeal)
+        assertThat(result).isEqualTo(KetoTestMeals.baseKetoMeal)
     }
 
     @Test
@@ -96,7 +97,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException if there is no meal match keto meal conditions`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.inValidKetoMeals
+        every { mealProvider.getMeals() } returns KetoTestMeals.invalidKetoMeals
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
@@ -105,16 +106,15 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException if all meals have null nutrition`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullNutrition
+        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
     }
-
     @Test
     fun `Should throw NoMealFoundException when carbohydrates is null`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullCarbohydrates
+        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
     }
@@ -122,7 +122,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException when sugar is null`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullSugar
+        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
     }
@@ -130,7 +130,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException when protein is null`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullProtein
+        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
@@ -139,9 +139,16 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException when total fat  is null`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealWithNullTotalFat
+        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealsWithNullFat
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
+    }
+    @Test
+    fun `Should throw NoMealFoundException when nutrition is null`() {
+        // Given
+        every { mealProvider.getMeals() } returns listOf(KetoTestMeals.nullNutritionMeal)
+        // When & Then
+        assertThrows<NoMealFoundException> { useCase.execute() }
     }
 }
