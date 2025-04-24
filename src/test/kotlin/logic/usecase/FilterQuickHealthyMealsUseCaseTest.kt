@@ -1,9 +1,10 @@
 package logic.usecase
+
 import com.google.common.truth.Truth.assertThat
+import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import logic.helpers.createMealHelper
 import model.Nutrition
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
@@ -85,7 +86,7 @@ class FilterQuickHealthyMealsUseCaseTest {
                 ),
 
                 preparationTime = 10
-            ),createMealHelper(
+            ), createMealHelper(
                 id = 2,
                 nutrition = Nutrition(
                     calories = null,
@@ -97,7 +98,7 @@ class FilterQuickHealthyMealsUseCaseTest {
                     sodium = null
                 ),
                 preparationTime = 10
-            ),createMealHelper(
+            ), createMealHelper(
                 id = 3,
                 nutrition = Nutrition(
                     calories = null,

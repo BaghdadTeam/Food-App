@@ -12,9 +12,7 @@ object ColumnIndex {
     const val STEPS = 8
     const val DESCRIPTION = 9
     const val DEFAULT_INGREDIENTS = 10
-    const val SECONDARY_INGREDIENTS = 9
     const val DEFAULT_NUMBER_OF_INGREDIENTS = 11
-    const val SECONDARY_NUMBER_OF_INGREDIENTS = 10
 
     const val CALORIES = 0
     const val TOTAL_FAT = 1
