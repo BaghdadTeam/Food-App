@@ -4,6 +4,11 @@ import helpers.createMealHelper
 
 object IraqiMealsIdentifierTestData {
 
+    fun allMeals() = listOf(
+        allIraqiMeals(),
+        allNonIraqiMeals()
+    ).flatten()
+
     fun allIraqiMeals() = listOf(
         mealWithIraqiTag(),
         mealWithIraqInDescription(),
@@ -12,24 +17,46 @@ object IraqiMealsIdentifierTestData {
         iraqiMealWithNullTags(),
         iraqiMealWithEmptyTags(),
         iraqiMealWithEmptyDescription(),
+        iraqiMealWithInconsistentSpaceAndCase(),
+        iraqiMealWithIraqiDescription()
     )
 
-    fun allMeals() = listOf(
-        mealWithIraqiTag(),
-        mealWithIraqInDescription(),
-        mealWithIraqiTagAndIraqInDescription(),
-        iraqiMealWithNullTags(),
-        iraqiMealWithNullDescription(),
-        iraqiMealWithEmptyTags(),
-        iraqiMealWithEmptyDescription(),
+    fun allNonIraqiMeals() = listOf(
         nonIraqiMeal(),
-        nullMeal()
+        nullMeal(),
+        nonIraqiMealWithNoTag(),
+        emptyMeal()
+    )
+
+    fun iraqiMealWithIraqiDescription() = createMealHelper(
+        name = "Confusing Description",
+        tags = listOf("famous"),
+        description = "This is an iraqi-style dish"
+    )
+
+    fun nonIraqiMealWithNoTag() = createMealHelper(
+        name = "Empty Tags No Iraq",
+        tags = emptyList(),
+        description = "Just a simple meal"
+    )
+
+    fun emptyMeal() = createMealHelper(
+        name = "empty meal",
+        tags = emptyList(),
+        description = ""
+    )
+
+
+    fun iraqiMealWithInconsistentSpaceAndCase() = createMealHelper(
+        name = "inconsistent Meal",
+        tags = listOf("iraqi"),
+        description = "A traditional IraQ dish made with grape leaves stuffed with rice and meat."
     )
 
     fun mealWithIraqiTag() = createMealHelper(
         name = "Dolma",
         tags = listOf("iraqi"),
-        description = "A traditional Iraqi dish made with grape leaves stuffed with rice and meat."
+        description = "A traditional Iraq dish made with grape leaves stuffed with rice and meat."
     )
 
     fun mealWithIraqInDescription() = createMealHelper(
@@ -50,7 +77,7 @@ object IraqiMealsIdentifierTestData {
         description = "Slow-cooked lamb with rice, a festive Iraq dish."
     )
 
-    fun iraqiMealWithNullDescription() =   createMealHelper(
+    fun iraqiMealWithNullDescription() = createMealHelper(
         name = "Masgouf",
         tags = listOf("iraqi", "fish"),
         description = null
