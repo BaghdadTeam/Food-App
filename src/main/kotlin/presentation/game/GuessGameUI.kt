@@ -47,12 +47,7 @@ class GuessGameUI(
         } catch (e: EmptyMealsException) {
             viewer.log("There are no meals in the database.")
         } catch (e: NoMealFoundException) {
-            viewer.log(
-                """
-                |No meal could be selected for the game.
-                |Please try again later.
-                """.trimMargin()
-            )
+            viewer.log("No meal could be selected for the game.")
         } catch (e: Exception) {
             viewer.log("Something went wrong while starting the game.")
         }
