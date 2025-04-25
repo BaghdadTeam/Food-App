@@ -1,9 +1,16 @@
-package org.example.presentation
+package org.example.presentation.game
 
-import logic.usecase.IngredientGameUseCase
+import org.example.logic.usecase.game.IngredientGameUseCase
 import org.example.model.IngredientQuestion
+import org.example.presentation.Feature
+import org.example.presentation.Reader
+import org.example.presentation.Viewer
 
-class IngredientGameUI(private val useCase: IngredientGameUseCase, private val viewer: Viewer,private val reader: Reader) : Feature {
+class IngredientGameUI(
+    private val useCase: IngredientGameUseCase,
+    private val viewer: Viewer,
+    private val reader: Reader
+) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
