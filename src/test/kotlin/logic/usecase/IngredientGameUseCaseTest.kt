@@ -17,7 +17,6 @@ class IngredientGameUseCaseTest {
     private lateinit var mealsProvider: MealsProvider
     private lateinit var ingredientGameUseCase: IngredientGameUseCase
 
-
     @BeforeEach
     fun setUp() {
         mealsProvider = mockk(relaxed = true)
@@ -256,5 +255,4 @@ class IngredientGameUseCaseTest {
 
         assertThat(generatedMeals).containsExactlyElementsIn(expectedValidMeals)
     }
-
 }

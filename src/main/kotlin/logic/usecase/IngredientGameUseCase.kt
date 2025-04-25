@@ -65,7 +65,7 @@ class IngredientGameUseCase(mealsProvider: MealsProvider) {
 
     private fun getWrongIngredients(excludeIngredient: String): List<String> {
         return allMeals
-            .flatMap { it.ingredients.orEmpty() }
+            .flatMap { it.ingredients!! }
             .filter { !it.equals(excludeIngredient, ignoreCase = true) }
             .distinct()
             .shuffled()

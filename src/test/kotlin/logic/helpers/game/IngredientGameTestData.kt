@@ -130,7 +130,7 @@ object IngredientGameTestData {
             null, 2, 101, LocalDate.parse("2022-01-02"), listOf("dinner"),
             Nutrition(400.0, 25.0, 2.0, 30.0, 35.0, 5.0, 1.5), 4,
             listOf("Cook pasta", "Grill chicken", "null", "Mix together"), "Creamy pasta",
-            listOf("Chicken", "Cream", "Parmesan", "Garlic", "Pasta", "Pepper"), 4, 45
+            listOf("Chicken", "", "Parmesan", "Garlic", "Pasta", "Pepper"), 4, 45
         ),
 
         createMealHelper(
