@@ -33,7 +33,9 @@ class PotatoLovingMealsUI(
                     Name: ${meal.name}
                     Description: ${meal.description?.take(MAX_DESCRIPTION_LETTERS) ?: "No Description"}${if ((meal.description?.length ?: 0) > MAX_DESCRIPTION_LETTERS) "..." else ""}
                     Calories: ${meal.nutrition?.calories ?: "N/A"}
-                    Ingredients: ${meal.ingredients?.take(MAX_INGREDIENTS_NUMBER)?.joinToString() ?: "No Ingredients"}${if ((meal.ingredients?.size ?: 0) > MAX_INGREDIENTS_NUMBER) "..." else ""}
+                    Ingredients: ${
+                        meal.ingredients?.take(MAX_INGREDIENTS_NUMBER)?.joinToString() ?: "No Ingredients"
+                    }${if ((meal.ingredients?.size ?: 0) > MAX_INGREDIENTS_NUMBER) "..." else ""}
                     ------------------------------------------
                     """.trimIndent()
                 )
