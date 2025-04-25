@@ -11,33 +11,45 @@ object HighCalorieMealTestData {
             HighCalorieMeal()
         )
     }
+
     fun listOfOneHighCalorieMeal(): List<Meal> {
         return listOf(HighCalorieMeal())
     }
 
     fun listOfOneNotHighCalorieMeal(): List<Meal> {
-        return listOf(NotHighCalorieMeal())
+        return listOf(notHighCalorieMeal())
 
     }
 
-    fun listOfTwoDifferentHighCalorieMeals(): List<Meal>{
-        return listOf(createMealHelper(nutrition = Nutrition(
-            calories = 701.0,
-            totalFat = null,
-            sugar = null,
-            sodium = null,
-            protein = null,
-            saturatedFat = null,
-            carbohydrates = null)),
+    fun listOfOneNullMeal(): List<Meal> {
+        return listOf(nullMeal())
+    }
 
-            createMealHelper(nutrition = Nutrition(
-                calories = 705.0,
-                totalFat = null,
-                sugar = null,
-                sodium = null,
-                protein = null,
-                saturatedFat = null,
-                carbohydrates = null)
+    fun listOfTwoDifferentHighCalorieMeals(): List<Meal> {
+        return listOf(
+            createMealHelper(
+                id = 1,
+                nutrition = Nutrition(
+                    calories = 701.0,
+                    totalFat = null,
+                    sugar = null,
+                    sodium = null,
+                    protein = null,
+                    saturatedFat = null,
+                    carbohydrates = null
+                )
+            ),
+            createMealHelper(
+                id = 2,
+                nutrition = Nutrition(
+                    calories = 705.0,
+                    totalFat = null,
+                    sugar = null,
+                    sodium = null,
+                    protein = null,
+                    saturatedFat = null,
+                    carbohydrates = null
+                )
             )
         )
     }
@@ -56,7 +68,7 @@ object HighCalorieMealTestData {
         )
     }
 
-    private fun NotHighCalorieMeal(): Meal {
+    private fun notHighCalorieMeal(): Meal {
         return createMealHelper(
             nutrition = Nutrition(
                 calories = 0.0,
@@ -68,6 +80,11 @@ object HighCalorieMealTestData {
                 carbohydrates = null,
             )
         )
+
+    }
+
+    private fun nullMeal(): Meal {
+        return createMealHelper()
 
     }
 
