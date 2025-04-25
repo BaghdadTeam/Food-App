@@ -12,8 +12,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import logic.MealsProvider
 import logic.usecase.PotatoLovingMealsUseCase
+import org.example.utils.EmptyMealsException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+
+import org.junit.jupiter.api.assertThrows // Make sure to import this
 
 class PotatoLovingMealsUseCaseTest {
 
@@ -29,8 +32,6 @@ class PotatoLovingMealsUseCaseTest {
 
     @Test
     fun `returns only meals containing potato`() {
-
-
         val meals = getOnlyMealContainsPotato()
 
         every { mealsProvider.getMeals() } returns meals
@@ -42,27 +43,40 @@ class PotatoLovingMealsUseCaseTest {
     }
 
     @Test
-    fun `returns empty list when no meal contains potato`() {
-
+    fun `throws exception when no meal contains potato`() {
         val meals = getEmptyMealsWithNoPotato()
 
         every { mealsProvider.getMeals() } returns meals
 
-        val result = useCase.execute()
+        val exception = assertThrows<EmptyMealsException> {
+            useCase.execute()
+        }
 
-        assertThat(result).isEmpty()
+        assertThat(exception.message).isEqualTo("There is no meal containing potato.")
     }
 
     @Test
-    fun `handles null ingredients gracefully`() {
+    fun `throws exception when meals list is empty`() {
+        every { mealsProvider.getMeals() } returns emptyList()
 
+        val exception = assertThrows<EmptyMealsException> {
+            useCase.execute()
+        }
 
+        assertThat(exception.message).isEqualTo("There are no meals in the dataset.")
+    }
+
+    @Test
+    fun `handles null ingredients gracefully and throws exception`() {
         val meals = getIngredient()
 
         every { mealsProvider.getMeals() } returns meals
 
-        val result = useCase.execute()
+        val exception = assertThrows<EmptyMealsException> {
+            useCase.execute()
+        }
 
-        assertThat(result).isEmpty()
+        assertThat(exception.message).isEqualTo("There is no meal containing potato.")
     }
 }
+
