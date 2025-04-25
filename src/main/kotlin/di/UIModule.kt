@@ -1,6 +1,7 @@
 package org.example.di
 
 import org.example.presentation.*
+import org.example.presentation.filter.SeafoodMealsUI
 import org.example.presentation.game.IngredientGameUI
 import org.example.presentation.suggest.IraqiMealsUI
 import org.example.presentation.suggest.EggFreeSweetsUI
