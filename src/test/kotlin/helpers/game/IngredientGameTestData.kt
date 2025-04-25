@@ -90,9 +90,12 @@ object IngredientGameTestData {
 
         createMealHelper(
             null, 2,
-            ingredients = listOf("Chicken", "", "Parmesan", "Garlic", "Pasta", "Pepper")
+            ingredients = listOf("Chicken", "Cream", "Parmesan", "Garlic", "Pasta", "Pepper")
         ),
-
+        createMealHelper(
+            name = "Chicken Alfredo", 3,
+            ingredients = listOf("Chicken", "Cream", "Parmesan", "Garlic", "Pepper")
+        ),
         createMealHelper(
             "Beef Tacos", null,
             ingredients = listOf("Beef", "Taco shells", "Lettuce", "Cheddar", "Tomato", "Onion")
