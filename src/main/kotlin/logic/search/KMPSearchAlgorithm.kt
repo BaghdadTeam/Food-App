@@ -1,13 +1,12 @@
 package org.example.logic.search
 
 import org.example.logic.SearchAlgorithm
+import org.example.utils.EmptyPatternException
+import org.example.utils.EmptyTextException
 
 class KMPSearchAlgorithm : SearchAlgorithm {
 
     override fun search(text: String, pattern: String): Boolean {
-        if (pattern.isEmpty()) return true
-        if (text.isEmpty()) return false
-
         val lps = constructLPS(pattern)
         return kmpSearch(text, pattern, lps)
     }
@@ -21,6 +20,8 @@ class KMPSearchAlgorithm : SearchAlgorithm {
      * @return true if the pattern is found, false otherwise
      */
     private fun kmpSearch(text: String, pattern: String, lps: IntArray): Boolean {
+        if (text.isEmpty() || text.isBlank()) throw EmptyTextException()
+
         val textLength = text.length
         val patternLength = pattern.length
 
@@ -46,13 +47,16 @@ class KMPSearchAlgorithm : SearchAlgorithm {
     }
 
     /**
-     * Creates the Longest Prefix Suffix (LPS) array for KMP algorithm.
+     * Creates the  (LPS) array for KMP algorithm.
      * The LPS array stores the length of the longest proper prefix which is also a suffix.
      *
      * @param pattern The pattern to analyze
      * @return LPS array with pattern's prefix-suffix information
      */
     private fun constructLPS(pattern: String): IntArray {
+        if (pattern.isEmpty() || pattern.isBlank()) throw EmptyPatternException()
+
+
         val patternLength = pattern.length
         val lps = IntArray(patternLength)
 
