@@ -1,12 +1,13 @@
-package logic.usecase
+package logic.usecase.game
 
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import logic.helpers.game.IngredientGameTestData.fixedOptions
-import logic.helpers.game.IngredientGameTestData.inValidMeals
-import logic.helpers.game.IngredientGameTestData.meals
+import helpers.game.IngredientGameTestData.fixedOptions
+import helpers.game.IngredientGameTestData.inValidMeals
+import helpers.game.IngredientGameTestData.meals
+import org.example.logic.usecase.game.IngredientGameUseCase
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

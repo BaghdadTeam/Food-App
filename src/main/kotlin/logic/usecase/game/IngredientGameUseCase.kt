@@ -1,10 +1,12 @@
-package logic.usecase
+package org.example.logic.usecase.game
 
 import logic.MealsProvider
 import model.Meal
 import org.example.model.IngredientQuestion
 
-class IngredientGameUseCase(mealsProvider: MealsProvider) {
+class IngredientGameUseCase(
+    mealsProvider: MealsProvider
+) {
     private val allMeals: List<Meal> = mealsProvider.getMeals()
         .filter { !it.ingredients.isNullOrEmpty() && it.name != null && it.id != null }
 

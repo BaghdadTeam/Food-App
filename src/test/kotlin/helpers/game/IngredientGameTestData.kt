@@ -1,4 +1,4 @@
-package logic.helpers.game
+package helpers.game
 
 import kotlinx.datetime.LocalDate
 import logic.helpers.createMealHelper
