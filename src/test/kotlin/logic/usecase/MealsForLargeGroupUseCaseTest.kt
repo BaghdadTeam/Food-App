@@ -86,4 +86,37 @@ class MealsForLargeGroupUseCaseTest {
         assertThat(meals.map { it.name }).containsExactly("Italian salad dish", "Italian dish", "salad dish")
     }
 
+    @Test
+    fun `should return meal when name is null but tags contain country and query`() {
+        // Given
+        val matchingMeal = createMealHelper(
+            name = null,
+            tags = listOf("Italian", "Large group"),
+            description = null
+        )
+        every { mealsProvider.getMeals() } returns listOf(
+            matchingMeal,
+            createMealHelper(name = "Random dish", description = "Nothing relevant"),
+        )
+
+        // When
+        val meals = useCase.execute()
+
+        // Then
+        assertThat(meals).hasSize(1)
+        assertThat(meals[0]).isEqualTo(matchingMeal)
+    }
+
+    @Test
+    fun `should throw NoMealFoundException when name tags and description are all null`() {
+        // Given
+        every { mealsProvider.getMeals() } returns listOf(
+            createMealHelper(name = null, tags = null, description = null),
+        )
+
+        // When & Then
+        assertThrows<NoMealFoundException> {
+            useCase.execute()
+        }
+    }
 }
