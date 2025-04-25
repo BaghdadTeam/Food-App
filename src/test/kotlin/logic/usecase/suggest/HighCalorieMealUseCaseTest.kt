@@ -96,6 +96,14 @@ class HighCalorieMealUseCaseTest {
         // When & Then
         assertThrows<NoMealFoundException> { suggestHighCalorieMealUseCase.execute() }
     }
+    @Test
+    fun `throw an NoMealFoundException when there is meal with null nutrition`() {
+        // Given
+        every { mealsProvider.getMeals() } returns HighCalorieMealTestData.listOfOneMealHasNutritionNull()
+
+        // When & Then
+        assertThrows<NoMealFoundException> { suggestHighCalorieMealUseCase.execute() }
+    }
 
 
 
