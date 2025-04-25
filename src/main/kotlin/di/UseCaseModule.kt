@@ -1,6 +1,7 @@
 package org.example.di
 
 import logic.usecase.*
+import org.example.logic.usecase.game.IngredientGameUseCase
 import org.example.logic.usecase.suggest.EggFreeSweetsUseCase
 import org.example.logic.usecase.suggest.IraqiMealsIdentifierUseCase
 import org.koin.dsl.module
