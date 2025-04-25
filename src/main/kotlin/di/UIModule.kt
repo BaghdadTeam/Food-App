@@ -1,6 +1,9 @@
 package org.example.di
 
 import org.example.presentation.*
+import org.example.presentation.game.IngredientGameUI
+import org.example.presentation.suggest.IraqiMealsUI
+import org.example.presentation.suggest.EggFreeSweetsUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import presentation.feature.GymHelperUI
@@ -11,7 +14,7 @@ val uiModule = module {
     factory { IraqiMealsUI(get(), get()) } bind Feature::class
     factory { GuessGameUI(get(), get(), get()) } bind Feature::class
 
-    factory { SweetsWithNoEggsUI(useCase = get(), get(), get()) } bind Feature::class
+    factory { EggFreeSweetsUI(useCase = get(), get(), get()) } bind Feature::class
     factory { KetoFriendlyMealUI(useCase = get(), get(), get()) } bind Feature::class
     factory { MealSearchUI(useCase = get(), get(), get()) } bind Feature::class
 
