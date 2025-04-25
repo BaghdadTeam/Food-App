@@ -4,19 +4,19 @@ import logic.MealsProvider
 import model.Meal
 import org.example.model.GuessFeedback
 import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class GuessMealGameUseCase(
     mealsProvider: MealsProvider
 ) {
-    companion object {
-        private const val ATTEMPTS = 3
-    }
 
     private val allMeals: List<Meal> = mealsProvider.getMeals()
         .filter { it.name != null && it.preparationTime != null }
-        .ifEmpty { throw EmptyMealsException("No meals found") }
+        .takeIf { it.isNotEmpty() }
+        ?: throw EmptyMealsException()
 
     private val meal: Meal = allMeals.random()
+
     private val correctTime: Int? = meal.preparationTime
     private var attemptsLeft: Int = ATTEMPTS
     private var guessedCorrectly: Boolean = false
@@ -41,4 +41,8 @@ class GuessMealGameUseCase(
     fun isGameOver(): Boolean = guessedCorrectly || attemptsLeft <= 0
 
     fun getCorrectTime(): Int = correctTime!!
+
+    companion object {
+        private const val ATTEMPTS = 3
+    }
 }
