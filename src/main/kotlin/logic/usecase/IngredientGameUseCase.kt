@@ -15,8 +15,8 @@ class IngredientGameUseCase(mealsProvider: MealsProvider) {
     private val maxQuestions = 15
 
     fun execute(options: IngredientQuestion, choice: Int?): Boolean {
-        if (isNotValidChoice(options, choice)) return false
-        return correctAnswer(options, choice)
+        return if (isNotValidChoice(options, choice)) false
+        else correctAnswer(options, choice!!)
     }
 
     fun getScore(): Int = score
@@ -33,9 +33,9 @@ class IngredientGameUseCase(mealsProvider: MealsProvider) {
 
     private fun correctAnswer(
         options: IngredientQuestion,
-        choice: Int?
+        choice: Int
     ): Boolean {
-        val selected = options.options[choice?.minus(1) ?: return false]
+        val selected = options.options[choice.minus(1)]
         if (selected == options.correctIngredient) {
             score += points
             correctAnswers++
@@ -65,7 +65,7 @@ class IngredientGameUseCase(mealsProvider: MealsProvider) {
 
     private fun getWrongIngredients(excludeIngredient: String): List<String> {
         return allMeals
-            .flatMap { it.ingredients.orEmpty() }
+            .flatMap { it.ingredients!! }
             .filter { !it.equals(excludeIngredient, ignoreCase = true) }
             .distinct()
             .shuffled()
