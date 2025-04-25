@@ -5,14 +5,12 @@ import helpers.filter.SeaFoodTestData
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import logic.usecase.SeaFoodMealUseCase
-import model.Meal
+import org.example.logic.usecase.filter.SeaFoodMealUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import kotlin.test.assertEquals
 
 class SeaFoodMealUseCaseTest {
 

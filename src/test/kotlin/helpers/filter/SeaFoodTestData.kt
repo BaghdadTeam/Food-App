@@ -20,6 +20,11 @@ object SeaFoodTestData {
         seaFoodMealWithNullNutrition()
     ).flatten()
 
+    fun rankedSeaFoodMeals() = listOf(
+        Pair(1, createMealHelper("Shrimp Pasta", nutrition = createNutritionHelper(protein = 30.0))),
+        Pair(2, createMealHelper("Grilled Salmon", nutrition = createNutritionHelper(protein = 20.0)))
+    )
+
     fun seaFoodMeals() = listOf(
         createMealHelper(
             name = "Shrimp Pasta",
