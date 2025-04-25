@@ -1,15 +1,15 @@
 package org.example.presentation
 
 class FoodChangeMoodConsoleUI(
-    private val features: Map<Int, Feature>) {
+    private val features: Map<Int, Feature>, private val viewer: Viewer,private val reader: Reader) {
     fun start() {
         showWelcome()
         presentFeatures()
     }
 
-    private fun showWelcome() = println("Welcome to Food Change Mood!")
+    private fun showWelcome() = viewer.log("Welcome to Food Change Mood!")
 
-    private fun getUserInput(): Int? = readlnOrNull()?.toIntOrNull()
+    private fun getUserInput(): Int? = reader.readInput()?.toIntOrNull()
 
     private fun presentFeatures() {
         while (true) {
@@ -17,22 +17,22 @@ class FoodChangeMoodConsoleUI(
             val option = getUserInput() ?: 0
 
             if (option == 0) {
-                println("Exiting... Goodbye!")
+                viewer.log("Exiting... Goodbye!")
                 break
             }
 
-            features[option]?.execute() ?: println("Invalid input, please try again.")
+            features[option]?.execute() ?: viewer.log("Invalid input, please try again.")
 
         }
     }
 
     private fun showOptions() {
-        println("\n=== Please enter one of the following numbers ===")
+        viewer.log("\n=== Please enter one of the following numbers ===")
         features.values.sortedBy { it.id }.forEach {
-            println("${it.id}. ${it.name}")
+            viewer.log("${it.id}. ${it.name}")
         }
-        println("0. Exit")
-        print("Enter your choice: ")
+        viewer.log("0. Exit")
+        viewer.log("Enter your choice: ")
     }
 
 }

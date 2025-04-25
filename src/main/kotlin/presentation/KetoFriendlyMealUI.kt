@@ -1,11 +1,11 @@
 package org.example.presentation
 
 import logic.usecase.SuggestKetoMealUseCase
-import org.example.utils.EmptyMeals
+import org.example.utils.EmptyMealsException
 import org.example.utils.MealPresenter
-import org.example.utils.NoElementMatch
+import org.example.utils.NoMealFoundException
 
-class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase) : Feature {
+class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private val viewer: Viewer,private val reader: Reader) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
@@ -14,23 +14,23 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase) : Feature 
         try {
             var suggestedMeal = useCase.execute()
             while (true) {
-                println("Suggested Keto Meal: ${suggestedMeal.name}")
-                println("Would you like to see more details or get another suggestion? (y/n): ")
+                viewer.log("Suggested Keto Meal: ${suggestedMeal.name}")
+                viewer.log("Would you like to see more details or get another suggestion? (y/n): ")
 
-                val userInput = readln().lowercase()
+                val userInput = reader.readInput()?.lowercase()
                 if (userInput == "y") {
                     MealPresenter.printDetails(suggestedMeal)
                     break
                 } else if (userInput == "n") {
                     suggestedMeal = useCase.execute()
-                } else println("Invalid input. Please enter 'y' or 'n'.")
+                } else viewer.log("Invalid input. Please enter 'y' or 'n'.")
             }
-        } catch (_: EmptyMeals) {
-            println("No meals in the database.")
-        } catch (e: NoElementMatch) {
-            println("There is no more unique keto Meals")
+        } catch (_: EmptyMealsException) {
+            viewer.log("No meals in the database.")
+        } catch (e: NoMealFoundException) {
+            viewer.log("There is no more unique keto Meals")
         } catch (e: Exception) {
-            println("There is a problem happened when retrieving the data")
+            viewer.log("There is a problem happened when retrieving the data")
         }
     }
 

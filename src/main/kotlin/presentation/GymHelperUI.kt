@@ -2,10 +2,12 @@ package presentation.feature
 
 import logic.usecase.GymMealHelperUseCase
 import org.example.presentation.Feature
+import org.example.presentation.Reader
+import org.example.presentation.Viewer
 
 class GymHelperUI(
 
-    private val useCase: GymMealHelperUseCase
+    private val useCase: GymMealHelperUseCase,private val viewer: Viewer,private val reader: Reader
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
@@ -13,19 +15,19 @@ class GymHelperUI(
     override fun execute() {
 
         try {
-            print(" Enter desired calories: ")
-            val calories = readlnOrNull()?.toIntOrNull() ?: throw Exception("Invalid number")
+            viewer.log(" Enter desired calories: ")
+            val calories = reader.readInput()?.toIntOrNull() ?: throw Exception("Invalid number")
 
-            print(" Enter desired protein : ")
+            viewer.log(" Enter desired protein : ")
             val protein =
-                readlnOrNull()?.toDoubleOrNull() ?: throw IllegalArgumentException("Invalid number")
+                reader.readInput()?.toDoubleOrNull() ?: throw IllegalArgumentException("Invalid number")
 
             val matchingMeals = useCase.getGymMealsSuggestion(calories, protein)
 
             if (matchingMeals.isEmpty()) {
-                println("No meals found matching your nutritional goals.")
+                viewer.log("No meals found matching your nutritional goals.")
             } else {
-                println("\n Meals matching your gym goals:\n")
+                viewer.log("\n Meals matching your gym goals:\n")
 
                 val RESET = "\u001B[0m"
                 val HEADER_COLOR = "\u001B[44;97m"
@@ -35,11 +37,11 @@ class GymHelperUI(
                 fun String.pad(width: Int) = this.padEnd(width, ' ')
 
                 fun printLine() {
-                    println("+${"-".repeat(5)}+${"-".repeat(25)}+${"-".repeat(12)}+${"-".repeat(12)}+")
+                    viewer.log("+${"-".repeat(5)}+${"-".repeat(25)}+${"-".repeat(12)}+${"-".repeat(12)}+")
                 }
 
                 printLine()
-                println(
+                viewer.log(
                     HEADER_COLOR + "| ID  | ${"Meal Name".pad(24)}| ${"Calories".pad(11)}| ${
                         "Protein(g)".pad(11)
                     }|" + RESET
@@ -55,14 +57,14 @@ class GymHelperUI(
                     val row = "| $id | $name| $cal| $proteinVal|"
 
                     val rowColor = if (index % 2 == 0) NAME_ROW_COLOR else VALUE_ROW_COLOR
-                    println(rowColor + row + RESET)
+                    viewer.log(rowColor + row + RESET)
 
                     printLine()
                 }
 
             }
         } catch (e: Throwable) {
-            println(" Error: ${e.message}")
+            viewer.log(" Error: ${e.message}")
         }
     }
 

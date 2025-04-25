@@ -1,11 +1,11 @@
 package org.example.presentation
 
 import logic.usecase.SeaFoodMealUseCase
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class SeafoodMealsUI(
-    private val useCase: SeaFoodMealUseCase
+    private val useCase: SeaFoodMealUseCase, private val viewer: Viewer
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
@@ -13,16 +13,16 @@ class SeafoodMealsUI(
     override fun execute() {
         try {
             val rankedMeals = useCase.execute()
-            println("Rank    Name    Protein")
+            viewer.log("Rank    Name    Protein")
             rankedMeals.forEach { (rank, meal) ->
-                println("$rank      ${meal.name}     ${meal.nutrition!!.protein}")
+                viewer.log("$rank      ${meal.name}     ${meal.nutrition!!.protein}")
             }
-        } catch (e: EmptyMeals) {
-            println("There is no meals in database")
-        } catch (e: NoElementMatch) {
-            println("There is no seafood meals found")
+        } catch (e: EmptyMealsException) {
+            viewer.log("There is no meals in database")
+        } catch (e: NoMealFoundException) {
+            viewer.log("There is no seafood meals found")
         } catch (e: Exception) {
-            println("There is a problem happened when retrieving the data.")
+            viewer.log("There is a problem happened when retrieving the data.")
         }
     }
 

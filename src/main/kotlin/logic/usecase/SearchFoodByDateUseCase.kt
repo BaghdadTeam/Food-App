@@ -4,7 +4,7 @@ import kotlinx.datetime.LocalDate
 import logic.MealsProvider
 import model.Meal
 import org.example.utils.InvalidDateFormatException
-import org.example.utils.NoMealsFoundException
+import org.example.utils.NoMealFoundException
 import java.time.format.DateTimeParseException
 
 class SearchFoodByDateUseCase(private val mealsProvider: MealsProvider) {
@@ -20,7 +20,7 @@ class SearchFoodByDateUseCase(private val mealsProvider: MealsProvider) {
         val meals = mealsProvider.getMeals().filter { it.date == searchDate }
 
         if (meals.isEmpty()) {
-            throw NoMealsFoundException("No meals found for date: $dateInput")
+            throw NoMealFoundException("No meals found for date: $dateInput")
         }
 
         return meals

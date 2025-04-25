@@ -1,35 +1,35 @@
 package org.example.presentation
 
 import logic.usecase.FilterQuickHealthyMealsUseCase
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
-class QuickHealthyMealsUI(private val useCase: FilterQuickHealthyMealsUseCase) : Feature {
+class QuickHealthyMealsUI(private val useCase: FilterQuickHealthyMealsUseCase, private val viewer: Viewer,private val reader: Reader) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
     override fun execute() {
 
-        println("Please enter the number of meals you want to see:")
-        val countInput = readln().toIntOrNull()
+        viewer.log("Please enter the number of meals you want to see:")
+        val countInput = reader.readInput()?.toIntOrNull()
 
-        if (countInput == null) {
-            println("Please enter a valid number.")
+        if (countInput == null || countInput <= 0) {
+            viewer.log("Please enter a valid positive number.")
         } else {
             try {
                 val meals = useCase.execute(countInput)
                 if (meals.isEmpty()) {
-                    println("No quick healthy meals found ")
+                    viewer.log("No quick healthy meals found ")
                 } else {
-                    println("Quick & Healthy Meals:")
-                    meals.forEach { println("- ${it.name}") }
+                    viewer.log("Quick & Healthy Meals:")
+                    meals.forEach { viewer.log("- ${it.name}") }
                 }
-            } catch (e: EmptyMeals) {
-                println("There is no meals in database")
-            } catch (e: NoElementMatch) {
-                println("There are no quick healthy meals available ")
-            } catch (e: Exception) {
-                println("There is a problem happened when retrieving the data.")
+            } catch (_: EmptyMealsException) {
+                viewer.log("There is no meals in database")
+            } catch (_: NoMealFoundException) {
+                viewer.log("There are no quick healthy meals available ")
+            } catch (_: Exception) {
+                viewer.log("There is a problem happened when retrieving the data.")
             }
         }
     }

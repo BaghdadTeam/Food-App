@@ -1,6 +1,8 @@
 package org.example.di
 
 import logic.usecase.*
+import org.example.logic.usecase.suggest.EggFreeSweetsUseCase
+import org.example.logic.usecase.suggest.IraqiMealsIdentifierUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -16,7 +18,7 @@ val useCaseModule = module {
     single { PotatoLovingMealsUseCase(get()) }
     single { SeaFoodMealUseCase(get()) }
 
-    single { SearchMealUseCase(get()) }
+    single { SearchMealUseCase(get(), get()) }
     single { SuggestEasyMealUseCase(get()) }
     single { SuggestHighCalorieMealUseCase(get()) }
 

@@ -4,10 +4,10 @@ import kotlinx.datetime.LocalDate
 import logic.usecase.SearchFoodByDateUseCase
 import org.example.utils.InvalidDateFormatException
 import org.example.utils.MealPresenter
-import org.example.utils.NoMealsFoundException
+import org.example.utils.NoMealFoundException
 
 class SearchFoodByDateUI(
-    private val useCase: SearchFoodByDateUseCase
+    private val useCase: SearchFoodByDateUseCase, private val viewer: Viewer,private val reader: Reader
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
@@ -18,39 +18,39 @@ class SearchFoodByDateUI(
     }
 
     private fun invoke() {
-        print("Enter date to search meals (yyyy-m-d): ")
-        val dateInput = readln()
+        viewer.log("Enter date to search meals (yyyy-m-d): ")
+        val dateInput = reader.readInput()?:""
 
         try {
             val meals = useCase.execute(dateInput)
 
-            println("\nMeals added on ${LocalDate.parse(dateInput)}:")
-            meals.forEach { println("${it.id}: ${it.name}") }
+            viewer.log("\nMeals added on ${LocalDate.parse(dateInput)}:")
+            meals.forEach { viewer.log("${it.id}: ${it.name}") }
 
-            print("\nEnter meal ID to view details (or 0 to exit): ")
-            val input = readln()
+            viewer.log("\nEnter meal ID to view details (or 0 to exit): ")
+            val input = reader.readInput()
 
             if (input != "0") {
-                val mealId = input.toIntOrNull()
+                val mealId = input?.toIntOrNull()
                 val selectedMeal = meals.find { it.id == mealId }
 
                 if (selectedMeal != null) {
                     displayMealDetails(selectedMeal)
                 } else {
-                    println("Meal with ID $input not found.")
+                    viewer.log("Meal with ID $input not found.")
                 }
             }
 
         } catch (e: InvalidDateFormatException) {
-            println("Error: ${e.message}")
-        } catch (e: NoMealsFoundException) {
-            println("Notice: ${e.message}")
+            viewer.log("Error: ${e.message}")
+        } catch (e: NoMealFoundException) {
+            viewer.log("Notice: ${e.message}")
         }
     }
 
     private fun displayMealDetails(meal: model.Meal) {
-        println("\n=== Meal Details ===")
-        println("Date Added: ${meal.date}")
+        viewer.log("\n=== Meal Details ===")
+        viewer.log("Date Added: ${meal.date}")
         MealPresenter.printDetails(meal)
     }
 

@@ -1,29 +1,29 @@
 package org.example.presentation
 
 import logic.usecase.SearchMealUseCase
-import org.example.utils.EmptyMealName
-import org.example.utils.EmptyMeals
-import org.example.utils.NoElementMatch
+import org.example.utils.EmptyMealNameException
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
-class MealSearchUI(private val useCase: SearchMealUseCase) : Feature {
+class MealSearchUI(private val useCase: SearchMealUseCase, private val viewer: Viewer,private val reader: Reader) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
     override fun execute() {
-        print("Enter meal name (partial or full): ")
-        val keyword = readlnOrNull()?.trim().orEmpty()
+        viewer.log("Enter meal name (partial or full): ")
+        val keyword = reader.readInput()?.trim().orEmpty()
         try {
             val meals = useCase.execute(keyword)
-            println("Matching Meals:\n${meals.joinToString("\n") { "- ${it.name} " }}")
+            viewer.log("Matching Meals:\n${meals.joinToString("\n") { "- ${it.name} " }}")
 
-        } catch (_: EmptyMeals) {
-            println("No meals in the database.")
-        } catch (_: EmptyMealName) {
-            println("Meal name should not be empty")
-        } catch (_: NoElementMatch) {
-            println("No meals found matching '$keyword'.")
+        } catch (_: EmptyMealsException) {
+            viewer.log("No meals in the database.")
+        } catch (_: EmptyMealNameException) {
+            viewer.log("Meal name should not be empty")
+        } catch (_: NoMealFoundException) {
+            viewer.log("No meals found matching '$keyword'.")
         } catch (_: Exception) {
-            println("There is a problem happened when retrieving the data.")
+            viewer.log("There is a problem happened when retrieving the data.")
         }
     }
 
