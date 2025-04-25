@@ -5,6 +5,7 @@ import org.example.logic.usecase.filter.SeaFoodMealUseCase
 import org.example.logic.usecase.game.IngredientGameUseCase
 import org.example.logic.usecase.suggest.EggFreeSweetsUseCase
 import org.example.logic.usecase.suggest.IraqiMealsIdentifierUseCase
+import org.example.logic.usecase.suggest.SuggestHighCalorieMealUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
