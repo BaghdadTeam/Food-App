@@ -289,6 +289,53 @@ class IngredientGameUseCaseTest {
         assertThat(options).isNull()
     }
 
+    @Test
+    fun `getOptions should use only valid meals that are not null`() {
+        val inValidMeals = listOf(
+            createMealHelper(
+                "Breakfast Pizza", 1, 100, LocalDate.parse("2022-01-01"), listOf("breakfast"),
+                Nutrition(173.4, 18.0, 0.0, 17.0, 22.0, 35.0, 1.0), 3,
+                listOf("Preheat", "Add toppings", "Bake"), "Quick pizza",
+                listOf(), 3, 30
+            ),
+
+            createMealHelper(
+                null, 2, 101, LocalDate.parse("2022-01-02"), listOf("dinner"),
+                Nutrition(400.0, 25.0, 2.0, 30.0, 35.0, 5.0, 1.5), 4,
+                listOf("Cook pasta", "Grill chicken", "null", "Mix together"), "Creamy pasta",
+                listOf("Chicken", "Cream", "Parmesan", "Garlic", "Pasta", "Pepper"), 4, 45
+            ),
+
+            createMealHelper(
+                "Beef Tacos", null, 102, LocalDate.parse("2022-01-03"), listOf("mexican"),
+                Nutrition(300.0, 20.0, 5.0, 20.0, 25.0, 4.0, 1.2), 3,
+                listOf("Cook beef", "Prepare shells", "Assemble tacos"), "Spicy beef tacos",
+                listOf("Beef", "Taco shells", "Lettuce", "Cheddar", "Tomato", "Onion"), 3, 25
+            ),
+
+            createMealHelper(
+                "Veggie Stir Fry",
+                4,
+                103,
+                LocalDate.parse("2022-01-04"),
+                listOf("vegetarian"),
+                Nutrition(250.0, 10.0, 0.0, 15.0, 30.0, 10.0, 1.3),
+                3,
+                listOf("Chop veggies", "Stir fry", "Serve hot"),
+                "Colorful and quick veggie stir fry",
+                listOf("Broccoli", "Carrot", "Bell Pepper", "Soy Sauce", "Garlic", "Ginger"),
+                3,
+                20
+            )
+        )
+        every { mealsProvider.getMeals() } returns inValidMeals
+        ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
+        val options = ingredientGameUseCase.getOptions()
+
+        val result = ingredientGameUseCase.getMealName(options)
+        assertEquals("Veggie Stir Fry", result)
+    }
+
 
     @Test
     fun `getQuestionNumber should increase with correct answers`() {
