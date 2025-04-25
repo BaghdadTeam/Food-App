@@ -1,8 +1,6 @@
 package helpers.game
 
 import helpers.createMealHelper
-import kotlinx.datetime.LocalDate
-import model.Nutrition
 import org.example.model.IngredientQuestion
 
 object IngredientGameTestData {
