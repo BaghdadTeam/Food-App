@@ -3,9 +3,10 @@ package org.example.di
 import org.example.presentation.*
 import org.example.presentation.suggest.IraqiMealsUI
 import org.example.presentation.suggest.EggFreeSweetsUI
+import org.example.presentation.SuggestEasyMealUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import presentation.feature.GymHelperUI
+import org.example.presentation.GymHelperUI
 
 val uiModule = module {
 
@@ -25,7 +26,7 @@ val uiModule = module {
     factory { SeafoodMealsUI(useCase = get(), get()) } bind Feature::class
     factory { GymHelperUI(useCase = get(), get(), get()) } bind Feature::class
 
-    factory { SuggestEasyMealUI(useCase = get()) } bind Feature::class
+    factory { SuggestEasyMealUI(useCase = get(), viewer = get()) } bind Feature::class
     factory { ExploreOtherCountriesUI(useCase = get(), get(), get()) } bind Feature::class
     factory { IngredientGameUI(useCase = get(), get(), get()) } bind Feature::class
 
