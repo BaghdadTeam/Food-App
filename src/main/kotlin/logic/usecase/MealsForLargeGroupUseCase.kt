@@ -7,7 +7,7 @@ import org.example.utils.NoMealFoundException
 
 class MealsForLargeGroupUseCase(private val mealsProvider: MealsProvider) {
 
-    private val countryName = "Italy"
+    private val countryName = "Italian"
     private val query = "Large group"
     fun execute(): List<Meal> {
         if (mealsProvider.getMeals().isEmpty()) throw EmptyMealsException("No meals found")

@@ -1,6 +1,7 @@
 package logic.usecase.game
 
 import com.google.common.truth.Truth.assertThat
+import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
@@ -150,6 +151,23 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
+    fun `filter should exclude meal with empty ingredients among valid meals`() {
+        // Given
+        val mixedMeals = listOf(
+            createMealHelper(name = "Invalid Empty", id = 1, ingredients = emptyList()),
+            createMealHelper(name = "Valid Meal", id = 2, ingredients = listOf("A", "B", "C"))
+        )
+        every { mealsProvider.getMeals() } returns mixedMeals
+        // When
+        ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
+
+        // Then
+        val options = ingredientGameUseCase.getOptions()
+        assertThat(options).isNotNull()
+        assertThat(options?.mealName).isEqualTo("Valid Meal")
+    }
+
+    @Test
     fun `getOptions should return 3 unique options`() {
         every { mealsProvider.getMeals() } returns meals
         ingredientGameUseCase = IngredientGameUseCase(mealsProvider) // why?
@@ -176,9 +194,8 @@ class IngredientGameUseCaseTest {
         val options = ingredientGameUseCase.getOptions()
 
         val result = ingredientGameUseCase.getMealName(options)
-        assertEquals("Veggie Stir Fry", result)
+        assertThat("Chicken Alfredo").isEqualTo(result)
     }
-
 
     @Test
     fun `getQuestionNumber should increase with correct answers`() {
