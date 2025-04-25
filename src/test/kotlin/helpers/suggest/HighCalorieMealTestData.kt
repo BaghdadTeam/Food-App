@@ -24,6 +24,9 @@ object HighCalorieMealTestData {
     fun listOfOneNullMeal(): List<Meal> {
         return listOf(nullMeal())
     }
+    fun listOfOneMealHasNutritionNull() : List<Meal>{
+        return listOf(nullNutrition())
+    }
 
     fun listOfTwoDifferentHighCalorieMeals(): List<Meal> {
         return listOf(
@@ -87,6 +90,9 @@ object HighCalorieMealTestData {
         return createMealHelper()
 
     }
+    private fun  nullNutrition():Meal{
+        return createMealHelper(nutrition = null)
 
+    }
 
 }
