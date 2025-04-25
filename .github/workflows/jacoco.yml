@@ -1,8 +1,10 @@
 name: Jacoco Test Coverage Enforcement
 
 on:
+  push:
+    branches: [ "develop" ]
   pull_request:
-    branches: [develop]
+    branches: [ "develop" ]
 
 jobs:
   coverage-check:
