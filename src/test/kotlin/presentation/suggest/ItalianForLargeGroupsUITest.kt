@@ -1,12 +1,12 @@
-package presentation
+package presentation.suggest
 
 import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import logic.usecase.MealsForLargeGroupUseCase
-import org.example.presentation.ItalianForLargeGroupsUI
+import org.example.logic.usecase.suggest.MealsForLargeGroupUseCase
 import org.example.presentation.Viewer
+import org.example.presentation.suggest.ItalianForLargeGroupsUI
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
@@ -30,8 +30,14 @@ class ItalianForLargeGroupsUITest {
     fun `should return meals and print the name of the meals`() {
         // Given
         val italianMeals = listOf(
-            createMealHelper(name = "Italian salad dish", description = "Italian dish for large group"),
-            createMealHelper(name = "Italian dish", tags = listOf("indian dish for for large group")),
+            createMealHelper(
+                name = "Italian salad dish",
+                description = "Italian dish for large group"
+            ),
+            createMealHelper(
+                name = "Italian dish",
+                tags = listOf("indian dish for for large group")
+            ),
         )
 
         every { useCase.execute() } returns italianMeals
@@ -67,10 +73,13 @@ class ItalianForLargeGroupsUITest {
         ui.execute()
 
         // Then
-        verify { viewer.log("""There is no meals for large group at the moment
+        verify {
+            viewer.log(
+                """There is no meals for large group at the moment
                 |please try again later
             """.trimMargin()
-        ) }
+            )
+        }
     }
 
     @Test

@@ -2,10 +2,12 @@ package org.example.di
 
 import org.example.presentation.*
 import org.example.presentation.filter.SeafoodMealsUI
+import org.example.presentation.game.GuessGameUI
 import org.example.presentation.game.IngredientGameUI
 import org.example.presentation.suggest.IraqiMealsUI
 import org.example.presentation.suggest.EggFreeSweetsUI
 import org.example.presentation.suggest.HighCalorieMealUI
+import org.example.presentation.suggest.ItalianForLargeGroupsUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import presentation.feature.GymHelperUI

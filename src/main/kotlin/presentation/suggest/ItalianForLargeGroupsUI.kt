@@ -1,11 +1,14 @@
-package org.example.presentation
+package org.example.presentation.suggest
 
-import logic.usecase.MealsForLargeGroupUseCase
+import org.example.logic.usecase.suggest.MealsForLargeGroupUseCase
+import org.example.presentation.Feature
+import org.example.presentation.Viewer
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 
 class ItalianForLargeGroupsUI(
-    private val useCase: MealsForLargeGroupUseCase, private val viewer: Viewer
+    private val useCase: MealsForLargeGroupUseCase,
+    private val viewer: Viewer
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
