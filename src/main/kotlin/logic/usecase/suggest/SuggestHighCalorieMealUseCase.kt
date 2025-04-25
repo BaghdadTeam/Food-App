@@ -21,7 +21,8 @@ class SuggestHighCalorieMealUseCase(private val mealsProvider: MealsProvider) {
 
     private fun isHighCalorieMeal(meal: Meal):Boolean{
         if (meal.nutrition == null) return false
-        return meal.nutrition.calories!! > 700 && !suggestedMeals.contains(meal.id.toString())
+        if(meal.nutrition.calories == null) return false
+        return meal.nutrition.calories > 700 && !suggestedMeals.contains(meal.id.toString())
 
     }
 
