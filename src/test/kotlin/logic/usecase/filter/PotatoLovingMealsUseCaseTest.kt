@@ -13,6 +13,7 @@ import kotlinx.datetime.toLocalDateTime
 import logic.MealsProvider
 import logic.usecase.PotatoLovingMealsUseCase
 import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -48,7 +49,7 @@ class PotatoLovingMealsUseCaseTest {
 
         every { mealsProvider.getMeals() } returns meals
 
-        val exception = assertThrows<EmptyMealsException> {
+        val exception = assertThrows<NoMealFoundException> {
             useCase.execute()
         }
 
@@ -72,7 +73,7 @@ class PotatoLovingMealsUseCaseTest {
 
         every { mealsProvider.getMeals() } returns meals
 
-        val exception = assertThrows<EmptyMealsException> {
+        val exception = assertThrows<NoMealFoundException> {
             useCase.execute()
         }
 
