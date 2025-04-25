@@ -29,7 +29,7 @@ class HighCalorieMealUITest {
     }
 
     @Test
-    fun `should show high calorie meal and print details when user write y yes`() {
+    fun `should show high calorie meal and print details when user write yes`() {
         // Given
         val highCalorieMeal = HighCalorieMealTestData.listOfOneHighCalorieMeal()[0]
         every { useCase.execute() } returns highCalorieMeal
@@ -46,7 +46,7 @@ class HighCalorieMealUITest {
     }
 
     @Test
-    fun `should keep show high calorie meal name when user has not write yes or no and print details when user write y yes`() {
+    fun `should keep show high calorie meal name when user has not write yes or no and print details when user write yes`() {
         // Given
         val highCalorieMeal = HighCalorieMealTestData.listOfOneHighCalorieMeal()[0]
         every { useCase.execute() } returns highCalorieMeal
