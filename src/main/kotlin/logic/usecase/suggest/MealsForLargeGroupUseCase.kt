@@ -1,11 +1,13 @@
-package logic.usecase
+package org.example.logic.usecase.suggest
 
 import logic.MealsProvider
 import model.Meal
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 
-class MealsForLargeGroupUseCase(private val mealsProvider: MealsProvider) {
+class MealsForLargeGroupUseCase(
+    private val mealsProvider: MealsProvider
+) {
 
     private val countryName = "Italian"
     private val query = "Large group"
