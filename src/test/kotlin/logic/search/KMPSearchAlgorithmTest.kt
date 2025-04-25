@@ -1,4 +1,4 @@
-package search
+package logic.search
 
 import com.google.common.truth.Truth.assertThat
 import org.example.logic.search.KMPSearchAlgorithm
