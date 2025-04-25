@@ -5,7 +5,7 @@ import helpers.suggest.HighCalorieMealTestData
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import logic.usecase.SuggestHighCalorieMealUseCase
+import org.example.logic.usecase.suggest.SuggestHighCalorieMealUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
@@ -35,7 +35,7 @@ class HighCalorieMealUseCaseTest {
     }
 
     @Test
-    fun `throw an exception when no high calorie meal found`() {
+    fun `throw an NoMealFoundException when no high calorie meal found`() {
         // Given
         every { mealsProvider.getMeals() } returns HighCalorieMealTestData.listOfOneNotHighCalorieMeal()
 
@@ -44,7 +44,7 @@ class HighCalorieMealUseCaseTest {
     }
 
     @Test
-    fun `should throw an exception when MealsProvider returns empty list`() {
+    fun `should throw an EmptyMealsException when MealsProvider returns empty list`() {
         every { mealsProvider.getMeals() } returns emptyList()
 
         // When & Then
@@ -52,7 +52,7 @@ class HighCalorieMealUseCaseTest {
     }
 
     @Test
-    fun `should throw an exceptions when no high calorie meal left to suggested`() {
+    fun `should throw an NoMealFoundException when no high calorie meal left to suggested`() {
         // Given
         every { mealsProvider.getMeals() } returns HighCalorieMealTestData.listOfOneHighCalorieMeal()
 
@@ -77,7 +77,7 @@ class HighCalorieMealUseCaseTest {
     }
 
     @Test
-    fun `throw an exception when multiple same high calorie meals suggested`() {
+    fun `throw an NoMealFoundException when multiple same high calorie meals suggested`() {
         // Given
         every { mealsProvider.getMeals() } returns HighCalorieMealTestData.listOfTwoTheSameHighCalorieMeals()
 
@@ -87,5 +87,16 @@ class HighCalorieMealUseCaseTest {
         // Then
         assertThrows<NoMealFoundException> { suggestHighCalorieMealUseCase.execute() }
     }
+
+    @Test
+    fun `throw an NoMealFoundException when there is only null meal`() {
+        // Given
+        every { mealsProvider.getMeals() } returns HighCalorieMealTestData.listOfOneNullMeal()
+
+        // When & Then
+        assertThrows<NoMealFoundException> { suggestHighCalorieMealUseCase.execute() }
+    }
+
+
 
 }
