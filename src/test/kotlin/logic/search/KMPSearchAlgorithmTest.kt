@@ -3,7 +3,7 @@ package search
 import com.google.common.truth.Truth.assertThat
 import org.example.logic.search.KMPSearchAlgorithm
 import org.example.utils.EmptyPatternException
-import org.example.utils.EmptyUserInputException
+import org.example.utils.EmptyTextException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
@@ -35,7 +35,28 @@ class KMPSearchAlgorithmTest {
         val pattern = "pizza"
 
         // when & then
-        assertThrows<EmptyUserInputException> { kmpSearchAlgorithm.search(text, pattern) }
+        assertThrows<EmptyTextException> { kmpSearchAlgorithm.search(text, pattern) }
+    }
+
+    @Test
+    fun `should throw an exception when pattern is blank`() {
+        // Given
+        val text = "pizza"
+        val pattern = " "
+
+        // when & then
+        assertThrows<EmptyPatternException> { kmpSearchAlgorithm.search(text, pattern) }
+
+    }
+
+    @Test
+    fun `should throw and exception when text is blank`() {
+        // Given
+        val text = " "
+        val pattern = "pizza"
+
+        // when & then
+        assertThrows<EmptyTextException> { kmpSearchAlgorithm.search(text, pattern) }
     }
 
     @Test
