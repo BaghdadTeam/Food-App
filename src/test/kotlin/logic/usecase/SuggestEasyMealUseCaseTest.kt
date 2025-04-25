@@ -5,7 +5,6 @@ import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -140,21 +139,23 @@ class SuggestEasyMealUseCaseTest {
         val result = suggestEasyMealUseCase.execute()
         assertThat(result).containsExactly(mealWithNullIngredients)
     }
+
     @Test
     fun `should throw IllegalArgumentException when maxMealsToSuggest is negative`() {
         val mealsProvider = mockk<MealsProvider>()
         val useCase = SuggestEasyMealUseCase(mealsProvider, maxMealsToSuggest = -1)
-        every { mealsProvider.getMeals() } returns listOf(createMealHelper(
-            preparationTime = 10,
-            ingredients = fewIngredients(),
-            steps = fewSteps()
-        ))
+        every { mealsProvider.getMeals() } returns listOf(
+            createMealHelper(
+                preparationTime = 10,
+                ingredients = fewIngredients(),
+                steps = fewSteps()
+            )
+        )
 
         assertThrows<IllegalArgumentException> { useCase.execute() }
     }
 
 
-    // Helper functions
     private fun manyIngredients() = listOf("item1", "item2", "item3", "item4", "item5", "item6")
     private fun manySteps() = listOf("step1", "step2", "step3", "step4", "step5", "step6", "step7")
     private fun fewIngredients() = listOf("item1", "item2", "item3")
