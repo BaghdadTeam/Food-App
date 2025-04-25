@@ -73,3 +73,4 @@ class SuggestEasyMealUITest {
         verify { viewer.log("Error: Test error") }
     }
 }
+//
