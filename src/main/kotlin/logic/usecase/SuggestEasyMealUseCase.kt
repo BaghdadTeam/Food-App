@@ -14,9 +14,11 @@ class SuggestEasyMealUseCase(private val mealsProvider: MealsProvider) {
             ?: throw NoSuchElementException("There is no more easy to make meals")
     }
 
-    private fun isEasyMeal(meal: Meal): Boolean =
-        (meal.preparationTime <= 30) &&
+    private fun isEasyMeal(meal: Meal): Boolean {
+        return if (meal.preparationTime == null) false
+        else (meal.preparationTime <= 30) &&
                 (meal.ingredients?.size != null && meal.ingredients.size <= 5) &&
                 (meal.steps.size <= 6)
+    }
 
 }
