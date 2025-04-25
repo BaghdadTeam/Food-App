@@ -1,13 +1,12 @@
-package logic.usecase
+package logic.usecase.search
 
 import com.google.common.truth.Truth
 import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
+import logic.usecase.ExploreOtherCountriesFoodCultureUseCase
 import org.example.utils.EmptyMealsException
-import org.example.utils.NoMealFoundException
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

@@ -1,4 +1,4 @@
-package presentation
+package presentation.filter
 
 import helpers.createMealHelper
 import io.mockk.every

@@ -1,4 +1,4 @@
-package presentation
+package presentation.search
 
 import helpers.createMealHelper
 import io.mockk.every
@@ -10,7 +10,6 @@ import org.example.presentation.Reader
 import org.example.presentation.Viewer
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
