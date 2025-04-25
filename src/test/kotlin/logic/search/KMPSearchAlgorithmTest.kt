@@ -18,7 +18,7 @@ class KMPSearchAlgorithmTest {
     }
 
     @Test
-    fun `should throw an exception when pattern is empty`() {
+    fun `should throw an EmptyPatternException when pattern is empty`() {
         // Given
         val text = "pizza"
         val pattern = ""
@@ -29,7 +29,7 @@ class KMPSearchAlgorithmTest {
     }
 
     @Test
-    fun `should throw and exception when text is empty`() {
+    fun `should throw an EmptyTextException when text is empty`() {
         // Given
         val text = ""
         val pattern = "pizza"
@@ -39,7 +39,7 @@ class KMPSearchAlgorithmTest {
     }
 
     @Test
-    fun `should throw an exception when pattern is blank`() {
+    fun `should throw an EmptyPatternException when pattern is blank`() {
         // Given
         val text = "pizza"
         val pattern = " "
@@ -50,7 +50,7 @@ class KMPSearchAlgorithmTest {
     }
 
     @Test
-    fun `should throw and exception when text is blank`() {
+    fun `should throw an EmptyTextException when text is blank`() {
         // Given
         val text = " "
         val pattern = "pizza"

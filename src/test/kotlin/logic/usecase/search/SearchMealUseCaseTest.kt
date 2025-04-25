@@ -30,7 +30,7 @@ class SearchMealUseCaseTest {
 
 
     @Test
-    fun `should throw exception when MealsProvider returns empty list`() {
+    fun `should throw EmptyMealsException when MealsProvider returns empty list`() {
         // Given
         every { mealsProvider.getMeals() } returns emptyList()
         // When & Then
@@ -39,7 +39,7 @@ class SearchMealUseCaseTest {
 
 
     @Test
-    fun `should throw exception when empty meal name input`() {
+    fun `should throw EmptyMealNameException when empty meal name input`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "pizza")
@@ -49,7 +49,7 @@ class SearchMealUseCaseTest {
     }
 
     @Test
-    fun `should throw exception when blank meal name input`() {
+    fun `should throw EmptyMealNameException when blank meal name input`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "pizza")
@@ -75,7 +75,7 @@ class SearchMealUseCaseTest {
 
 
     @Test
-    fun `should throw an exception when no meal found by name`() {
+    fun `should throw an NoMealFoundException when no meal found by name`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "meal")
@@ -85,7 +85,7 @@ class SearchMealUseCaseTest {
     }
 
     @Test
-    fun `should throw an exception when meal is null in database`() {
+    fun `should throw an EmptyTextException when meal is null in database`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = null)
@@ -94,7 +94,7 @@ class SearchMealUseCaseTest {
         assertThrows<EmptyTextException> { searchMeal.execute("pizza") }
     }
     @Test
-    fun `should throw an exception when meal is empty in database`() {
+    fun `should throw an EmptyTextException when meal is empty in database`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "")
@@ -103,7 +103,7 @@ class SearchMealUseCaseTest {
         assertThrows<EmptyTextException> { searchMeal.execute("pizza") }
     }
     @Test
-    fun `should throw an exception when meal is blank in database`() {
+    fun `should throw an EmptyTextException when meal is blank in database`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = " ")
