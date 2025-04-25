@@ -1,20 +1,16 @@
 package presentation.filter
 
-import helpers.createMealHelper
-import helpers.createNutritionHelper
 import helpers.filter.SeaFoodTestData
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.example.logic.usecase.filter.SeaFoodMealUseCase
-import model.Meal
 import org.example.presentation.Viewer
 import org.example.presentation.filter.SeafoodMealsUI
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.util.concurrent.Future
 
 class SeafoodMealsUITest {
 
