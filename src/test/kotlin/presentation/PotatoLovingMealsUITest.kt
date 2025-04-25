@@ -20,6 +20,8 @@ class PotatoLovingMealsUITest {
     private lateinit var useCase: PotatoLovingMealsUseCase
     private lateinit var viewer: Viewer
     private lateinit var feature: PotatoLovingMealsUI
+    private val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+
 
     @BeforeEach
     fun setup() {
@@ -30,6 +32,7 @@ class PotatoLovingMealsUITest {
 
     @Test
     fun `should log no potato meals when use case returns empty list`() {
+
         every { useCase.execute() } returns emptyList()
 
         feature.execute()
@@ -55,7 +58,7 @@ class PotatoLovingMealsUITest {
                 ),
                 ingredients = listOf("potato", "salt", "oil"),
                 contributorId = it,
-                date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+                date = now,
                 tags = listOf("vegetarian", "quick"),
                 nSteps = 3,
                 steps = listOf("Peel", "Fry", "Serve"),
@@ -96,7 +99,7 @@ class PotatoLovingMealsUITest {
                 ),
                 ingredients = listOf("potato", "oil"),
                 contributorId = it,
-                date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+                date = now,
                 tags = listOf("easy"),
                 nSteps = 2,
                 steps = listOf("Chop", "Boil"),
@@ -123,7 +126,7 @@ class PotatoLovingMealsUITest {
             nutrition = null,
             ingredients = null,
             contributorId = 0,
-            date = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+            date = now,
             tags = emptyList(),
             nSteps = 0,
             steps = emptyList(),
