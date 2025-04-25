@@ -27,12 +27,7 @@ class HighCalorieMealUI(
                     MealPresenter.printDetails(meal)
                     break
                 } else if (input == "n") {
-                    try {
                         meal = useCase.execute()
-                    } catch (exception: NoSuchElementException) {
-                        viewer.log("There is no more high calorie meals")
-                        break
-                    }
                 } else {
                     viewer.log("Invalid input. Please enter 'y' or 'n'.")
                 }
