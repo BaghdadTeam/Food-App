@@ -1,11 +1,11 @@
-package presentation
+package presentation.game
 
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import logic.usecase.IngredientGameUseCase
+import org.example.logic.usecase.game.IngredientGameUseCase
 import org.example.model.IngredientQuestion
-import org.example.presentation.IngredientGameUI
+import org.example.presentation.game.IngredientGameUI
 import org.example.presentation.Reader
 import org.example.presentation.Viewer
 import kotlin.test.BeforeTest
