@@ -35,10 +35,10 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `should throw NoMealFoundException if the meal already suggested`() {
         // Given
-        every { mealProvider.getMeals() } returns listOf(KetoTestMeals.baseKetoMeal)
+        every { mealProvider.getMeals() } returns listOf(KetoTestMeals.baseKetoMeal())
         // When
         val result = useCase.execute()
-        assertThat(result).isEqualTo(KetoTestMeals.baseKetoMeal)
+        assertThat(result).isEqualTo(KetoTestMeals.baseKetoMeal())
         // Then
         assertThrows<NoMealFoundException> {
             useCase.execute()
@@ -48,17 +48,17 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `should skip invalid then return valid keto meal from mixed list`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.invalidKetoMeals + KetoTestMeals.baseKetoMeal
+        every { mealProvider.getMeals() } returns KetoTestMeals.invalidKetoMeals() + KetoTestMeals.baseKetoMeal()
         // When
         val result = useCase.execute()
         // Then
-        assertThat(result).isEqualTo(KetoTestMeals.baseKetoMeal)
+        assertThat(result).isEqualTo(KetoTestMeals.baseKetoMeal())
     }
 
     @Test
     fun `Returns a meal with protein between 10 and 30 when keto meals are available`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals
+        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals()
         // When
         val result = useCase.execute()
         assertThat(result.nutrition?.protein).isIn(10..30)
@@ -67,7 +67,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Returns a meal with carbohydrates less than or equal to 10 when keto meals are available`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals
+        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals()
         // When
         val result = useCase.execute()
         // Then
@@ -77,7 +77,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Returns a meal with sugar less than or equal to 5 when keto meals are available`() {
         //Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals
+        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals()
         // When
         val result = useCase.execute()
         // Then
@@ -87,7 +87,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Returns a meal with total fat greater than or equal to 15 when keto meals are available`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals
+        every { mealProvider.getMeals() } returns KetoTestMeals.validKetoMeals()
         // When
         val result = useCase.execute()
         // Then
@@ -97,7 +97,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException if there is no meal match keto meal conditions`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.invalidKetoMeals
+        every { mealProvider.getMeals() } returns KetoTestMeals.invalidKetoMeals()
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
@@ -106,7 +106,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException if all meals have null nutrition`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases
+        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases()
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
@@ -114,7 +114,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException when carbohydrates is null`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases
+        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases()
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
     }
@@ -122,7 +122,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException when sugar is null`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases
+        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases()
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
     }
@@ -130,7 +130,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException when protein is null`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases
+        every { mealProvider.getMeals() } returns KetoTestMeals.edgeCases()
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
@@ -139,7 +139,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException when total fat  is null`() {
         // Given
-        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealsWithNullFat
+        every { mealProvider.getMeals() } returns KetoTestMeals.ketoMealsWithNullFat()
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
 
@@ -147,7 +147,7 @@ class SuggestKetoMealUseCaseTest {
     @Test
     fun `Should throw NoMealFoundException when nutrition is null`() {
         // Given
-        every { mealProvider.getMeals() } returns listOf(KetoTestMeals.nullNutritionMeal)
+        every { mealProvider.getMeals() } returns listOf(KetoTestMeals.nullNutritionMeal())
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
     }

@@ -7,7 +7,7 @@ import org.example.utils.NoMealFoundException
 
 class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
 
-    private val alreadySuggestKetoMeals = mutableSetOf<Meal>()
+    private val alreadySuggestKetoMeals = mutableSetOf<String>()
 
     fun execute(): Meal {
         if (mealsProvider.getMeals().isEmpty()) throw EmptyMealsException("No meals found")
@@ -15,7 +15,7 @@ class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
             .filter(::isKetoMealAndNotSuggested)
             .takeIf { it.isNotEmpty() }
             ?.random()
-            ?.also { alreadySuggestKetoMeals.add(it) }
+          .also { alreadySuggestKetoMeals.add(it?.id.toString()) }
             ?: throw NoMealFoundException("There is no more unique keto Meals")
     }
 
@@ -25,7 +25,7 @@ class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
                 nutrition.carbohydrates != null && nutrition.carbohydrates < MAX_CARBS &&
                 nutrition.sugar != null && nutrition.sugar < MAX_SUGAR &&
                 nutrition.protein != null && nutrition.protein in PROTEIN_RANGE &&
-                meal !in alreadySuggestKetoMeals
+                meal.id.toString() !in alreadySuggestKetoMeals
 
     }
 
