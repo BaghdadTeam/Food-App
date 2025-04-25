@@ -1,4 +1,4 @@
-package logic.usecase.search
+package logic.usecase
 
 import logic.MealsProvider
 import model.Meal
