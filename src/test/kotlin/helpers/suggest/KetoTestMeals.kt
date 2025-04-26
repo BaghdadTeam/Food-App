@@ -13,6 +13,7 @@ object KetoTestMeals {
 
     fun validKetoMeals() = listOf(
         createMealHelper(
+            id = 4,
             name = "Avocado Chicken Salad",
             nutrition = Nutrition(
                 totalFat = 20.0, protein = 20.0, carbohydrates = 5.0, sugar = 4.0,
@@ -20,6 +21,7 @@ object KetoTestMeals {
             )
         ),
         createMealHelper(
+            id = 5,
             name = "Bacon and Eggs",
             nutrition = Nutrition(
                 totalFat = 25.0, protein = 18.0, carbohydrates = 2.0, sugar = 1.0,
@@ -27,6 +29,7 @@ object KetoTestMeals {
             )
         ),
         createMealHelper(
+            id = 6,
             name = "Salmon with Butter Sauce",
             nutrition = Nutrition(
                 totalFat = 30.0, protein = 25.0, carbohydrates = 3.0, sugar = 1.0,
@@ -34,6 +37,7 @@ object KetoTestMeals {
             )
         ),
         createMealHelper(
+            id = 7,
             name = "Cheese Omelette",
             nutrition = Nutrition(
                 totalFat = 22.0, protein = 15.0, carbohydrates = 2.0, sugar = 1.0,
@@ -41,6 +45,7 @@ object KetoTestMeals {
             )
         ),
         createMealHelper(
+            id = 8,
             name = "Beef Steak with Vegetables",
             nutrition = Nutrition(
                 totalFat = 20.0, protein = 40.0, carbohydrates = 5.0, sugar = 4.0,
@@ -48,6 +53,7 @@ object KetoTestMeals {
             )
         ),
         createMealHelper(
+            id = 9,
             name = "Keto Fat Bombs",
             nutrition = Nutrition(
                 totalFat = 20.0, protein = 10.0, carbohydrates = 5.0, sugar = 4.0,

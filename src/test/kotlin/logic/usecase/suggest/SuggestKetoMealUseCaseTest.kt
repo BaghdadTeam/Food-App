@@ -151,4 +151,13 @@ class SuggestKetoMealUseCaseTest {
         // When & Then
         assertThrows<NoMealFoundException> { useCase.execute() }
     }
+    @Test
+    fun `Should throw NoMealFoundException when all meals already suggest`(){
+        // Given
+        val allValidMeals = KetoTestMeals.validKetoMeals()
+        every { mealProvider.getMeals() } returns allValidMeals
+        repeat(allValidMeals.size-1){useCase.execute()}
+        //When & Then
+        assertThrows<NoMealFoundException> { useCase.execute() }
+    }
 }
