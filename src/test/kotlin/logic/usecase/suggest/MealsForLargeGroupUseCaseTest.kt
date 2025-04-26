@@ -1,10 +1,11 @@
-package logic.usecase
+package logic.usecase.suggest
 
+import com.google.common.truth.Truth
 import helpers.createMealHelper
-import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
+import org.example.logic.usecase.suggest.MealsForLargeGroupUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
@@ -36,10 +37,16 @@ class MealsForLargeGroupUseCaseTest {
     fun `should return NoMealFoundException when no such meal in the data`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
-            createMealHelper(name = "Italian salad dish", description = "Italian dish for families"),
+            createMealHelper(
+                name = "Italian salad dish",
+                description = "Italian dish for families"
+            ),
             createMealHelper(name = "Indian salad dish", description = "indian dish for families"),
             createMealHelper(name = "salad dish", description = "Italian dish for small group"),
-            createMealHelper(name = "Italian dish", tags = listOf("indian dish for for one person")),
+            createMealHelper(
+                name = "Italian dish",
+                tags = listOf("indian dish for for one person")
+            ),
         )
 
         // When & Then
@@ -53,7 +60,10 @@ class MealsForLargeGroupUseCaseTest {
         // Given
 
         every { mealsProvider.getMeals() } returns listOf(
-            createMealHelper(name = "Italian salad dish", description = "Italian dish for large group"),
+            createMealHelper(
+                name = "Italian salad dish",
+                description = "Italian dish for large group"
+            ),
             createMealHelper(name = "Indian salad dish", description = "indian dish for families"),
             createMealHelper(name = "salad dish", description = "Italian dish for large group"),
         )
@@ -62,8 +72,8 @@ class MealsForLargeGroupUseCaseTest {
         val meals = useCase.execute()
 
         // Then
-        assertThat(meals).hasSize(2)
-        assertThat(meals.map { it.name }).containsExactly("Italian salad dish", "salad dish")
+        Truth.assertThat(meals).hasSize(2)
+        Truth.assertThat(meals.map { it.name }).containsExactly("Italian salad dish", "salad dish")
     }
 
 
@@ -72,18 +82,25 @@ class MealsForLargeGroupUseCaseTest {
     fun `should return meals when found meals for large group`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
-            createMealHelper(name = "Italian salad dish", description = "Italian dish for large group"),
+            createMealHelper(
+                name = "Italian salad dish",
+                description = "Italian dish for large group"
+            ),
             createMealHelper(name = "Indian salad dish", description = "indian dish for families"),
             createMealHelper(name = "salad dish", description = "Italian dish for large group"),
-            createMealHelper(name = "Italian dish", tags = listOf("indian dish for for large group")),
+            createMealHelper(
+                name = "Italian dish",
+                tags = listOf("indian dish for for large group")
+            ),
         )
 
         // When
         val meals = useCase.execute()
 
         // Then
-        assertThat(meals).hasSize(3)
-        assertThat(meals.map { it.name }).containsExactly("Italian salad dish", "Italian dish", "salad dish")
+        Truth.assertThat(meals).hasSize(3)
+        Truth.assertThat(meals.map { it.name })
+            .containsExactly("Italian salad dish", "Italian dish", "salad dish")
     }
 
     @Test
@@ -103,8 +120,8 @@ class MealsForLargeGroupUseCaseTest {
         val meals = useCase.execute()
 
         // Then
-        assertThat(meals).hasSize(1)
-        assertThat(meals[0]).isEqualTo(matchingMeal)
+        Truth.assertThat(meals).hasSize(1)
+        Truth.assertThat(meals[0]).isEqualTo(matchingMeal)
     }
 
     @Test

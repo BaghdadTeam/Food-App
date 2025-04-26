@@ -13,9 +13,9 @@ class SearchMealUseCase(
     private val searchAlgorithm: SearchAlgorithm
 ) {
 
-    fun execute(name: String): List<Meal> {
+    fun execute(name: String?): List<Meal> {
         if (mealsProvider.getMeals().isEmpty()) throw EmptyMealsException("No meals found")
-        if (name.isBlank() or name.isEmpty()) throw EmptyMealNameException("Meal name should not be empty")
+        if(name.isNullOrEmpty() || name.isBlank()) throw EmptyMealNameException("Meal name should not be empty")
 
         return mealsProvider.getMeals().filter { meal ->
             if (meal.name.isNullOrEmpty()) throw EmptyTextException("empty meal name in database")

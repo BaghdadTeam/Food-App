@@ -10,7 +10,7 @@ fun createMealHelper(
     tags: List<String>? = null, nutrition: Nutrition? = createNutritionHelper(),
     nSteps: Int? = null, steps: List<String> = listOf(),
     description: String? = null, ingredients: List<String>? = null,
-    nIngredients: Int? = null, preparationTime: Int = 0
+    nIngredients: Int? = null, preparationTime: Int? = null
 ): Meal = Meal(
     nutrition = nutrition,
     nSteps = nSteps,
