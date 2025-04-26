@@ -5,7 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
-import logic.usecase.MealsForLargeGroupUseCase
+import org.example.logic.usecase.suggest.MealsForLargeGroupUseCase
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach

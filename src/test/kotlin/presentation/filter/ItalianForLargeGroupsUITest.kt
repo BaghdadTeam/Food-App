@@ -4,9 +4,9 @@ import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import logic.usecase.MealsForLargeGroupUseCase
-import org.example.presentation.ItalianForLargeGroupsUI
+import org.example.logic.usecase.suggest.MealsForLargeGroupUseCase
 import org.example.presentation.Viewer
+import org.example.presentation.suggest.ItalianForLargeGroupsUI
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
