@@ -5,14 +5,12 @@ import org.example.presentation.filter.SeafoodMealsUI
 import org.example.presentation.game.GuessGameUI
 import org.example.presentation.game.IngredientGameUI
 import org.example.presentation.search.MealSearchUI
-import org.example.presentation.suggest.IraqiMealsUI
 import org.example.presentation.suggest.EggFreeSweetsUI
 import org.example.presentation.suggest.HighCalorieMealUI
+import org.example.presentation.suggest.IraqiMealsUI
 import org.example.presentation.suggest.ItalianForLargeGroupsUI
-import org.example.presentation.SuggestEasyMealUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import org.example.presentation.GymHelperUI
 
 val uiModule = module {
 
@@ -33,12 +31,8 @@ val uiModule = module {
     factory { GymHelperUI(useCase = get(), get(), get()) } bind Feature::class
 
     factory { SuggestEasyMealUI(useCase = get(), viewer = get()) } bind Feature::class
-    factory { ExploreOtherCountriesUI(useCase = get(), get(), get()) } bind Feature::class
-    factory { IngredientGameUI(useCase = get(), get(), get()) } bind Feature::class
-
     factory { ItalianForLargeGroupsUI(useCase = get(), get()) } bind Feature::class
     factory { PotatoLovingMealsUI(useCase = get(), get()) } bind Feature::class
-    factory { SearchFoodByDateUI(get(), get(), get()) } bind Feature::class
 
     factory<Map<Int, Feature>> {
         getAll<Feature>().associateBy { it.id }
