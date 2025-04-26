@@ -14,7 +14,6 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private va
     override val name: String = FEATURE_NAME
 
     override fun execute() {
-
         try {
             var suggestedMeal = useCase.execute()
             while (true) {
@@ -37,7 +36,6 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private va
             viewer.log("There is a problem happened when retrieving the data")
         }
     }
-
     companion object {
         const val FEATURE_ID = 7
         const val FEATURE_NAME = "Keto diet meal helper"

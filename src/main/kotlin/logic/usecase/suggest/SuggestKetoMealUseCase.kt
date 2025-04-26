@@ -18,7 +18,6 @@ class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
           .also { alreadySuggestKetoMeals.add(it?.id.toString()) }
             ?: throw NoMealFoundException("There is no more unique keto Meals")
     }
-
     private fun isKetoMealAndNotSuggested(meal: Meal): Boolean {
         val nutrition = meal.nutrition
         return nutrition?.totalFat != null && nutrition.totalFat >= MIN_FAT &&
@@ -28,7 +27,6 @@ class SuggestKetoMealUseCase(private val mealsProvider: MealsProvider) {
                 meal.id.toString() !in alreadySuggestKetoMeals
 
     }
-
     private companion object {
         const val MIN_FAT = 15
         const val MAX_CARBS = 10
