@@ -113,4 +113,9 @@ object IngredientGameTestData {
         options = listOf("Cheese", "lattice", "sugar")
     )
 
+    val question = IngredientQuestion(
+        mealName = "Pizza",
+        correctIngredient = "Cheese",
+        options = listOf("Cheese", "Tomato", "Basil")
+    )
 }

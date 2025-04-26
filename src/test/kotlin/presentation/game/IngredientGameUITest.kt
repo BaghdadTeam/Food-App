@@ -1,13 +1,13 @@
 package presentation.game
 
+import helpers.game.IngredientGameTestData.question
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.example.logic.usecase.game.IngredientGameUseCase
-import org.example.model.IngredientQuestion
-import org.example.presentation.game.IngredientGameUI
 import org.example.presentation.Reader
 import org.example.presentation.Viewer
+import org.example.presentation.game.IngredientGameUI
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -17,12 +17,6 @@ class IngredientGameUITest {
     private lateinit var viewer: Viewer
     private lateinit var reader: Reader
     private lateinit var ingredientGameUI: IngredientGameUI
-
-    private val question = IngredientQuestion(
-        mealName = "Pizza",
-        correctIngredient = "Cheese",
-        options = listOf("Cheese", "Tomato", "Basil")
-    )
 
     @BeforeTest
     fun setUp() {
@@ -59,7 +53,7 @@ class IngredientGameUITest {
         every { useCase.isGameOver() } returnsMany listOf(false, true)
         every { useCase.getOptions() } returns question
         every { useCase.getMealName(question) } returns "Pizza"
-        every { reader.readInput() } returns "1" // correct answer
+        every { reader.readInput() } returns "1"
         every { useCase.execute(question, 1) } returns true
         every { useCase.getPoints() } returns 1000
         every { useCase.getScore() } returns 1000
@@ -78,9 +72,7 @@ class IngredientGameUITest {
 
         verify {
             viewer.log(
-                match {
-                    it.contains("There are no meals for a large group at the moment")
-                }
+                match { it.contains("There are no meals for a large group at the moment") }
             )
         }
     }

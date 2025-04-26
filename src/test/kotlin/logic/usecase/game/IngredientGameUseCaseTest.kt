@@ -2,12 +2,12 @@ package logic.usecase.game
 
 import com.google.common.truth.Truth.assertThat
 import helpers.createMealHelper
-import io.mockk.every
-import io.mockk.mockk
-import logic.MealsProvider
 import helpers.game.IngredientGameTestData.fixedOptions
 import helpers.game.IngredientGameTestData.inValidMeals
 import helpers.game.IngredientGameTestData.meals
+import io.mockk.every
+import io.mockk.mockk
+import logic.MealsProvider
 import org.example.logic.usecase.game.IngredientGameUseCase
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -30,7 +30,6 @@ class IngredientGameUseCaseTest {
         every { mealsProvider.getMeals() } returns meals
 
         val result = ingredientGameUseCase.execute(fixedOptions, 1)
-
         assertThat(result).isEqualTo(true)
     }
 
@@ -92,7 +91,6 @@ class IngredientGameUseCaseTest {
         every { mealsProvider.getMeals() } returns meals
 
         ingredientGameUseCase.execute(fixedOptions, 3)
-
         assertThat(ingredientGameUseCase.getScore()).isEqualTo(0)
     }
 
@@ -100,7 +98,7 @@ class IngredientGameUseCaseTest {
     @Test
     fun `isGameOver should return true when reached 15 try`() {
         every { mealsProvider.getMeals() } returns meals
-        ingredientGameUseCase = IngredientGameUseCase(mealsProvider) // Ensure the test starts fresh
+        ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
 
         repeat(15) {
             val options = ingredientGameUseCase.getOptions()
@@ -113,9 +111,9 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
-    fun `isGameOver should return score of 15000 after 15 correct answers`() {
+    fun `should have score 15000 after 15 correct answers when game over`() {
         every { mealsProvider.getMeals() } returns meals
-        ingredientGameUseCase = IngredientGameUseCase(mealsProvider) // Ensure the test starts fresh
+        ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
 
         repeat(15) {
             val options = ingredientGameUseCase.getOptions()
@@ -146,22 +144,18 @@ class IngredientGameUseCaseTest {
         repeat(1) { ingredientGameUseCase.getOptions() }
 
         val result = ingredientGameUseCase.getOptions()
-
         assertEquals(null, result)
     }
 
     @Test
     fun `filter should exclude meal with empty ingredients among valid meals`() {
-        // Given
         val mixedMeals = listOf(
             createMealHelper(name = "Invalid Empty", id = 1, ingredients = emptyList()),
             createMealHelper(name = "Valid Meal", id = 2, ingredients = listOf("A", "B", "C"))
         )
         every { mealsProvider.getMeals() } returns mixedMeals
-        // When
         ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
 
-        // Then
         val options = ingredientGameUseCase.getOptions()
         assertThat(options).isNotNull()
         assertThat(options?.mealName).isEqualTo("Valid Meal")
@@ -170,7 +164,7 @@ class IngredientGameUseCaseTest {
     @Test
     fun `getOptions should return 3 unique options`() {
         every { mealsProvider.getMeals() } returns meals
-        ingredientGameUseCase = IngredientGameUseCase(mealsProvider) // why?
+        ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
 
         val options = ingredientGameUseCase.getOptions()
 
@@ -238,10 +232,8 @@ class IngredientGameUseCaseTest {
     fun `getOptions should not fail when some meals have null ingredients`() {
         every { mealsProvider.getMeals() } returns meals
         ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
-        // When
         val question = ingredientGameUseCase.getOptions()
 
-        // Then: Assert the question is generated and contains correct data
         assertThat(question).isNotNull()
         assertThat(question?.options?.size).isEqualTo(3)
     }
@@ -259,7 +251,7 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
-    fun `only valid meals are filtered and used to generate questions`() {
+    fun `should use only valid filtered meals to generate questions`() {
         every { mealsProvider.getMeals() } returns meals
         ingredientGameUseCase = IngredientGameUseCase(mealsProvider)
 
@@ -270,7 +262,6 @@ class IngredientGameUseCaseTest {
         }
 
         val expectedValidMeals = listOf("Breakfast Pizza", "Chicken Alfredo", "Beef Tacos")
-
         assertThat(generatedMeals).containsExactlyElementsIn(expectedValidMeals)
     }
 }
