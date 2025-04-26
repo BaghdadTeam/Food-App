@@ -45,6 +45,7 @@ kotlin {
 
 tasks.jacocoTestReport {
     reports {
+        csv.required.set(false)
         xml.required.set(true)  // Required for coverage-diff to work
         html.required.set(true)
     }
