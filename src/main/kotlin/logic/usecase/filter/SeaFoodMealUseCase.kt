@@ -1,4 +1,4 @@
-package logic.usecase
+package org.example.logic.usecase.filter
 
 import model.Meal
 import logic.MealsProvider
@@ -12,13 +12,19 @@ class SeaFoodMealUseCase(
     fun execute(): List<Pair<Int, Meal>> {
         if (mealsProvider.getMeals().isEmpty()) throw EmptyMealsException("No meals found")
         return mealsProvider.getMeals()
-            .filter { meal ->
-                meal.tags!!.contains("seafood")
-            }.sortedByDescending {
-                it.nutrition!!.protein
-            }.mapIndexed { index, meal ->
+            .filter(::isSeaFoodMeal)
+            .sortedByDescending { it.nutrition!!.protein }
+            .mapIndexed { index, meal ->
                 Pair(index + 1, meal)
-            }.takeIf { it.isNotEmpty() }
+            }
+            .toList().takeIf { it.isNotEmpty() }
             ?: throw NoMealFoundException("There is no Sea Food Meals")
+    }
+
+    private fun isSeaFoodMeal(meal: Meal): Boolean {
+        return meal.tags != null &&
+                meal.tags.any { it.contains("seafood", ignoreCase = true) } &&
+                meal.nutrition != null &&
+                meal.nutrition.protein != null
     }
 }

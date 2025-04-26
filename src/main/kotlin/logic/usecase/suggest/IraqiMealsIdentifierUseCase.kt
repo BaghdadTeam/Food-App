@@ -20,9 +20,11 @@ class IraqiMealsIdentifierUseCase(
     }
 
     private fun isIraqiMeal(meal: Meal): Boolean {
+        if (meal.tags.isNullOrEmpty() && meal.description.isNullOrBlank()) return false
+
         val inTags = meal.tags?.any { it.contains("iraqi", ignoreCase = true) } == true
-        if (inTags) return true
+
         val inDesc = meal.description?.contains("iraq", ignoreCase = true) == true
-        return inDesc
+        return inTags || inDesc
     }
 }

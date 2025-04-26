@@ -44,6 +44,7 @@ class SuggestEasyMealUseCase(
         if (count < 0) throw IllegalArgumentException("Count must be non-negative")
     }
 
+
     private fun <T> selectRandomElements(originalList: List<T>, count: Int): List<T> {
         val result = ArrayList<T>(count)
         val mutableList = originalList.toMutableList()
@@ -52,6 +53,14 @@ class SuggestEasyMealUseCase(
             swapRandomElementToCurrentPosition(mutableList, it)
             result.add(mutableList[it])
         }
+
+    private fun isEasyMeal(meal: Meal): Boolean {
+        return if (meal.preparationTime == null) false
+        else (meal.preparationTime <= 30) &&
+                (meal.ingredients?.size != null && meal.ingredients.size <= 5) &&
+                (meal.steps.size <= 6)
+    }
+
 
         return result
     }

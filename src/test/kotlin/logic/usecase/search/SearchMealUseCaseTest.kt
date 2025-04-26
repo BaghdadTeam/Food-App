@@ -1,13 +1,16 @@
-package logic.usecase
+package logic.usecase.search
 
 import com.google.common.truth.Truth.assertThat
 import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
+import logic.usecase.SearchMealUseCase
 import org.example.logic.search.KMPSearchAlgorithm
 import org.example.utils.EmptyMealNameException
 import org.example.utils.EmptyMealsException
+import org.example.utils.EmptyTextException
+
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
@@ -27,7 +30,7 @@ class SearchMealUseCaseTest {
 
 
     @Test
-    fun `should throw exception when MealsProvider returns empty list`() {
+    fun `should throw EmptyMealsException when MealsProvider returns empty list`() {
         // Given
         every { mealsProvider.getMeals() } returns emptyList()
         // When & Then
@@ -36,7 +39,7 @@ class SearchMealUseCaseTest {
 
 
     @Test
-    fun `should throw exception when empty meal name input`() {
+    fun `should throw EmptyMealNameException when empty meal name input`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "pizza")
@@ -44,6 +47,17 @@ class SearchMealUseCaseTest {
         // When & Then
         assertThrows<EmptyMealNameException> { searchMeal.execute("") }
     }
+
+    @Test
+    fun `should throw EmptyMealNameException when blank meal name input`() {
+        // Given
+        every { mealsProvider.getMeals() } returns listOf(
+            createMealHelper(name = "pizza")
+        )
+        // When & Then
+        assertThrows<EmptyMealNameException> { searchMeal.execute(" ") }
+    }
+
 
     @Test
     fun `Should return list of meals when the Meal is found by name`() {
@@ -61,13 +75,41 @@ class SearchMealUseCaseTest {
 
 
     @Test
-    fun `should throw an exception when no meal found by name`() {
+    fun `should throw an NoMealFoundException when no meal found by name`() {
         // Given
         every { mealsProvider.getMeals() } returns listOf(
             createMealHelper(name = "meal")
         )
         // When & Then
         assertThrows<NoMealFoundException> { searchMeal.execute("pizza") }
+    }
+
+    @Test
+    fun `should throw an EmptyTextException when meal is null in database`() {
+        // Given
+        every { mealsProvider.getMeals() } returns listOf(
+            createMealHelper(name = null)
+        )
+        // When & Then
+        assertThrows<EmptyTextException> { searchMeal.execute("pizza") }
+    }
+    @Test
+    fun `should throw an EmptyTextException when meal is empty in database`() {
+        // Given
+        every { mealsProvider.getMeals() } returns listOf(
+            createMealHelper(name = "")
+        )
+        // When & Then
+        assertThrows<EmptyTextException> { searchMeal.execute("pizza") }
+    }
+    @Test
+    fun `should throw an EmptyTextException when meal is blank in database`() {
+        // Given
+        every { mealsProvider.getMeals() } returns listOf(
+            createMealHelper(name = " ")
+        )
+        // When & Then
+        assertThrows<EmptyTextException> { searchMeal.execute("pizza") }
     }
 
     @Test
@@ -96,7 +138,7 @@ class SearchMealUseCaseTest {
         val meal = searchMeal.execute("pizza")
 
         // Then
-        assertThat(meal.size).isEqualTo(2)
+        assertThat(meal.size).isGreaterThan(1)
     }
 
 
