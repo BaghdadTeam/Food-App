@@ -1,6 +1,7 @@
 package org.example.di
 
 import logic.usecase.*
+import logic.usecase.filter.GymMealHelperUseCase
 import org.example.logic.usecase.filter.SeaFoodMealUseCase
 import org.example.logic.usecase.game.GuessMealGameUseCase
 import org.example.logic.usecase.game.IngredientGameUseCase

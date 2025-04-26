@@ -7,11 +7,12 @@ import org.example.presentation.game.IngredientGameUI
 import org.example.presentation.search.MealSearchUI
 import org.example.presentation.suggest.IraqiMealsUI
 import org.example.presentation.suggest.EggFreeSweetsUI
+import org.example.presentation.SuggestEasyMealUI
 import org.example.presentation.suggest.HighCalorieMealUI
 import org.example.presentation.suggest.ItalianForLargeGroupsUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import presentation.feature.GymHelperUI
+import org.example.presentation.GymHelperUI
 
 val uiModule = module {
 
@@ -31,7 +32,7 @@ val uiModule = module {
     factory { SeafoodMealsUI(useCase = get(), get()) } bind Feature::class
     factory { GymHelperUI(useCase = get(), get(), get()) } bind Feature::class
 
-    factory { SuggestEasyMealUI(useCase = get()) } bind Feature::class
+    factory { SuggestEasyMealUI(useCase = get(), viewer = get()) } bind Feature::class
     factory { ExploreOtherCountriesUI(useCase = get(), get(), get()) } bind Feature::class
     factory { IngredientGameUI(useCase = get(), get(), get()) } bind Feature::class
 
