@@ -17,8 +17,7 @@ class GymHelperUI(
             val calories = reader.readInput()?.toDoubleOrNull() ?: throw Exception("Invalid number")
 
             viewer.log(" Enter desired protein : ")
-            val protein =
-                reader.readInput()?.toDoubleOrNull() ?: throw IllegalArgumentException("Invalid number")
+            val protein = reader.readInput()?.toDoubleOrNull() ?: throw Exception("Invalid number")
 
             val matchingMeals = useCase.getGymMealsSuggestion(calories, protein)
 
@@ -39,3 +38,4 @@ class GymHelperUI(
         const val FEATURE_NAME = "Gym helper"
     }
 }
+//
