@@ -1,17 +1,13 @@
-package presentation
+package org.example.presentation
+
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import logic.usecase.filter.GymMealHelperUseCase
 import model.Meal
-import org.example.presentation.Feature
-import org.example.presentation.MealTablePrinter
-import org.example.presentation.Reader
-import org.example.presentation.Viewer
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.example.presentation.GymHelperUI
 
 class GymHelperUITest {
     private lateinit var useCase: GymMealHelperUseCase
@@ -29,12 +25,14 @@ class GymHelperUITest {
 
     @Test
     fun `should have correct feature ID and name`() {
+        // Given & When & Then
         assertThat(gymHelperUI.id).isEqualTo(9)
         assertThat(gymHelperUI.name).isEqualTo("Gym helper")
     }
 
     @Test
     fun `should implement Feature interface`() {
+        // Given & When & Then
         assertThat(gymHelperUI).isInstanceOf(Feature::class.java)
     }
 
@@ -43,10 +41,8 @@ class GymHelperUITest {
         // Given
         every { reader.readInput() } returnsMany listOf("500", "30")
         every { useCase.getGymMealsSuggestion(any(), any()) } returns emptyList()
-
         // When
         gymHelperUI.execute()
-
         // Then
         verify {
             viewer.log(" Enter desired calories: ")
@@ -59,10 +55,8 @@ class GymHelperUITest {
         // Given
         every { reader.readInput() } returnsMany listOf("500", "30")
         every { useCase.getGymMealsSuggestion(500.0, 30.0) } returns emptyList()
-
         // When
         gymHelperUI.execute()
-
         // Then
         verify { useCase.getGymMealsSuggestion(500.0, 30.0) }
     }
@@ -71,10 +65,8 @@ class GymHelperUITest {
     fun `should show error message for invalid calories input`() {
         // Given
         every { reader.readInput() } returns "invalid"
-
         // When
         gymHelperUI.execute()
-
         // Then
         verify { viewer.log("Error: Invalid number") }
     }
@@ -83,10 +75,8 @@ class GymHelperUITest {
     fun `should show error message for invalid protein input`() {
         // Given
         every { reader.readInput() } returnsMany listOf("500", "invalid")
-
         // When
         gymHelperUI.execute()
-
         // Then
         verify { viewer.log("Error: Invalid number") }
     }
@@ -95,10 +85,8 @@ class GymHelperUITest {
     fun `should handle empty input for calories`() {
         // Given
         every { reader.readInput() } returns null
-
         // When
         gymHelperUI.execute()
-
         // Then
         verify { viewer.log("Error: Invalid number") }
     }
@@ -108,10 +96,8 @@ class GymHelperUITest {
         // Given
         every { reader.readInput() } returnsMany listOf("500", "30")
         every { useCase.getGymMealsSuggestion(any(), any()) } returns emptyList()
-
         // When
         gymHelperUI.execute()
-
         // Then
         verify { viewer.log("No meals found matching your nutritional goals.") }
     }
@@ -123,15 +109,10 @@ class GymHelperUITest {
         every { reader.readInput() } returnsMany listOf("500", "30")
         every { useCase.getGymMealsSuggestion(any(), any()) } returns listOf(mockMeal)
         val mockPrinter = mockk<MealTablePrinter>(relaxed = true)
-
-        // Inject mock printer (you may need to modify GymHelperUI to accept printer in constructor)
-        val gymHelperUIWithMockPrinter = GymHelperUI(useCase, viewer, reader) {
-            mockPrinter
-        }
-
+        // override factory to inject mock
+        val uiWithMockPrinter = GymHelperUI(useCase, viewer, reader) { mockPrinter }
         // When
-        gymHelperUIWithMockPrinter.execute()
-
+        uiWithMockPrinter.execute()
         // Then
         verify {
             viewer.log("\n Meals matching your gym goals:\n")
@@ -144,11 +125,19 @@ class GymHelperUITest {
         // Given
         every { reader.readInput() } returnsMany listOf("500", "30")
         every { useCase.getGymMealsSuggestion(any(), any()) } throws Exception("Use case error")
-
         // When
         gymHelperUI.execute()
-
         // Then
         verify { viewer.log("Error: Use case error") }
+    }
+
+    @Test
+    fun `should show error message for empty protein input`() {
+        // Given
+        every { reader.readInput() } returnsMany listOf("500", null)
+        // When
+        gymHelperUI.execute()
+        // Then
+        verify { viewer.log("Error: Invalid number") }
     }
 }
