@@ -43,16 +43,15 @@ kotlin {
     jvmToolchain(20)
 }
 
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(true)  // Required for coverage-diff to work
+        html.required.set(true)
+    }
+}
+
 tasks.named<JacocoCoverageVerification>("jacocoTestCoverageVerification") {
     dependsOn(tasks.test)
-
-    violationRules {
-        rule {
-            limit {
-                minimum = "0.80".toBigDecimal()
-            }
-        }
-    }
 
     classDirectories.setFrom(
         fileTree("build/classes/kotlin/main") {
