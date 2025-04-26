@@ -1,12 +1,15 @@
-package org.example.presentation
+package org.example.presentation.suggest
 
-import logic.usecase.SuggestHighCalorieMealUseCase
+import org.example.logic.usecase.suggest.SuggestHighCalorieMealUseCase
+import org.example.presentation.Feature
+import org.example.presentation.Reader
+import org.example.presentation.Viewer
 import org.example.utils.EmptyMealsException
 import org.example.utils.MealPresenter
 import org.example.utils.NoMealFoundException
 
-class HighCalorieMealsUI(
-    private val useCase: SuggestHighCalorieMealUseCase, private val viewer: Viewer,private val reader: Reader
+class HighCalorieMealUI(
+    private val useCase: SuggestHighCalorieMealUseCase, private val viewer: Viewer, private val reader: Reader
 ) : Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
@@ -24,12 +27,7 @@ class HighCalorieMealsUI(
                     MealPresenter.printDetails(meal)
                     break
                 } else if (input == "n") {
-                    try {
                         meal = useCase.execute()
-                    } catch (exception: NoSuchElementException) {
-                        viewer.log("There is no more high calorie meals")
-                        break
-                    }
                 } else {
                     viewer.log("Invalid input. Please enter 'y' or 'n'.")
                 }

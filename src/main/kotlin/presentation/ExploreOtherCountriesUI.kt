@@ -1,6 +1,8 @@
 package org.example.presentation
 
 import logic.usecase.ExploreOtherCountriesFoodCultureUseCase
+import org.example.utils.EmptyMealsException
+import org.example.utils.NoMealFoundException
 
 class ExploreOtherCountriesUI(
     private val useCase: ExploreOtherCountriesFoodCultureUseCase,
@@ -13,13 +15,22 @@ class ExploreOtherCountriesUI(
     override fun execute() {
         viewer.log("Enter country name to discover it's culture ")
         val countryName = reader.readInput()?.trim().orEmpty()
-        val meals = useCase.execute(countryName)
-        viewer.log(
-            if (meals.isEmpty()) "No meals found matching '$countryName'."
-            else "Matching Meals:\n${
-                meals.joinToString("\n") { "- ${it.name}" }
-            }"
-        )
+        try {
+            val meals = useCase.execute(countryName)
+            viewer.log(
+                 "Matching Meals:\n${
+                    meals.joinToString("\n") { "- ${it.name}" }
+                }"
+            )
+        } catch (_: EmptyMealsException) {
+            viewer.log("No meals in the database.")
+        } catch (e: NoMealFoundException) {
+            viewer.log(
+                "No meals found matching '$countryName'."
+            )
+        } catch (e: Exception) {
+            viewer.log("There is something happened when retrieving data")
+        }
     }
 
     companion object {

@@ -1,6 +1,8 @@
-package org.example.presentation
+package org.example.presentation.filter
 
-import logic.usecase.SeaFoodMealUseCase
+import org.example.logic.usecase.filter.SeaFoodMealUseCase
+import org.example.presentation.Feature
+import org.example.presentation.Viewer
 import org.example.utils.EmptyMealsException
 import org.example.utils.NoMealFoundException
 
