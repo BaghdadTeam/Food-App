@@ -1,10 +1,11 @@
-package logic.usecase
+package logic.usecase.suggest
 
 import com.google.common.truth.Truth.assertThat
 import helpers.createMealHelper
 import io.mockk.every
 import io.mockk.mockk
 import logic.MealsProvider
+import org.example.logic.usecase.suggest.SuggestEasyMealUseCase
 import org.example.utils.NoMealFoundException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -1,4 +1,4 @@
-package logic.usecase
+package org.example.logic.usecase.suggest
 
 import logic.MealsProvider
 import model.Meal
@@ -13,7 +13,7 @@ class SuggestEasyMealUseCase(
     private val maxMealsToSuggest: Int = 10,
 ) {
     private fun isEasyMeal(meal: Meal): Boolean {
-        return meal.preparationTime <= maxPreparationTime &&
+        return meal.preparationTime!! <= maxPreparationTime &&
                 (meal.ingredients?.size ?: 0) <= maxIngredients &&
                 meal.steps.size <= maxSteps
     }

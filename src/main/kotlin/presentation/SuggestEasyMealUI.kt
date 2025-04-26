@@ -1,6 +1,6 @@
 package org.example.presentation
 
-import logic.usecase.SuggestEasyMealUseCase
+import org.example.logic.usecase.suggest.SuggestEasyMealUseCase
 
 class SuggestEasyMealUI(
     private val useCase: SuggestEasyMealUseCase,

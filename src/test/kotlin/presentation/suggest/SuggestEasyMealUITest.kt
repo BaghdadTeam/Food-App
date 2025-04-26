@@ -1,11 +1,15 @@
-package org.example.presentation
+package presentation.suggest
 
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import logic.usecase.SuggestEasyMealUseCase
+import org.example.logic.usecase.suggest.SuggestEasyMealUseCase
 import model.Meal
+import org.example.presentation.Feature
+import org.example.presentation.MealTablePrinter
+import org.example.presentation.SuggestEasyMealUI
+import org.example.presentation.Viewer
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
