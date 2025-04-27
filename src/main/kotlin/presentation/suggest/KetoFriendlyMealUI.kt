@@ -1,16 +1,19 @@
-package org.example.presentation
+package org.example.presentation.suggest
 
-import logic.usecase.SuggestKetoMealUseCase
+import org.example.logic.usecase.suggest.SuggestKetoMealUseCase
+import org.example.presentation.Feature
+import org.example.presentation.Reader
+import org.example.presentation.Viewer
 import org.example.utils.EmptyMealsException
 import org.example.utils.MealPresenter
 import org.example.utils.NoMealFoundException
 
-class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private val viewer: Viewer,private val reader: Reader) : Feature {
+class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private val viewer: Viewer, private val reader: Reader) :
+    Feature {
     override val id: Int = FEATURE_ID
     override val name: String = FEATURE_NAME
 
     override fun execute() {
-
         try {
             var suggestedMeal = useCase.execute()
             while (true) {
@@ -27,13 +30,12 @@ class KetoFriendlyMealUI(private val useCase: SuggestKetoMealUseCase, private va
             }
         } catch (_: EmptyMealsException) {
             viewer.log("No meals in the database.")
-        } catch (e: NoMealFoundException) {
+        } catch (_: NoMealFoundException) {
             viewer.log("There is no more unique keto Meals")
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             viewer.log("There is a problem happened when retrieving the data")
         }
     }
-
     companion object {
         const val FEATURE_ID = 7
         const val FEATURE_NAME = "Keto diet meal helper"

@@ -9,6 +9,7 @@ import org.example.presentation.suggest.IraqiMealsUI
 import org.example.presentation.suggest.EggFreeSweetsUI
 import org.example.presentation.SuggestEasyMealUI
 import org.example.presentation.suggest.HighCalorieMealUI
+import org.example.presentation.suggest.KetoFriendlyMealUI
 import org.example.presentation.suggest.ItalianForLargeGroupsUI
 import org.koin.dsl.bind
 import org.koin.dsl.module
