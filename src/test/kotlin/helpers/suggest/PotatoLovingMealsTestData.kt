@@ -9,7 +9,7 @@ import model.Nutrition
 object PotatoLovingMealsTestData {
     private val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 
-    fun getOnlyMealContainsPotato ()=listOf(
+    fun getOnlyMealContainsPotato() = listOf(
         createMealHelper(
             name = "Mashed Potatoes",
             id = 1,
@@ -78,7 +78,7 @@ object PotatoLovingMealsTestData {
         )
     )
 
-    fun getEmptyMealsWithNoPotato()= listOf(
+    fun getEmptyMealsWithNoPotato() = listOf(
         createMealHelper(
             name = "Avocado Toast",
             id = 4,
@@ -126,6 +126,71 @@ object PotatoLovingMealsTestData {
             nIngredients = 3,
             preparationTime = 15
         )
+    )
+
+    fun getSampleMeals(count: Int = 12) = List(count) {
+        createMealHelper(
+            id = it,
+            name = "Potato Dish $it",
+            description = "A tasty potato meal number $it",
+            nutrition = Nutrition(
+                calories = 100.0 + it,
+                totalFat = 5.0,
+                sugar = 2.0,
+                sodium = 200.0,
+                protein = 3.0,
+                saturatedFat = 1.0,
+                carbohydrates = 15.0
+            ),
+            ingredients = listOf("potato", "salt", "oil"),
+            contributorId = it,
+            date = now,
+            tags = listOf("vegetarian", "quick"),
+            nSteps = 3,
+            steps = listOf("Peel", "Fry", "Serve"),
+            nIngredients = 3,
+            preparationTime = 15
+        )
+    }
+
+    fun getSmallPotatoMeals() = List(3) {
+        createMealHelper(
+            id = it,
+            name = "Small Potato Dish $it",
+            description = "Delicious description $it",
+            nutrition = Nutrition(
+                calories = 90.0 + it,
+                totalFat = 4.0,
+                sugar = 1.5,
+                sodium = 180.0,
+                protein = 2.0,
+                saturatedFat = 0.5,
+                carbohydrates = 13.0
+            ),
+            ingredients = listOf("potato", "oil"),
+            contributorId = it,
+            date = now,
+            tags = listOf("easy"),
+            nSteps = 2,
+            steps = listOf("Chop", "Boil"),
+            nIngredients = 2,
+            preparationTime = 10
+        )
+    }
+
+    fun getNullDataMeal() = createMealHelper(
+        id = 1,
+        name = "Mystery Potato",
+        description = null,
+        nutrition = null,
+        ingredients = null,
+        contributorId = 0,
+        date = now,
+        tags = emptyList(),
+        nSteps = 0,
+        steps = emptyList(),
+        nIngredients = 0,
+        preparationTime = 0
     )
 
 }
